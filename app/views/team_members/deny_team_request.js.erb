@@ -1,0 +1,21 @@
+$("div.default-dialog").dialog({
+    title:'Team Request',
+    show: { effect: "fold", options: {}, speed: 150 },
+    hide: { effect: "explode", options: {}, speed: 150 },
+    modal:true,
+    buttons: {
+        Ok: function () {
+            $(this).dialog("close");
+
+            <% if @success %>
+                $("#recd-team-req-<%= @request.id %>").hide("drop", { direction: "down" }, 1000);
+            <% end %>
+        }
+    }
+});
+
+<% if @success %>
+    $("div.default-dialog").html('Denied Team Request from <%= @member.full_name %>');
+<% else %>
+    $("div.default-dialog").html('Could not deny Team Request from <%= if @member then @member.full_name else 'N/A' end %>: <%= @message %>');
+<% end %>

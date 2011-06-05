@@ -1,0 +1,87 @@
+%h1 WSA Rink Database
+
+%h2 Rink Info:
+%div{:class=>"simple_info"}
+  %p
+    %b= @this_rink.name
+    %br
+
+    - unless @this_rink.website.empty? then
+      %a{:href=>@this_rink.website}=@this_rink.website
+      %br
+
+    = @this_rink.address.line_one
+    %br
+    - unless @this_rink.address.line_two.empty? then
+      = @this_rink.address.line_two
+      %br
+
+    = @this_rink.address.city + ', ' + @this_rink.address.state + ' ' + @this_rink.address.zip
+
+%div{:class=>"simple_info"}
+  - if @this_rink.phone then
+    %p
+      %b
+        Phone:
+      = @this_rink.phone
+
+%div{:class=>"simple_info"}
+  %p
+    %b
+      Owner:
+    - unless @this_rink.owner_id > 0
+      = @this_rink.owner_name
+    - else
+      = @this_rink.owner_id
+  %p Set Owner<br>- (Best way to set owner?)<br>- need to be able to choose a member or enter a name
+
+%h2 Actions:
+
+%div{:class=>"simple_info"}
+  %h3 Rink Visibility:
+  %p
+    - if @this_rink.visible?
+      = link_to "Make This Rink Visible",
+        { :controller => :rinks, :action => "toggle_visible",:id => @this_rink.id },
+        :remote => true, :confirm => 'Make This Rink Visible?'
+    - else
+      = link_to "Hide This Rink",
+        { :controller => :rinks, :action => "toggle_visible",:id => @this_rink.id },
+        :remote => true, :confirm => 'Hide This Rink?'
+
+%div{:class=>"simple_info"}
+  %h3 Rink Verification:
+  - if @this_rink.verified?
+    %p= "Originally Verified: " + @this_rink.original_verified_date.strftime("%I:%M%p on %A %B %d, %Y")
+    %p= "Last Verified: " + @this_rink.last_verified_date.strftime("%I:%M%p on %A %B %d, %Y")
+    %p= link_to "Reverify This Rink",
+      { :controller => :rinks, :action => "verify",:id => @this_rink.id },
+      :remote => true, :confirm => 'Reverify This Rink?'
+    %p= link_to "Mark This Rink As Unverified",
+      { :controller => :rinks, :action => "unverify",:id => @this_rink.id },
+      :remote => true, :confirm => 'Unverifty This Rink?'
+  - else
+    %p= link_to "Verify This Rink",
+      { :controller => :rinks, :action => "verify",:id => @this_rink.id },
+      :remote => true, :confirm => 'Verify This Rink?'
+
+%div{:class=>"simple_info"}
+  %h3 Rink Contact Disposition:
+  - if @this_rink.contacted?
+    %p= "Originally Contacted: " + @this_rink.original_contact_date.strftime("%I:%M%p on %A %B %d, %Y")
+    %p= "Last Contacted: " + @this_rink.last_contact_date.strftime("%I:%M%p on %A %B %d, %Y")
+    %p= link_to "Update This Rink's Contact Date",
+      { :controller => :rinks, :action => "set_contacted",:id => @this_rink.id },
+      :remote => true, :confirm => "Update This Rink's Contact Date?"
+  - else
+    %p This Rink has not been Contacted
+    %p= link_to "Set This Rink As Contacted",
+      { :controller => :rinks, :action => "set_contacted",:id => @this_rink.id },
+      :remote => true, :confirm => "Set This Rink As Contacted"
+
+%div{:class=>"simple_info"}
+  %h3 Other:
+  %p
+    = link_to "Set this as my home rink",
+      { :controller => :members, :action => "set_home_rink",:id => @this_rink.id },
+      :remote => true, :confirm =>  'Are you sure you want to change your home rink?'

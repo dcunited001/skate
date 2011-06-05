@@ -1,0 +1,21 @@
+$("div.default-dialog").dialog({
+    title:'Member Request',
+    show: { effect: "fold", options: {}, speed: 150 },
+    hide: { effect: "explode", options: {}, speed: 150 },
+    modal:true,
+    buttons: {
+        Ok: function () {
+            $(this).dialog("close");
+
+            <% if @success %>
+                $("#sent-member-req-<%= @request.id %>").hide("drop", { direction: "down" }, 1000);
+            <% end %>
+        }
+    }
+});
+
+<% if @success %>
+    $("div.default-dialog").html('Canceled Member Request to <%= @member.full_name %>');
+<% else %>
+    $("div.default-dialog").html('Could not cancel Member Request to <%= if @member then @member.full_name else 'N/A' end %>: <%= @message %>');
+<% end %>

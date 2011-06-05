@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "WSA Jamskating" %></title>
+    <%= stylesheet_link_tag "application", "ui-darkness/jquery-ui-1.8.9.custom.css" %>
+    <%= javascript_include_tag "jquery.js", "jquery.rails.js", "jquery-ui-1.8.9.custom.min.js" %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <div class="default-dialog"></div>
+    <div id="container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%= content_tag :h1, yield(:title) if show_title? %>
+      <%= yield %>
+    </div>
+  <div class="layout_nav">
+      <div class="layout_info"><%= if current_member then (link_to current_member.full_name, '/members/' + current_member.id.to_s) else 'not logged in' end %></div>
+      <div class="layout_info"><%= link_to 'Home', '/home/' %></div>
+      <div class="layout_info"><%= link_to 'Rinks', '/rinks/' %></div>
+      <div class="layout_info"><%= link_to 'Teams', '/teams/' %></div>
+      <div class="layout_info"><%= link_to 'Locator', '/rinks/locate' %></div>
+    </div>
+  </body>
+</html>

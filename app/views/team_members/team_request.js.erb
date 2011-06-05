@@ -1,0 +1,21 @@
+$("div.default-dialog").dialog({
+    title:'Team Request',
+    show: { effect: "fold", options: {}, speed: 150 },
+    hide: { effect: "explode", options: {}, speed: 150 },
+    modal:true,
+    buttons: {
+        Ok: function () {
+            $(this).dialog("close");
+
+            <% if @success %>
+                $("#sent-team-req-<%= @team.id %>").hide("drop", { direction: "up" }, 1000);
+            <% end %>
+        }
+    }
+});
+
+<% if @success %>
+    $("div.default-dialog").html('Sent a Team Request to <%= @team.name %>');
+<% else %>
+    $("div.default-dialog").html('Could not send Team Request to <%= if @team then @team.name else 'N/A' end %>: <%= @message %>');
+<% end %>

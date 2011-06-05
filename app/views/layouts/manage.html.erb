@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "WSA Jamskating" %></title>
+    <%= stylesheet_link_tag "application", "ui-darkness/jquery-ui-1.8.9.custom.css" %>
+    <%= javascript_include_tag "jquery.js", "jquery.rails.js", "jquery-ui-1.8.9.custom.min.js" %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+
+    <script type="text/javascript">
+        function loadScript() {
+            $( "input#member_search" ).autocomplete({
+                minLength: 3,
+                source: '/manage/search_members.json',
+                focus: function( event, ui ) {
+                    $( "input#member_search" ).val( ui.item.label );
+                    return false;
+                },
+                select: function( event, ui ) {
+                    if (ui.item.label != '')
+                    {
+                        window.open(ui.item.value);
+                    } else {
+                        $( "input#member_search" ).val( ui.item.label );
+                    }
+
+                    return false;
+                }
+            })
+            .data( "autocomplete" )._renderItem = function( ul, item ) {
+                return $( "<li></li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a>" + item.label + "</a>" )
+                    .appendTo( ul );
+            };
+
+        
+            $( "input#rink_search" ).autocomplete({
+                minLength: 3,
+                source: '/manage/search_rinks.json',
+                focus: function( event, ui ) {
+                    $( "input#rink_search" ).val( ui.item.label );
+                    return false;
+                },
+                select: function( event, ui ) {
+                    if (ui.item.label != '')
+                    {
+                        window.open(ui.item.value);
+                    } else {
+                        $( "input#member_search" ).val( ui.item.label );
+                    }
+
+                    return false;
+                }
+            })
+            .data( "autocomplete" )._renderItem = function( ul, item ) {
+                return $( "<li></li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a>" + item.label + "</a>" )
+                    .appendTo( ul );
+            };
+
+            $(function() { $( "#tabs" ).tabs();	});
+        }
+
+        window.onload = loadScript;
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%= content_tag :h1, yield(:title) if show_title? %>
+
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Members</a></li>
+            <li><a href="#tabs-2">Rinks</a></li>
+            <li><a href="#tabs-3">Teams</a></li>
+            <li><a href="#tabs-4">Events</a></li>
+        </ul>
+        <div id="tabs-1">
+          <div class="manage-menu">
+              <div class="manage-auto-search">
+                <%= form_for :member, :url => '/manage/search_members' do |f| %>
+                      <%= f.label 'Search Members: ' %>
+                      <%= f.text_field :search %>
+                <% end %>
+              </div>
+              <div class="manage-actions">
+                <a href="/manage/member_roles">Manage Member Roles</a>
+              </div>
+              <div class="manage-predef-search">
+
+              </div>
+          </div>
+        </div>
+        <div id="tabs-2">
+            <%= form_for :rink, :url => '/manage/search_rinks' do |f| %>
+                <%= f.label 'Search Rinks: ' %>
+                <%= f.text_field :search %>
+            <% end %>
+        </div>
+        <div id="tabs-3">
+            <p>Teams</p>
+        </div>
+        <div id="tabs-4">
+            <p>Events</p>
+        </div>
+    </div>
+
+
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,11 @@
+%div{:class=>'recd-team-request',:id=>"recd-team-req-#{request.id}"}
+  %p
+    = request.team.owner.full_name + ','
+    = request.member.full_name
+    wants to skate on
+    = request.team.name.capitalize
+
+  %p
+    = link_to 'Accept', {:controller => 'team_members', :action => 'approve_team_request', :id => request.id}, :remote => true
+  %p
+    = link_to 'Deny', {:controller => 'team_members', :action => 'deny_team_request', :id => request.id}, :remote => true

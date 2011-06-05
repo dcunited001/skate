@@ -1,0 +1,14 @@
+%p
+  %b Team:
+  = @request.team.name
+
+%p
+  %b Member:
+  = @request.member.full_name
+
+%p
+  %b Requestor:
+  = @request.requestor.full_name
+
+%p
+  = link_to :back

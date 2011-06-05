@@ -1,0 +1,111 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @rink.name %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @rink.phone %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= @rink.website %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <br><%= @rink.address.line_one %><br>
+      <% unless @rink.address.line_two.empty? then %>
+           <%= @rink.address.line_two %><br>
+      <% end %>
+  <%= @rink.address.city + ', ' + @rink.address.state + ' ' + @rink.address.zip %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <% unless @rink.owner_id > 0 %>
+    <%= @rink.owner_name %>
+  <% else %>
+      <!-- TODO: add field_for to render member info -->
+    <%= @rink.owner_id %>
+  <% end %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <% unless @rink.contact_id > 0 %>
+    <%= @rink.contact_name %>
+  <% else %>
+      <!-- TODO: add field_for to render member info -->
+    <%= @rink.contact_id %>
+  <% end %>
+</p>
+
+<p>
+  <b>Register date:</b>
+  <%= if @rink.register_date then @rink.register_date
+      else 'N/A' end %>
+</p>
+
+<p>
+  <b>Contacted:</b>
+  <%= if @rink.contacted then 'Yes' else 'No' end %>
+</p>
+
+<p>
+  <b>Original contact date:</b>
+  <%= if @rink.original_contact_date then @rink.original_contact_date
+      else 'N/A' end %>
+</p>
+
+<p>
+  <b>Last contact date:</b>
+  <%= if @rink.last_contact_date then @rink.last_contact_date
+      else 'N/A' end %>
+</p>
+
+<p>
+  <b>Verified:</b>
+  <%= if @rink.verified then 'Yes' else 'No' end %>
+</p>
+
+<p>
+  <b>Original verified date:</b>
+  <%= if @rink.original_verified_date then @rink.original_verified_date
+      else 'N/A' end %>
+</p>
+
+<p>
+  <b>Last verified date:</b>
+  <%= if @rink.last_verified_date then @rink.last_verified_date
+      else 'N/A' end %>
+</p>
+
+<p>
+  <b>Sanctioned:</b>
+  <%= if @rink.sanctioned then 'Yes' else 'No' end %>
+</p>
+
+<p>
+  <b>Original sanction date:</b>
+  <%= if @rink.original_sanction_date then @rink.original_sanction_date
+      else 'N/A' end %>
+</p>
+
+<p>
+  <b>Last sanction date:</b>
+  <%= if @rink.last_sanction_date then @rink.last_sanction_date
+      else 'N/A' end %>
+</p>
+
+<p>
+  <b>Description</b>
+  <%= @rink.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_rink_path(@rink) %> |
+<%= link_to 'Back', rinks_path %>

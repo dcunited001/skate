@@ -1,0 +1,71 @@
+%div
+
+
+%div
+  %p
+    hello,
+    =current_member.full_name
+
+
+  - if @team
+    %div{:class=>'home-member-team',:id=>"home-team-#{@team.id}"}
+      You skate for
+      = @team.name
+      - if !has_role? :team_owner
+        = link_to 'Quit Team', {:controller => 'members', :action => 'quit_team'}, :remote => true, :confirm => "Really Quit #{@team.name}?"
+  - else
+    %p You're not on a team =[
+
+  - if has_role? :team_owner
+    %p
+      You own
+      = @team.name
+    %p
+      %a{:href => '/teams/manage'}Manage your team
+
+%br
+
+%div
+  %h2 Members
+  %p
+    %a{:href=>'/members/'} List Members
+  %p
+    Search
+
+%br
+
+%div
+  %h2 Teams
+  - if has_role? :team_owner
+    %p
+      %a{:href=>'/teams/manage'}
+        Manage
+        = @team.name
+  %p
+    %a{:href=>'/teams/'} Find a Jamskating Team
+  %p
+    %a{:href=>'/teams/new'} Start a Jamskating Team
+
+%br
+
+%div
+  %h2 Rinks
+  %p
+    %a{:href=>'/rinks/locate'} WSA Rink Locator
+  %p
+    %a{:href=>'/rinks/'} List Rinks
+
+%br
+
+%div
+  %h2 Requests
+  %p
+    %a{:href=>'/home/friend_requests'} Friend Requests
+  %p
+    %a{:href=>'/home/team_requests'} Team Requests
+
+%br
+
+%div
+  %p
+    %a{:href=>'/members/sign_out'} Sign out

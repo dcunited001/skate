@@ -1,0 +1,21 @@
+$("div.default-dialog").dialog({
+    title:'Add Friend',
+    show: { effect: "fold", options: {}, speed: 150 },
+    hide: { effect: "explode", options: {}, speed: 150 },
+    modal:true,
+    buttons: {
+        Ok: function () {
+            $(this).dialog("close");
+
+            <% if @success %>
+                $("#sent-req-<%= @friendship.id %>").hide("drop", { direction: "down" }, 1000);
+            <% end %>
+        }
+    }
+});
+
+<% if @success %>
+    $("div.default-dialog").html('Request to <%= @friendship.member.full_name %> canceled');
+<% else %>
+    $("div.default-dialog").html('Could not cancel request to <%= @friendship.member.full_name %>');
+<% end %>

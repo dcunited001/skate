@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @team.name %>
+</p>
+
+<p>
+  <b>Number of Members:</b>
+  <%= @team.members.count %>
+</p>
+
+<p>
+  <b>Creator:</b>
+  <%= @team.owner.full_name %>
+</p>
+
+<p>
+  <b>Address:</b><br>
+  <%= render 'shared/address_basic', :address => @team.address %>
+</p>
+
+<p>
+  <b>Homerink:</b>
+  <% if @team.rink %>
+    <%= @team.rink.name %> - <%= @team.rink.address.city %>, <%= @team.rink.address.state %>
+  <% else %>
+    No Home Rink Set
+  <% end %>
+</p>
+
+<p>
+  <b>Sanction date:</b>
+  <%= if @team.sanction_date then @team.sanction_date else 'Not Sanctioned' end %>
+</p>
+
+<p>
+  <b>Create date:</b>
+  <%= @team.created_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>

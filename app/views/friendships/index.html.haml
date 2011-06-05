@@ -1,0 +1,7 @@
+%h2 Friends
+- if @friends
+  - @friends.each do |f|
+    %div{:class=>'simple_info'}
+      = render '/members/member', :member => f
+- else
+  %p You have no friends.

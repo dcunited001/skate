@@ -1,0 +1,13 @@
+%h2 Team Requests Received
+- if @recd_team_requests.any?
+  - @recd_team_requests.each do |r|
+    = render 'team_members/team_request', :request => r
+- else
+  You have no new team requests
+
+%h2 Member Requests Sent
+- if @sent_member_requests.any?
+  - @sent_member_requests.each do |r|
+    = render 'team_members/member_request_sent', :request => r
+- else
+  You have no active member requests sent

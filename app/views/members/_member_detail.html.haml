@@ -1,0 +1,16 @@
+%p
+  %b Name:
+  = member.full_name
+
+%p
+  %b Email:
+  = member.email
+
+- if member.has_team
+  %p
+    %b Team:
+    = member.team.name
+- elsif member.has_role? :team_owner
+  %p
+    Ask to join your team (if a team owner)
+

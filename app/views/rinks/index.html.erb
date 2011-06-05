@@ -1,0 +1,55 @@
+
+
+
+
+
+<h1>Listing rinks</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Owner</th>
+    <th>Contact</th>
+    <th>Register date</th>
+    <th>Verified</th>
+    <th>Original verified date</th>
+    <th>Last verified date</th>
+    <th>Sanctioned</th>
+    <th>Original sanction date</th>
+    <th>Last sanction date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rinks.each do |rink| %>
+  <tr>
+    <td><%= rink.name %></td>
+    <td><br><%= rink.address.line_one %><br>
+      <% unless rink.address.line_two.empty? then %>
+           <%= rink.address.line_two %><br>
+      <% end %>
+      <%= rink.address.city + ', ' + rink.address.state + ' ' + rink.address.zip %></td>
+    <td><%= unless rink.owner_id > 0 then rink.owner_name else rink.owner_id end %></td>
+    <td><%= unless rink.contact_id > 0 then rink.contact_name else rink.contact_id end %></td>
+    <td><%= if rink.register_date then rink.register_date else 'N/A' end %></td>
+    <td><%= if rink.contacted then 'Yes' else 'No' end %></td>
+    <td><%= if rink.original_contact_date then rink.original_contact_date else 'N/A' end %></td>
+    <td><%= if rink.last_contact_date then rink.last_contact_date else 'N/A' end %></td>
+    <td><%= if rink.verified then 'Yes' else 'No' end %></td>
+    <td><%= if rink.original_verified_date then rink.original_verified_date else 'N/A' end %></td>
+    <td><%= if rink.last_verified_date then rink.last_verified_date else 'N/A' end %></td>
+    <td><%= if rink.sanctioned then 'Yes' else 'No' end %></td>
+    <td><%= if rink.original_sanction_date then rink.original_sanction_date else 'N/A' end %></td>
+    <td><%= if rink.last_sanction_date then rink.last_sanction_date else 'N/A' end %></td>
+    <td><%= link_to 'Show', rink %></td>
+    <td><%= link_to 'Edit', edit_rink_path(rink) %></td>
+    <td><%= link_to 'Destroy', rink, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rink', new_rink_path %>

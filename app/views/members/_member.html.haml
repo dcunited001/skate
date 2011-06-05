@@ -1,0 +1,42 @@
+%div{:class=>'member-container'}
+  %div{:class=>'member-avatar'}
+    = image_tag(avatar_url(member))
+  %div{:class=>'member-profile'}
+    %p
+      %b Name:
+      %a{:href=>'/members/' + member.id.to_s }= member.full_name
+
+    %p
+      %b Email:
+      = member.email
+
+    %p
+      - if member.has_team
+        %b Team:
+        = member.team.name
+      - elsif has_role? :team_owner
+        - if member.already_requested_by(current_member)
+          You already requested this member to join your team
+        - elsif member.already_requested_team(current_member.team)
+          This member already requested to join your team
+          - else
+            %div{:class=>'member-request',:id=>'sent-member-req-' + member.id.to_s}
+              = link_to 'Request to join your team', {:controller => 'team_members', :action => 'member_request', :id => member.id}, :remote => true
+      - else
+        %b Team:
+        N/A
+        = has_role? :member
+
+    %div{:class=>'friend-request',:id=>"friend-req-#{member.id}"}
+      %p
+        - if member.already_friends_with current_member
+          You are friends
+          = link_to 'Delete', {:controller => 'friendships', :action => 'delete', :id => member.id}, :remote => true
+        - elsif member.already_friend_request_to current_member
+          = member.full_name
+          has already requested you
+        - elsif member.already_friend_request_from current_member
+          You have already requested
+          = member.full_name
+        - else
+          = link_to 'Friend Request', {:controller => 'friendships', :action => 'send_request', :id => member.id}, :remote => true

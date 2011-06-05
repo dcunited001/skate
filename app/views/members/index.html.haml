@@ -1,0 +1,6 @@
+- @members.each do |m|
+  - unless m == current_member
+    %div{:class=>'simple_info'}
+      = render 'member', :member => m
+
+= link_to 'Home', '/home/'
