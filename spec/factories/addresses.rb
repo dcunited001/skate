@@ -7,7 +7,7 @@ Factory.define(:address, :class => 'Address') do |address|
   address.sequence(:line_one) { |n| "#{n} Streety Lane"}
   address.city { %w(Norfolk, Roanoke, Salem).sample }
   address.state { %w(VA NC SC).sample}
-  address.zip { |a| CITY_TO_ZIP_HASH[a.city] }
+  address.zip { |a| CITY_TO_ZIP_HASH[a.city]; puts a.city; puts CITY_TO_ZIP_HASH[a.city] }
 end
 
 Factory.define(:apartment_address, :parent => :address) do |address|

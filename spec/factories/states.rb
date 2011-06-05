@@ -6,5 +6,6 @@ ABBREV_TO_STATE_HASH = {
 
 Factory.define(:state, :class => 'State') do |state|
   state.abbrev (ABBREV_TO_STATE_HASH.keys.sample)
-  state.name
+  state.name { |s| ABBREV_TO_STATE_HASH[s.abbrev] }
 end
+
