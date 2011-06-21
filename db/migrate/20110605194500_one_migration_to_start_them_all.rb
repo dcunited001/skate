@@ -1,31 +1,6 @@
-#class DeviseCreateMembers < ActiveRecord::Migration
-#  def self.up
-#    create_table(:members) do |t|
-#      t.database_authenticatable :null => false
-#      t.recoverable
-#      t.rememberable
-#      t.trackable
-#
-#      # t.confirmable
-#      # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
-#      # t.token_authenticatable
-#
-#
-#      t.timestamps
-#    end
-#
-#    add_index :members, :email,                :unique => true
-#    add_index :members, :reset_password_token, :unique => true
-#    # add_index :members, :confirmation_token,   :unique => true
-#    # add_index :members, :unlock_token,         :unique => true
-#  end
-#
-#  def self.down
-#    drop_table :members
-#  end
-#end
 
-
+#since i didn't use migrations when i originally started this project,
+# I've added one migration to take care of all the basic models up to this point
 class OneMigrationToStartThemAll < ActiveRecord::Migration
   def self.up
     create_table :addresses do |t|
@@ -108,7 +83,7 @@ class OneMigrationToStartThemAll < ActiveRecord::Migration
       t.string   "email"
       t.string   "owner_name"
       t.integer  "owner_id",  :default => -1
-      t.boolean "contacted"  #TODO: change default to false or change this property to a method and add a contact count?
+      t.boolean "contacted",  :default => false
       t.datetime "original_contact_date"
       t.datetime "last_contact_date"
       t.string   "contact_name"
@@ -247,9 +222,9 @@ class OneMigrationToStartThemAll < ActiveRecord::Migration
     create_table :didyouknows do |t|
       t.string "message"
       t.integer "submitted_by"
-      t.integer "approved_by"
+      t.integer "approved_by", :default => '-1'
       t.integer "rate"
-      t.boolean "approved"
+      t.boolean "approved", :default => false
       t.boolean "active"
 
       t.datetime "created_at"

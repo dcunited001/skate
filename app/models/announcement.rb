@@ -1,5 +1,7 @@
 class Announcement < ActiveRecord::Base
+  belongs_to :posted_by, :class_name => 'Member'
 
+  #TODO: verifies presence of Posted_by
 end
 
 

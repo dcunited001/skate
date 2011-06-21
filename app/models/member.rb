@@ -16,7 +16,13 @@
 # TODO: implement admin role
 
 class Member < ActiveRecord::Base
+
+  after_create :set_up_member
+
   has_many :authentications
+
+  has_many :role_members
+  has_many :roles, :through => :role_members
 
   has_one :address, :as => :addressable, :dependent => :destroy
   belongs_to :rink, :foreign_key => :homerink_id
@@ -45,23 +51,23 @@ INNER JOIN members team_mems
 WHERE this_member.id = #{id}
   AND team_mems.id != #{id}'
 
-    has_many :team_mates, :class_name => 'Member', :finder_sql =>
-'SELECT team_mems.*
-FROM members this_member
-INNER JOIN team_members active_tm
-  ON  (this_member.id = active_tm.member_id
-  OR this_member.id = active_tm.requestor_id)
-  AND active_tm.active = true
-INNER JOIN teams t
-  ON active_tm.team_id = t.id
-INNER JOIN team_members tm
-  ON t.id = tm.team_id
-  AND tm.active = true
-INNER JOIN members team_mems
-  ON (team_mems.id = tm.requestor_id and t.creator_id = #{id})
-  OR (team_mems.id = tm.member_id and t.creator_id != #{id})
-WHERE this_member.id = #{id}
-  AND team_mems.id != #{id}'
+#    has_many :team_mates, :class_name => 'Member', :finder_sql =>
+#'SELECT team_mems.*
+#FROM members this_member
+#INNER JOIN team_members active_tm
+#  ON  (this_member.id = active_tm.member_id
+#  OR this_member.id = active_tm.requestor_id)
+#  AND active_tm.active = true
+#INNER JOIN teams t
+#  ON active_tm.team_id = t.id
+#INNER JOIN team_members tm
+#  ON t.id = tm.team_id
+#  AND tm.active = true
+#INNER JOIN members team_mems
+#  ON (team_mems.id = tm.requestor_id and t.creator_id = #{id})
+#  OR (team_mems.id = tm.member_id and t.creator_id != #{id})
+#WHERE this_member.id = #{id}
+#  AND team_mems.id != #{id}'
 
   has_many :pending_sent_team_requests, :class_name => "TeamMember", :foreign_key => "requestor_id",
            :conditions => '(approved = false and rejected = false)'
@@ -77,10 +83,6 @@ WHERE this_member.id = #{id}
 
   has_one :owned_team, :class_name => "Team", :foreign_key => "creator_id"
 
-  has_many :role_members
-  has_many :roles, :through => :role_members
-
-  #friend relationships
   has_many :pending_sent_friend_requests, :class_name => 'Friendship', :foreign_key => 'member_id', :conditions => 'approved = false and rejected = false'
   has_many :pending_recd_friend_requests, :class_name => 'Friendship', :foreign_key => 'friend_id', :conditions => 'approved = false and rejected = false'
 
@@ -95,7 +97,6 @@ INNER JOIN members m
 where (f.member_id = #{id} or f.friend_id = #{id})
     and active = true;'
 
-  after_create :set_up_member
 
   
   accepts_nested_attributes_for :address
@@ -108,7 +109,6 @@ where (f.member_id = #{id} or f.friend_id = #{id})
   # Setup accessible (or protected) attributes for your model
   #     (add extra attributes here)
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
-
 
   #========================================
   #  NAMED SCOPES

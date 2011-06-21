@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20110201051546) do
     t.string   "email"
     t.string   "owner_name"
     t.integer  "owner_id",  :default => -1
-    t.boolean "contacted"  #TODO: change default to false or change this property to a method and add a contact count?
+    t.boolean "contacted",  :default => false
     t.datetime "original_contact_date"
     t.datetime "last_contact_date"
     t.string   "contact_name"
@@ -218,7 +218,7 @@ ActiveRecord::Schema.define(:version => 20110201051546) do
   #allows admins and wsa managers to make announcements
   create_table "announcements", :force => true do |t|
     t.text "message"
-    t.integer "posted_by"
+    t.integer "posted_by", :default => '-1'
     t.boolean "active"
     t.datetime "remain_posted_until"
 
@@ -230,9 +230,9 @@ ActiveRecord::Schema.define(:version => 20110201051546) do
   create_table "didyouknows", :force => true do |t|
     t.string "message"
     t.integer "submitted_by"
-    t.integer "approved_by"
+    t.integer "approved_by", :default => '-1'
     t.integer "rate"
-    t.boolean "approved"
+    t.boolean "approved" #necessary?
     t.boolean "active"
 
     t.datetime "created_at"

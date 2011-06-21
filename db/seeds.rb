@@ -118,6 +118,7 @@ end
 # RINKS
 # ======================================
 # TODO: load rinks from YAML
+# default rink in easter island (default address)
 
 #
 ## EXAMPLES !!!!!!!!!!

@@ -38,7 +38,7 @@ describe Rink do
 
     time_then = subject.last_contact_date
     subject.set_contacted
-    subject.contact.should == true
+    subject.contacted.should == true
     subject.original_contact_date.should == time_then
     subject.last_contact_date.should > time_then
   end
@@ -49,14 +49,14 @@ describe Rink do
     today = Date.today
     subject.set_verified
     subject.verified.should == true
-    subject.original_verify_date.to_date.should == today
-    subject.last_verify_date.to_date.should == today
+    subject.original_verified_date.to_date.should == today
+    subject.last_verified_date.to_date.should == today
 
     time_then = subject.last_contacted_date
     subject.set_verified
     subject.verified.should == true
-    subject.original_verify_date.should == time_then
-    subject.last_verify_date.should > time_then
+    subject.original_verified_date.should == time_then
+    subject.last_verified_date.should > time_then
   end
 
   it 'can set the registered date' do
