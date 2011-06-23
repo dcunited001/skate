@@ -1,5 +1,6 @@
+
 Factory.define(:announcement, :class => 'Announcement') do |announcement|
-  announcement.message lorem
+  #announcement.message lorem
   announcement.posted_by { |a| a.association(:member) }
   announcement.active true
   announcement.remain_posted_until 1.week.from_now

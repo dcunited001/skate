@@ -1,5 +1,5 @@
 Factory.define(:dyk, :class => 'Didyouknow') do |dyk|
-  dyk.message (lorem(20) + '??  OMFGLoloL')
+  #dyk.message (lorem(20) + '??  OMFGLoloL')
   dyk.submitted_by { |d| d.association(:member) }
   dyk.rate rand(100)
   dyk.approved false

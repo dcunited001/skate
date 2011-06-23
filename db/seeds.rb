@@ -96,7 +96,7 @@ regions.each do |r|
   r = Region.create!(s.merge(:regional_rep_id))
 end
 
-northeast.states << State.where(:abbrev )
+#northeast.states << State.where(:abbrev )
 
 # TODO: Hard code regions
 # TODO: Hard code region_states

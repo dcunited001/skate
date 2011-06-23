@@ -41,41 +41,6 @@ class OneMigrationToStartThemAll < ActiveRecord::Migration
       t.string  "roleable_type"
     end
 
-    create_table :members do |t|
-      t.string   "first_name",                                              :null => false
-      t.string   "last_name",                                               :null => false
-      t.string   "email",                                   :default => "", :null => false
-      t.integer  "homerink_id",    :default => -1
-      t.datetime "birthday"
-      t.string   "phone"
-      t.boolean  "verified"
-      t.datetime "original_verified_date"
-      t.datetime "last_verified_date"
-      t.boolean  "current_member"
-      t.datetime "original_membership_date"
-      t.datetime "last_membership_date"
-      t.integer  "renewal_months"
-      t.string   "encrypted_password",       :limit => 128, :default => "", :null => false
-      t.string   "password_salt",                           :default => "", :null => false
-      t.string   "reset_password_token"
-      t.string   "remember_token"
-      t.datetime "remember_created_at"
-      t.integer  "sign_in_count",                           :default => 0
-      t.datetime "current_sign_in_at"
-      t.datetime "last_sign_in_at"
-      t.string   "current_sign_in_ip"
-      t.string   "last_sign_in_ip"
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.boolean "pro_skater", :default => false
-      t.boolean "suspended", :default => false
-      t.datetime "suspended_until"
-
-    end
-    
-    add_index :members, ["email"], :name => "index_members_on_email", :unique => true
-    add_index :members, ["reset_password_token"], :name => "index_members_on_reset_password_token", :unique => true
-
     create_table :rinks do |t|
       t.string   "name"
       t.string   "phone"

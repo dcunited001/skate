@@ -40,18 +40,18 @@ module Testapp2
     config.filter_parameters += [:password]
 
     #allows you to reload Factories in console
-    ActionDispatch::Callbacks.after do
-      # Reload the factories
-      return unless (Rails.env.development? || Rails.env.test?)
-
-      unless Factory.factories.blank? # first init will load factories, this should only run on subsequent reloads
-        require File.expand_path('../spec/factories/factory_helpers', __FILE__)
-        Factory.factories.clear
-        Factory.find_definitions.each do |location|
-          Dir["#{location}/**/*.rb"].each { |file| load file }
-        end
-      end
-
-    end
+#    ActionDispatch::Callbacks.after do
+#      # Reload the factories
+#      return unless (Rails.env.development? || Rails.env.test?)
+#
+#      unless Factory.factories.blank? # first init will load factories, this should only run on subsequent reloads
+#        require File.expand_path('../spec/factories/factfdasory_helpers', __FILE__)
+#        Factory.factories.clear
+#        Factory.find_definitions.each do |location|
+#          Dir["#{location}/**/*.rb"].each { |file| load file }
+#        end
+#      end
+#
+#    end
   end
 end
