@@ -3,6 +3,55 @@
 # I've added one migration to take care of all the basic models up to this point
 class OneMigrationToStartThemAll < ActiveRecord::Migration
   def self.up
+
+    add_column :members, :first_name, :string
+    add_column :members, :last_name, :string
+    add_column :members, :homerink_id, :integer, :default => -1
+    add_column :members, :birthday, :datetime
+    add_column :members, :phone, :string
+    add_column :members, :verified, :boolean
+    add_column :members, :original_verified_date, :datetime
+    add_column :members, :last_verified_date, :datetime
+    add_column :members, :current_member, :boolean
+    add_column :members, :original_membership_date, :datetime
+    add_column :members, :last_membership_date, :datetime
+    add_column :members, :renewal_months, :integer
+    add_column :members, :encrypted_password, :default => "", :limit =>  128
+
+
+    create_table :members do |t|
+      t.string   "first_name",                                              :null => false
+      t.string   "last_name",                                               :null => false
+      t.string   "email",                                   :default => "", :null => false
+      t.integer  "homerink_id",    :default => -1
+      t.datetime "birthday"
+      t.string   "phone"
+      t.boolean  "verified"
+      t.datetime "original_verified_date"
+      t.datetime "last_verified_date"
+      t.boolean  "current_member"
+      t.datetime "original_membership_date"
+      t.datetime "last_membership_date"
+      t.integer  "renewal_months"
+      t.string   "encrypted_password",       :limit => 128, :default => "", :null => false
+      t.string   "password_salt",                           :default => "", :null => false
+      t.string   "reset_password_token"
+      t.string   "remember_token"
+      t.datetime "remember_created_at"
+      t.integer  "sign_in_count",                           :default => 0
+      t.datetime "current_sign_in_at"
+      t.datetime "last_sign_in_at"
+      t.string   "current_sign_in_ip"
+      t.string   "last_sign_in_ip"
+      t.datetime "created_at"
+      t.datetime "updated_at"
+      t.boolean "pro_skater", :default => false
+      t.boolean "suspended", :default => false
+      t.datetime "suspended_until"
+    end
+
+
+
     create_table :addresses do |t|
       t.integer  "addressable_id"
       t.string   "addressable_type"

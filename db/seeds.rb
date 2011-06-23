@@ -10,7 +10,7 @@
 # ROLES
 # ======================================
 puts 'Creating Roles'
-Role.names.each do |r|
+Role.names.keys.each do |r|
   Role.get(r)
 end
 
@@ -92,9 +92,7 @@ northwest = Region.create!(:name => 'Northwest', :description => 'Oregon')
 southwest = Region.create!(:name => 'Southwest', :description => 'Cali')
 southcentral = Region.create!(:name => 'South Central', :description => 'Tejas')
 
-regions.each do |r|
-  r = Region.create!(s.merge(:regional_rep_id))
-end
+
 
 #northeast.states << State.where(:abbrev )
 
