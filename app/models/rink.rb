@@ -19,7 +19,7 @@ class Rink < ActiveRecord::Base
 
   attr_accessible :name, :address_attributes, :phone, :email, :website, :owner_name, :contact_name, :description
 
-  validates_presence_of :name, :phone
+  validates_presence_of :name
 
   #NAMED SCOPES
   #   all_visible

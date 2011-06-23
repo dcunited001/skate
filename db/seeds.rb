@@ -92,12 +92,40 @@ northwest = Region.create!(:name => 'Northwest', :description => 'Oregon')
 southwest = Region.create!(:name => 'Southwest', :description => 'Cali')
 southcentral = Region.create!(:name => 'South Central', :description => 'Tejas')
 
+northeast.states << State.where(:abbrev => ['ME', 'VT', 'NH', 'MA', 'RI', 'NY', 'PA', 'MD', 'DE', 'DC', 'WV', 'VA'])
+southeast.states << State.where(:abbrev => ['TN', 'NC', 'SC', 'GA', 'MS', 'AL', 'FL'])
+greatlakes.states << State.where(:abbrev => ['OH', 'KY', 'IL', 'IN', 'MI', 'WI', 'MO'])
+midwest.states << State.where(:abbrev => ['IA', 'MN', 'ND', 'SD', 'MT', 'WY', 'CO', 'UT'])
+northwest.states << State.where(:abbrev => ['WA', 'ID', 'OR', 'AK'])
+southwest.states << State.where(:abbrev => ['CA', 'AZ', 'NV', 'HI'])
+southcentral.states << State.where(:abbrev => ['AS', 'LA', 'TX', 'OK', 'KS', 'NM'])
+
+# ======================================
+# RINKS
+# ======================================
+# TODO: load rinks from YAML
+puts 'Creating Rinks'
+rinks_yml = YAML::load_file(File.join(Rails.root, 'db/seeds','rinks.yml'))
+rinks_yml.keys.each {|k|
+  puts "#{k}: #{rinks_yml[k]['name']}"
+  Rink.create!(rinks_yml[k])
+}
+
+#TODO: Store lat and long with addresses to avoid Geocode Calls!!
+puts 'Rinks Created'
+puts '  (run `rake addresses:geocode` to geocode'
 
 
-#northeast.states << State.where(:abbrev )
+#seed_file = File.join(Rails.root, 'db', 'seed.yml')
+#config = YAML::load_file(seed_file)
+#User.create(config["users"])
+#Category.create(config["categories"])
+#Product.create(config["products"])
 
-# TODO: Hard code regions
-# TODO: Hard code region_states
+# default rink in easter island (default address)
+
+
+
 
 # ======================================
 # ADDRESSES
@@ -125,12 +153,6 @@ real_people.each do |person|
   member.roles << Role.get(:member)
   member.save
 end
-
-# ======================================
-# RINKS
-# ======================================
-# TODO: load rinks from YAML
-# default rink in easter island (default address)
 
 #
 ## EXAMPLES !!!!!!!!!!
