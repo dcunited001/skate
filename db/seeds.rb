@@ -78,12 +78,26 @@ states = [
   #TODO: provinces?
 
 states.each do |s|
-  s = State.create!(s.merge(:state_rep_id => -1))
+  s = State.create!(s.merge(:state_rep_id => 0))
 end
 
 # ======================================
 # REGIONS
 # ======================================
+northeast = Region.create!(:name => 'Northeast', :description => 'Northeastern Regions')
+southeast = Region.create!(:name => 'Southeast', :description => 'Florida')
+greatlakes = Region.create!(:name => 'Great Lakes', :description => 'Chicago')
+midwest = Region.create!(:name => 'Midwest', :description => 'Iowa')
+northwest = Region.create!(:name => 'Northwest', :description => 'Oregon')
+southwest = Region.create!(:name => 'Southwest', :description => 'Cali')
+southcentral = Region.create!(:name => 'South Central', :description => 'Tejas')
+
+regions.each do |r|
+  r = Region.create!(s.merge(:regional_rep_id))
+end
+
+northeast.states << State.where(:abbrev )
+
 # TODO: Hard code regions
 # TODO: Hard code region_states
 

@@ -235,7 +235,7 @@ class OneMigrationToStartThemAll < ActiveRecord::Migration
     create_table :states do |t|
       t.string "name"
       t.string "abbrev"
-      t.integer "state_rep_id"  #TODO: ,:default => -1
+      t.integer "state_rep_id" ,:default => 0
 
       t.datetime "created_at"
       t.datetime "updated_at"
@@ -245,7 +245,7 @@ class OneMigrationToStartThemAll < ActiveRecord::Migration
     create_table :regions do |t|
       t.string "name"
       t.string "description"
-      t.integer "regional_rep_id"
+      t.integer "regional_rep_id", :default => 0
 
       t.datetime "created_at"
       t.datetime "updated_at"
