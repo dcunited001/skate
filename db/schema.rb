@@ -115,18 +115,33 @@ ActiveRecord::Schema.define(:version => 20110605194500) do
   end
 
   create_table "members", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "email",                                   :default => "",    :null => false
+    t.string   "encrypted_password",       :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",                           :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "homerink_id",                             :default => -1
+    t.datetime "birthday"
+    t.string   "phone"
+    t.boolean  "verified"
+    t.datetime "original_verified_date"
+    t.datetime "last_verified_date"
+    t.boolean  "current_member"
+    t.datetime "original_membership_date"
+    t.datetime "last_membership_date"
+    t.integer  "renewal_months"
+    t.boolean  "pro_skater",                              :default => false
+    t.boolean  "suspended",                               :default => false
+    t.datetime "suspended_until"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true

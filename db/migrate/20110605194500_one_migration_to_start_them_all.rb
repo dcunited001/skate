@@ -16,41 +16,9 @@ class OneMigrationToStartThemAll < ActiveRecord::Migration
     add_column :members, :original_membership_date, :datetime
     add_column :members, :last_membership_date, :datetime
     add_column :members, :renewal_months, :integer
-    add_column :members, :encrypted_password, :default => "", :limit =>  128
-
-
-    create_table :members do |t|
-      t.string   "first_name",                                              :null => false
-      t.string   "last_name",                                               :null => false
-      t.string   "email",                                   :default => "", :null => false
-      t.integer  "homerink_id",    :default => -1
-      t.datetime "birthday"
-      t.string   "phone"
-      t.boolean  "verified"
-      t.datetime "original_verified_date"
-      t.datetime "last_verified_date"
-      t.boolean  "current_member"
-      t.datetime "original_membership_date"
-      t.datetime "last_membership_date"
-      t.integer  "renewal_months"
-      t.string   "encrypted_password",       :limit => 128, :default => "", :null => false
-      t.string   "password_salt",                           :default => "", :null => false
-      t.string   "reset_password_token"
-      t.string   "remember_token"
-      t.datetime "remember_created_at"
-      t.integer  "sign_in_count",                           :default => 0
-      t.datetime "current_sign_in_at"
-      t.datetime "last_sign_in_at"
-      t.string   "current_sign_in_ip"
-      t.string   "last_sign_in_ip"
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.boolean "pro_skater", :default => false
-      t.boolean "suspended", :default => false
-      t.datetime "suspended_until"
-    end
-
-
+    add_column :members, :pro_skater, :boolean, :default => false
+    add_column :members, :suspended, :boolean, :default => false
+    add_column :members, :suspended_until, :datetime
 
     create_table :addresses do |t|
       t.integer  "addressable_id"
@@ -276,6 +244,23 @@ class OneMigrationToStartThemAll < ActiveRecord::Migration
   end
 
   def self.down
+
+    remove_column :members, :first_name
+    remove_column :members, :last_name
+    remove_column :members, :homerink_id
+    remove_column :members, :birthday
+    remove_column :members, :phone
+    remove_column :members, :verified
+    remove_column :members, :original_verified_date
+    remove_column :members, :last_verified_date
+    remove_column :members, :current_member
+    remove_column :members, :original_membership_date
+    remove_column :members, :last_membership_date
+    remove_column :members, :renewal_months
+    remove_column :members, :pro_skater
+    remove_column :members, :suspended
+    remove_column :members, :suspended_until
+
     drop_table :addresses
     drop_table :authentications
     drop_table :roles
