@@ -45,6 +45,7 @@ module Testapp2
       return unless (Rails.env.development? || Rails.env.test?)
 
       unless Factory.factories.blank? # first init will load factories, this should only run on subsequent reloads
+        require File.expand_path('../spec/factories/factory_helpers', __FILE__)
         Factory.factories.clear
         Factory.find_definitions.each do |location|
           Dir["#{location}/**/*.rb"].each { |file| load file }

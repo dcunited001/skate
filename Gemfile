@@ -1,15 +1,16 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.0.5'
 gem 'rake', '0.8.7'
 
 gem 'devise'
-gem 'haml'
 gem 'declarative_authorization'
+gem 'omniauth'
 
+gem 'haml'
 gem 'awesome_print'
 gem 'pg'
-
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'pg'

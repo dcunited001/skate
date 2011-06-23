@@ -1,5 +1,3 @@
-
-
 Factory.define(:announcement, :class => 'Announcement') do |announcement|
   announcement.message lorem
   announcement.posted_by { |a| a.association(:member) }

@@ -1,5 +1,3 @@
-
-
 Factory.define(:rink, :class => 'Rink') do |rink|
   rink.sequence(:name) { |n| "Skateland #{n}"}
   rink.address { |r| r.association(:address) }

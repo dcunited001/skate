@@ -1,4 +1,3 @@
-
 def random_phone
   area = (rand(900) + 100).to_s
   local = (rand(900) + 100).to_s

@@ -1,4 +1,3 @@
-
 Factory.define(:member, :class => 'Member') do |member|
   member.first_name 'Normal'
   member.sequence(:last_name) {|n| "User #{n}"}
