@@ -12,6 +12,8 @@ gem 'awesome_print'
 gem 'pg'
 gem 'jquery-rails'
 
+gem 'geokit'
+
 group :development, :test do
   gem 'pg'
   gem 'rspec-rails', '2.6.0.rc4'

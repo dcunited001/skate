@@ -5,7 +5,7 @@ namespace :addresses do
 
   #while (Address.where("latitude = -1 or longitude = -1"))do
   
-    uncoded = Address.where("latitude != -100.00 or longitude = -100.00")
+    uncoded = Address.where("latitude = -100.00 or longitude = -200.00")
 
     uncoded.each {|a|
       puts a[:line_one] + " " + a[:city] + ", " + a[:state] + " " + a[:zip]

@@ -12,7 +12,7 @@ uncoded.each {|a|
     address_line = a[:line_one] + " " + a[:city] + ", " + a[:state] + " " + a[:zip]
 
     code = ""
-    code = Geokit::Geocoders::YahooGeocoder.geocode address_line
+    code = Geokit::Geocoders::GoogleGeocoder3.geocode address_line
     puts code.lat
     puts code.lng
     puts ""
