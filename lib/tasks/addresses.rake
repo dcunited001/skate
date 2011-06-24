@@ -8,13 +8,8 @@ namespace :addresses do
     uncoded = Address.where("latitude = -100.00 or longitude = -200.00")
 
     uncoded.each {|a|
-      puts a[:line_one] + " " + a[:city] + ", " + a[:state] + " " + a[:zip]
-
-      #different address line formats?
-      address_line = a[:line_one] + " " + a[:city] + ", " + a[:state] + " " + a[:zip]
-
-      code = ""
-      code = Geokit::Geocoders::GoogleGeocoder.geocode address_line
+      puts a.to_s
+      code = Geokit::Geocoders::GoogleGeocoder.geocode a.to_s
 
       a.latitude = code.lat
       a.longitude = code.lng

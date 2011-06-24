@@ -30,8 +30,8 @@ class OneMigrationToStartThemAll < ActiveRecord::Migration
       t.string   "city"
       t.string   "state"
       t.string   "zip"
-      t.decimal  "latitude",   :precision => 10, :scale => 0, :default => -100.00
-      t.decimal  "longitude",  :precision => 10, :scale => 0, :default => -200.00
+      t.decimal  "latitude",   :precision => 15, :scale => 10, :default => -100.00
+      t.decimal  "longitude",  :precision => 15, :scale => 10, :default => -200.00
       t.datetime "created_at"
       t.datetime "updated_at"
     end
