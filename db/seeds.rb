@@ -107,11 +107,11 @@ southcentral.states << State.where(:abbrev => ['AS', 'LA', 'TX', 'OK', 'KS', 'NM
 # TODO: better handle
 puts 'Creating Rinks'
 rinks_yml = YAML::load_file(File.join(Rails.root, 'db/seeds','rinks.yml'))
-rinks_yml.keys.each {|k|
-  puts "#{k}: #{rinks_yml[k]['name']}"
-  addy = Address.new(rinks_yml[k]['address'])
+rinks_yml.each { |r|
+  puts r[:name]
+  addy = Address.new(r[:address])
   if addy.valid?
-    rink = Rink.new(rinks_yml[k])
+    rink = Rink.new(r)
     rink.address = addy
     rink.save
   end
@@ -119,7 +119,8 @@ rinks_yml.keys.each {|k|
 
 #TODO: Store lat and long with addresses to avoid Geocode Calls!!
 puts 'Rinks Created'
-puts '  (run `rake addresses:geocode` to geocode'
+puts '  run `rake addresses:geocode` to geocode'
+puts '  (rink addresses should already be geocoded)'
 
 
 #seed_file = File.join(Rails.root, 'db', 'seed.yml')

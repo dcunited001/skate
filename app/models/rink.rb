@@ -81,6 +81,42 @@ class Rink < ActiveRecord::Base
   def set_registered
     self.register_date = Time.now
   end
+
+  def as_hash
+    {
+      :name => self.name,
+      :phone => self.phone,
+      :website => self.website,
+      :email => self.email,
+      :owner_name => self.owner_name,
+      :owner_id => self.owner_id,
+      :contacted => self.contacted,
+      :original_contact_date => self.original_contact_date,
+      :last_contact_date => self.last_contact_date,
+      :contact_name => self.contact_name,
+      :contact_id => self.contact_id,
+      :register_date => self.register_date,
+      :visible  => self.visible,
+      :verified  => self.verified,
+      :original_verified_date => self.original_verified_date,
+      :last_verified_date => self.last_verified_date,
+      :sanctioned => self.sanctioned,
+      :original_sanction_date  => self.original_sanction_date,
+      :last_sanction_date => self.last_sanction_date,
+      :description => self.description,
+      :allow_comments => self.allow_comments,
+
+      :address => {
+          :line_one => self.address.line_one,
+          :line_two => self.address.line_two,
+          :city => self.address.city,
+          :state => self.address.state,
+          :zip => self.address.zip,
+          :latitude => self.address.latitude.to_f,
+          :longitude => self.address.longitude.to_f
+      }
+    }
+  end
 end
 
 

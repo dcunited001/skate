@@ -4,6 +4,22 @@
       Rink.delete_all
     end
 
+    desc "write rinks to YAML file"
+    task :to_yaml, :file_name, :needs => :environment do |t, args|
+
+      file_name = 'rinks.yml'
+      file_name = args[:file_name] if args[:file_name]
+
+      file = File.open(File.join(Rails.root, 'db/seeds', file_name),"w+")
+      rinks = Rink.all.collect { |r| r.as_hash }
+      if file
+         file.syswrite(rinks.to_yaml)
+      else
+         puts "Unable to open file!"
+      end
+    end
+
+    #TODO: this rake task is not necessary
     desc "upload rinks from YAML file"
     task :upload => :environment  do
       all_rinks = YAML.load(File.open("lib/tasks/rinks.yml"))

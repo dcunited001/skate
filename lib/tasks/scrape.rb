@@ -196,9 +196,6 @@ puts members.to_yaml
 
 
 
-
-
-
 =begin
   :clear_raw
   :empty?
