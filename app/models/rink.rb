@@ -74,8 +74,8 @@ class Rink < ActiveRecord::Base
 
   def set_verified
     self.verified = true
-    self.original_verify_date = Time.now if self.original_verify_date.nil?
-    self.last_verify_date = Time.now
+    self.original_verified_date = Time.now if self.original_verified_date.nil?
+    self.last_verified_date = Time.now
   end
 
   def set_registered
