@@ -1,5 +1,0 @@
-It's kind of broken at the moment since i originally designed it without migrations.  
-Currently trying to add seed data to the application so it will work for whoever clones it.  
-Also adding testing to the application.
-
-And the app was written a long time ago, so there's quite a few bad habits in there.

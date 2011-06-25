@@ -1,5 +1,0 @@
-<% if @already_has_role %>
-    $('.update_container').append('<div class="update">"<%= @role.name %>" Role removed from <%= @member.full_name %></div>');
-<% else %>
-    $('.update_container').append('<div class="update">"<%= @role.name %>" Role added to <%= @member.full_name %></div>');
-<% end %>

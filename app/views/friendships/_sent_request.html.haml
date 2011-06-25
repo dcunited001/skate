@@ -1,8 +1,0 @@
-%div{:class=>'sent-friend-request',:id=>"sent-req-#{friendship.id}"}
-  %p
-    "Hey,
-    = friendship.friend.full_name
-    wanna be my friend?" -
-    = friendship.member.full_name
-  %p
-    = link_to 'Cancel', {:controller => 'friendships', :action => 'cancel', :id => friendship.id}, :remote => true
