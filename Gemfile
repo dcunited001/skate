@@ -5,7 +5,7 @@ gem 'rake', '0.8.7'
 
 gem 'devise', '1.4.2'
 gem 'declarative_authorization'
-gem 'omniauth'
+gem 'omniauth', '0.2.6'
 
 gem 'haml'
 gem 'awesome_print'
