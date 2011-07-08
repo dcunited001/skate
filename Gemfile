@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.9'
 gem 'rake', '0.8.7'
 
-gem 'devise'
+gem 'devise', '1.4.2'
 gem 'declarative_authorization'
 gem 'omniauth'
 
