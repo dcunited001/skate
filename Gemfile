@@ -6,6 +6,7 @@ gem 'rake', '0.8.7'
 gem 'devise', '1.4.2'
 gem 'declarative_authorization'
 gem 'omniauth', '0.2.6'
+gem 'addressable', '2.2.4'
 
 gem 'haml'
 gem 'awesome_print'
@@ -33,7 +34,7 @@ group :test do
   gem 'autotest-fsevent'
   gem 'database_cleaner'
   gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'webmock'
+  gem 'webmock', '1.6.2'
   gem 'vcr'
   gem 'email_spec'
 end
