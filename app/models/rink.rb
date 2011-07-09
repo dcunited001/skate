@@ -5,8 +5,6 @@
 # TODO: Complete Named Scopes
 # TODO: set rink employees
 
-
-
 class Rink < ActiveRecord::Base
   has_one :address, :as => :addressable, :dependent => :destroy
 
@@ -117,6 +115,7 @@ class Rink < ActiveRecord::Base
       }
     }
   end
+
 end
 
 

@@ -130,7 +130,7 @@ puts '  (rink addresses should already be geocoded)'
 puts 'Creating Admin Accounts'
 real_people = [
   {:first_name => 'David',   :last_name => 'Conner',    :email => 'dconner.pro@gmail.com', :birthday => '5/11/1986'},
-  {:first_name => 'System',  :last_name => 'Admin',      :email => 'admin@wsajam.com', :birthday => '12/21/2012'}
+  {:first_name => 'System',  :last_name => 'Admin',      :email => 'admin@somewebsite.com', :birthday => '12/21/2012'}
 ]
 
 # verified, current_member, etc?

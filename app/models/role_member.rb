@@ -4,7 +4,6 @@ class RoleMember < ActiveRecord::Base
 
   belongs_to :roleable, :polymorphic => true
 
-
   #shortcut methods to create role_members of specific type
   def RoleMember.new_of_type(type)
     rm = RoleMember.new

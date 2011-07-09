@@ -49,14 +49,3 @@ class Role < ActiveRecord::Base
 
 end
 
-
-#INSERT INTO `testapp_dev`.`roles` (`name`, `description`) VALUES ('admin', 'Administrator');
-#INSERT INTO `testapp_dev`.`roles` (`name`, `description`) VALUES ('regional_rep', 'WSA Regional Rep');
-#INSERT INTO `testapp_dev`.`roles` (`name`, `description`) VALUES ('state_rep', 'WSA State Rep');
-#INSERT INTO `testapp_dev`.`roles` (`name`, `description`) VALUES ('member', 'Member of site');
-#INSERT INTO `testapp_dev`.`roles` (`name`, `description`) VALUES ('rink_owner', 'Rink Owner');
-#INSERT INTO `testapp_dev`.`roles` (`name`, `description`) VALUES ('team_owner', 'Team Owner');
-#INSERT INTO `testapp_dev`.`roles` (`name`, `description`) VALUES ('wsa_member', 'WSA Member');
-#INSERT INTO `testapp_dev`.`roles` (`name`, `description`) VALUES ('wsa_manager', 'WSA Manager');
-
-#INSERT INTO `testapp_dev`.`role_members` (`role_id`, `member_id`) VALUES (1, 1);
