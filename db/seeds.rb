@@ -2,10 +2,10 @@
 # ROLES
 # ======================================
 puts 'Creating Roles'
-Role.names.keys.each do |r|
-  Role.get(r)
+Role.types.each_value do |role_type|
+  role_class = eval("#{role_type}Role")
+  role_class.names.each_key { |role_name| role_class.get(role_name)}
 end
-
 
 # ======================================
 # STATES
@@ -129,7 +129,6 @@ real_people = [
 
 real_people.each do |person|
   member = Member.create!(person.merge(:password => 'password!'))
-  member.roles << Role.get(:admin)
-  member.roles << Role.get(:member)
+  member.roles << Role.get(:app_admin)
   member.save
 end
