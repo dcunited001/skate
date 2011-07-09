@@ -1,7 +1,7 @@
 
 class Role < ActiveRecord::Base
-  ADMIN = 'app_admin'
-  MEMBER = 'app_member'
+  ADMIN = :app_admin
+  MEMBER = :app_member
 
   has_many :role_members
   has_many :members, :through => :role_members

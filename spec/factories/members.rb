@@ -11,17 +11,13 @@ Factory.define(:member, :class => 'Member') do |member|
   member.homerink_id -1
 
   member.address {|m| m.association(:address)}
-
-  member.after_create do |m|
-    m.roles << Role.get(:member)
-  end
 end
 
 Factory.define(:admin, :parent => :member) do |member|
   member.first_name 'Admin'
 
   member.after_create do |m|
-    m.roles << Roles.get(:admin)
+    m.roles << AppRole.get(Role::ADMIN)
   end
 end
 
