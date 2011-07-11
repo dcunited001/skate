@@ -27,4 +27,20 @@ describe TeamMember do
       pending
     end
   end
+
+  context 'Request Action Helpers' do
+    before do
+
+    end
+
+    it 'can be approved if valid' do
+      #necessary to check validity here because member may have joined a team after the request was sent
+
+      pending
+    end
+
+    it 'can be rejected if valid' do
+      pending
+    end
+  end
 end

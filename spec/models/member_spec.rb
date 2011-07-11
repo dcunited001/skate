@@ -6,26 +6,23 @@ describe Member do
   let(:admin) { Factory(:admin) }
 
   #it { should have_many :authentications }
-
-  it { should have_one :address }
-
-  it { should belong_to :rink }
-
-  #it { should have_many :team_requests }
-  #it { should have_many :team_members }
-  #it { should have_many :team_mates }
-  #it { should have_many :teams }
-  #it { should have_one :owned_team }
-
   it { should have_many :role_members }
   it { should have_many :roles }
 
-  #it { should have_many :friendships }
+  it { should have_one :address }
+  it { should belong_to :rink }
+
   #it { should have_many :friends }
+  it { should have_many :friend_requests_recd }
+  it { should have_many :friend_requests_sent }
+
+  #it {should have_many :teams }
+  #it {should have_many :team_members }
+  it { should have_many :team_requests_recd }
+  it { should have_many :team_requests_sent }
 
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
-
 
   context 'Helpers' do
     it 'should return the first and last name of the member' do
@@ -162,7 +159,7 @@ describe Member do
       pending
     end
 
-    it 'lists all pending sent freind requests' do
+    it 'lists all pending sent friend requests' do
       pending
     end
 

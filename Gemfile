@@ -15,9 +15,11 @@ gem 'declarative_authorization'
 gem 'omniauth', '0.2.6'
 gem 'addressable', '2.2.4'
 
+gem 'pg'
+#gem 'rails_sql_views'
+
 gem 'haml'
 gem 'awesome_print'
-gem 'pg'
 gem 'jquery-rails'
 
 gem 'geokit'

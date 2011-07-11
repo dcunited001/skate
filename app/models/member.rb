@@ -13,6 +13,14 @@ class Member < ActiveRecord::Base
   has_one :address, :as => :addressable, :dependent => :destroy
   belongs_to :rink, :foreign_key => :homerink_id
 
+  has_many :friend_requests_recd, :class_name => 'Friendship', :foreign_key => 'member_requested_id'
+  has_many :friend_requests_sent, :class_name => 'Friendship', :foreign_key => 'member_requesting_id'
+  #has_many :friends, :class_name => 'Friendship', :finder_sql => 'select * from view'
+
+  has_many :team_requests_recd, :class_name => 'TeamMember', :foreign_key => 'member_requested_id'
+  has_many :team_requests_sent, :class_name => 'TeamMember', :foreign_key => 'member_requesting_id'
+  #has_many :team_members, :finder_sql => 'select * from view'
+
   validates_presence_of :first_name, :last_name
 
   # Setup accessible (or protected) attributes for your model
@@ -25,7 +33,7 @@ class Member < ActiveRecord::Base
   #  Role Helpers
   #========================================
   def add_basic_member_role
-    roles << AppRole.get(Role::MEMBER)
+    roles << AppRole.get(:app_member)
   end
 
   #retrieve roles

@@ -66,15 +66,20 @@ puts '  (rink addresses should already be geocoded)'
 # TODO: hard code basic admin users
 # TODO: hard code basic manager users
 puts 'Creating Admin Accounts'
-real_people = [
+admins = [
   {:first_name => 'David',   :last_name => 'Conner',    :email => 'dconner.pro@gmail.com', :birthday => '5/11/1986'},
-  {:first_name => 'System',  :last_name => 'Admin',      :email => 'admin@somewebsite.com', :birthday => '12/21/2012'}
-]
+  {:first_name => 'System',  :last_name => 'Admin',      :email => 'admin@somewebsite.com', :birthday => '12/21/2012'}]
 
-# verified, current_member, etc?
-
-real_people.each do |person|
+admins.each do |person|
   member = Member.create!(person.merge(:password => 'password!'))
   member.roles << Role.get(:app_admin)
   member.save
 end
+
+members = 5.times { Factory(:member) }
+
+puts 'Creating Member Accounts'
+members.each do |person|
+  member = Member.create!(person.merge(:password => 'password!'))
+end
+

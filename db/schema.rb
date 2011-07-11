@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110709033626) do
+ActiveRecord::Schema.define(:version => 20110711104358) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "addressable_id"
@@ -29,6 +29,20 @@ ActiveRecord::Schema.define(:version => 20110709033626) do
   end
 
   add_index "addresses", ["addressable_type", "addressable_id"], :name => "index_addresses_on_addressable_type_and_addressable_id", :unique => true
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "member_requesting_id"
+    t.integer  "member_requested_id"
+    t.boolean  "approved",             :default => false
+    t.boolean  "rejected",             :default => false
+    t.boolean  "active",               :default => false
+    t.datetime "join_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "friendships", ["member_requested_id", "approved"], :name => "member_requested_approved_index"
+  add_index "friendships", ["member_requested_id", "member_requesting_id", "active"], :name => "member_requested_member_requesting_active_index"
 
   create_table "members", :force => true do |t|
     t.string   "email",                                   :default => "",    :null => false
@@ -131,5 +145,37 @@ ActiveRecord::Schema.define(:version => 20110709033626) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "team_members", :force => true do |t|
+    t.integer  "team_id"
+    t.integer  "member_requesting_id"
+    t.integer  "member_requested_id"
+    t.boolean  "team_request",         :default => true
+    t.boolean  "approved",             :default => false
+    t.boolean  "rejected",             :default => false
+    t.boolean  "active",               :default => false
+    t.datetime "join_date"
+    t.datetime "quit_date"
+    t.datetime "kickoff_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_members", ["member_requested_id"], :name => "member_requested_id_index"
+  add_index "team_members", ["team_id"], :name => "team_id_index"
+
+  create_table "teams", :force => true do |t|
+    t.string   "name"
+    t.integer  "creator_id"
+    t.integer  "address_id"
+    t.integer  "homerink_id",    :default => -1
+    t.datetime "sanction_date"
+    t.datetime "create_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "allow_comments", :default => true
+  end
+
+  add_index "teams", ["homerink_id"], :name => "homerink_id_index"
 
 end

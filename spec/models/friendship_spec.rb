@@ -21,4 +21,18 @@ describe Friendship do
       pending
     end
   end
+
+  context 'Request Action Helpers' do
+    before do
+
+    end
+
+    it 'can be approved if valid' do
+      pending #necessary to check validity at this stage?
+    end
+
+    it 'can be rejected if valid' do
+      pending
+    end
+  end
 end
