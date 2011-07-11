@@ -13,9 +13,7 @@ class Member < ActiveRecord::Base
   has_one :address, :as => :addressable, :dependent => :destroy
   belongs_to :rink, :foreign_key => :homerink_id
 
-
   validates_presence_of :first_name, :last_name
-
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name

@@ -59,6 +59,7 @@ GEM
     celerity (0.8.9)
     childprocess (0.1.9)
       ffi (~> 1.0.6)
+    chronic (0.5.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -75,6 +76,8 @@ GEM
     culerity (0.2.15)
     database_cleaner (0.6.7)
     declarative_authorization (0.5.3)
+    delorean (1.1.0)
+      chronic
     devise (1.4.2)
       bcrypt-ruby (~> 2.1.2)
       orm_adapter (~> 0.0.3)
@@ -277,6 +280,7 @@ DEPENDENCIES
   cucumber
   database_cleaner
   declarative_authorization
+  delorean
   devise (= 1.4.2)
   email_spec
   factory_girl_rails

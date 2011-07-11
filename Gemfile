@@ -33,6 +33,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'delorean'
   gem 'akephalos'
   gem 'shoulda-matchers'
   gem 'launchy'

@@ -6,26 +6,24 @@ class Rink < ActiveRecord::Base
   belongs_to :owner, :class_name => 'Member'
   belongs_to :contact, :class_name => 'Member'
 
-  has_many :role_members, :as => :roleable, :dependent => :destroy
+  #how to do
+  #has_many :role_members, :as => :roleable, :dependent => :destroy
 
   attr_accessible :name, :address_attributes, :phone, :email, :website, :owner_name, :contact_name, :description
   accepts_nested_attributes_for :address
 
   validates_presence_of :name
 
-
-
-  def missing_owner_name
+  #TODO: add some metaprogramming here to refactor?
+  def owner_name_set?
     (owner_name.nil? || owner_name.empty?)
   end
 
-  def display_owner_name
+  def get_owner_name
     (!owner.nil?) ? owner.full_name
-        : (missing_owner_name ? DEFAULT_MISSING_OWNER_NAME
+        : (owner_name_set? ? DEFAULT_MISSING_OWNER_NAME
         : owner_name)
   end
-
-
 
 
   # is there a better way to refactor these 'set' methods
