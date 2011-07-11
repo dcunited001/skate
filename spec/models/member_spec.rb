@@ -77,11 +77,15 @@ describe Member do
         subject.rink.should equal(another_rink)
       end
 
-      it 'can be used to find other local skaters at that rink' do
+      it 'can list other mutual friends at that rink' do
+        pending
+      end
+
+      it 'can list other local skaters at that rink' do
         pending #move to rink_spec.rb?
       end
 
-      it 'can be used to find local teams' do
+      it 'can list other local teams' do
         pending #move to rink_spec.rb?
       end
     end
@@ -109,9 +113,73 @@ describe Member do
     it 'can tell if they are on a team' do
       pending
     end
+
+    it 'can tell you if it is the captain of a team' do
+      pending
+    end
+
+    it 'can tell you if it is the creator of a team' do
+      pending
+    end
   end
 
   context 'Team Requests' do
+    before do
 
+    end
+
+    it 'can tell you if it is team-requestable' do
+      pending
+    end
+
+    it 'can tell you if it has an open team request from a specific member' do
+      pending
+    end
+
+    it 'can tell you if it has an open team request from a specific team' do
+      pending
+    end
+
+    it 'can tell you if it has an open team request to a specific team' do
+      pending
+    end
+
+    it 'can list all pending sent team requests' do
+      pending
+    end
+
+    it 'can list all pending received team requests' do
+      pending
+    end
+  end
+
+  context 'Friendships' do
+    before do
+
+    end
+
+    it 'can list all current friends' do
+      pending
+    end
+
+    it 'knows if it is friend-requestable' do
+      pending
+    end
+
+    it 'knows if you are already friends' do
+      pending
+    end
+
+    it 'knows if you have already sent a friend request' do
+      pending
+    end
+
+    it 'lists all pending sent freind requests' do
+      pending
+    end
+
+    it 'lists all pending received friend requests' do
+      pending
+    end
   end
 end

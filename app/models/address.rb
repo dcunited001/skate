@@ -6,6 +6,6 @@ class Address < ActiveRecord::Base
   validates :zip, :presence => true, :format => {:with => /^\d{5}([\-]?\d{4})?$/, :message => "must be a valid US zipcode"}
 
   def to_s
-    "#{line_one} #{(line_two + ' ') if !line_two.empty?} #{city}, #{state} #{zip}"
+    "#{line_one} #{(line_two + ' ') if !(line_two.nil? or line_two.empty)}#{city}, #{state} #{zip}"
   end
 end

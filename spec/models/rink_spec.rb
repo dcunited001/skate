@@ -20,27 +20,27 @@ describe Rink do
     end
 
     it 'can set the owner' do
-
+      pending
     end
 
     it 'can set the contact' do
-
+      pending
     end
 
     it 'can display the owner\'s name' do
-
+      pending
     end
 
     it 'can display the contact\'s name' do
-
+      pending
     end
 
     it 'can tell if it has an owner set and if it has an owner member set' do
       subject.is_owner_set?.should be_false
-      subject.missing_owner_name.should be_false
+      subject.missing_owner_name.should be_true
 
       subject.owner_name = 'Some Owner'
-      subject.missing_owner_name.should be_true
+      subject.owner_name_set?.should be_false
       subject.is_owner_set?.should be_true
     end
 
@@ -61,7 +61,17 @@ describe Rink do
     end
 
     it 'can set contact to a name or member' do
+      pending
+    end
+  end
 
+  context 'Skaters' do
+    before do
+      #set up some skaters
+    end
+
+    it 'can list the members who consider this their home rink' do
+      pending
     end
   end
 

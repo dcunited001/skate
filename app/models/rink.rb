@@ -44,9 +44,6 @@ class Rink < ActiveRecord::Base
     self.register_date = Time.now
   end
 
-
-
-
   #needed to spit out the JSON for the map of rinks
   def as_json(options = {})
   { :id  => id,
