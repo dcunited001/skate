@@ -153,24 +153,12 @@ describe Member do
     end
   end
 
-  context 'Friendships' do
+  context 'Friends' do
     before do
 
     end
 
     it 'can list all current friends' do
-      pending
-    end
-
-    it 'knows if it is friend-requestable' do
-      pending
-    end
-
-    it 'knows if you are already friends' do
-      pending
-    end
-
-    it 'knows if you have already sent a friend request' do
       pending
     end
 
@@ -180,6 +168,20 @@ describe Member do
 
     it 'lists all pending received friend requests' do
       pending
+    end
+
+    context 'Friend Requests' do
+      it 'knows if it is friend-requestable' do
+        pending
+      end
+
+      it 'knows if you are already friends' do
+        pending
+      end
+
+      it 'knows if you have already sent a friend request' do
+        pending
+      end
     end
   end
 end
