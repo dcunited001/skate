@@ -55,12 +55,12 @@ describe Member do
 
     context 'homerink has been set and' do
       before do
-        rink = Factory(:rink)
-        subject.rink = rink
+        @rink = Factory(:rink)
+        subject.rink = @rink
       end
 
       it 'can be set to a new home rink' do
-        subject.rink.should equal(rink)
+        subject.rink.should equal(@rink)
 
         another_rink = Factory(:rink)
         subject.rink = another_rink
@@ -83,18 +83,31 @@ describe Member do
 
   context 'With friendships' do
     before do
-      @members = []
+      @members, @friends = []
       5.times { @members << Factory(:member) }
+      3.times { @friends << Factory (:member) }
 
       Factory(:friendship, :member_requesting => subject , :member_requested => @members[1])
       Factory(:friendship, :member_requesting => subject , :member_requested => @members[2])
 
       Factory(:friendship, :member_requesting => @members[1], :member_requested => @members[2])
       Factory(:friendship, :member_requesting => @members[3], :member_requested => subject)
+
+      Factory(:friend, :member_requesting => subject , :member_requested => @friends[0])
+      Factory(:friend, :member_requesting => @friends[1] , :member_requested => subject)
+      Factory(:friend, :member_requesting => @friends[2] , :member_requested => subject, :rejected => true, :active => false)
     end
 
     it 'knows they are already friends with a member' do
       pending
+
+      subject.already_friends_with(@friends[0]).should be_true
+      subject.already_friends_with(@friends[1]).should be_true
+
+      #pending friend requests don't count
+      #rejected friend requests don't count
+      #accepted friend requests that aren't active don't count
+      #active friend requests do count
     end
 
     it "knows they are already requested by a member" do
@@ -115,42 +128,42 @@ describe Member do
     end
   end
 
-  context 'Teams' do
+  context 'on a Team' do
     before do
       #set up some teams
     end
 
-    it 'can tell if they are on a team' do
+    it 'knows if they are on a team' do
       pending
     end
 
-    it 'can tell you if it is the captain of a team' do
+    it 'knows if it\'s the captain of a team' do
       pending
     end
 
-    it 'can tell you if it is the creator of a team' do
+    it 'knows if it\'s the creator of a team' do
       pending
     end
   end
 
-  context 'Team Requests' do
+  context 'with Team Requests' do
     before do
 
     end
 
-    it 'can tell you if it is team-requestable' do
+    it 'knows if it is team-requestable' do
       pending
     end
 
-    it 'can tell you if it has an open team request from a specific member' do
+    it 'knows if it has an open team request from a specific member' do
       pending
     end
 
-    it 'can tell you if it has an open team request from a specific team' do
+    it 'knows if it has an open team request from a specific team' do
       pending
     end
 
-    it 'can tell you if it has an open team request to a specific team' do
+    it 'knows if it has an open team request to a specific team' do
       pending
     end
 

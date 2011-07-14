@@ -7,4 +7,7 @@ class Friendship < ActiveRecord::Base
   scope :accepted, where('accepted = ?', true)
   scope :rejected, where('rejected = ?', true)
   scope :ended, where('accepted = ? and rejected = ?', false, true)
+
+  scope :sent_from, lambda {|member| where(:member_requesting_id => member.id)}
+  scope :sent_to,  lambda {|member| where(:member_requested_id => member.id)}
 end
