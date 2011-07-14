@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110711104358) do
+ActiveRecord::Schema.define(:version => 20110713220351) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "addressable_id"
@@ -29,6 +29,10 @@ ActiveRecord::Schema.define(:version => 20110711104358) do
   end
 
   add_index "addresses", ["addressable_type", "addressable_id"], :name => "index_addresses_on_addressable_type_and_addressable_id", :unique => true
+
+  create_table "friendship_views", :force => true do |t|
+    t.string "pending"
+  end
 
   create_table "friendships", :force => true do |t|
     t.integer  "member_requesting_id"
@@ -133,9 +137,12 @@ ActiveRecord::Schema.define(:version => 20110711104358) do
   add_index "role_members", ["role_id"], :name => "role_id"
 
   create_table "roles", :force => true do |t|
-    t.string "name"
-    t.string "type"
-    t.string "description"
+    t.string   "name"
+    t.integer  "role_id"
+    t.integer  "rollable_id"
+    t.string   "rollable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "states", :force => true do |t|
@@ -144,6 +151,10 @@ ActiveRecord::Schema.define(:version => 20110711104358) do
     t.integer  "state_rep_id", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "team_member_views", :force => true do |t|
+    t.string "pending"
   end
 
   create_table "team_members", :force => true do |t|

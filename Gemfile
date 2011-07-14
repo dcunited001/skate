@@ -14,6 +14,7 @@ gem 'devise', '1.4.2'
 gem 'declarative_authorization'
 gem 'omniauth', '0.2.6'
 gem 'addressable', '2.2.4'
+gem 'rollable'
 
 gem 'pg'
 #gem 'rails_sql_views'

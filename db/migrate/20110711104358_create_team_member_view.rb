@@ -1,6 +1,9 @@
-class CreateTeamMemberViews < ActiveRecord::Migration
+class CreateTeamMemberView < ActiveRecord::Migration
   def self.up
 
+    create_table :team_member_views do |t|
+      t.string :pending
+    end
 
 #'SELECT team_mems.*
 #FROM members this_member
@@ -23,6 +26,6 @@ class CreateTeamMemberViews < ActiveRecord::Migration
   end
 
   def self.down
-
+    drop_table :team_member_views
   end
 end

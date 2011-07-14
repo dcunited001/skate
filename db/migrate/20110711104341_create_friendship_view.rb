@@ -1,6 +1,9 @@
 class CreateFriendshipView < ActiveRecord::Migration
   def self.up
 
+    create_table :friendship_views do |t|
+      t.string :pending
+    end
 #'SELECT m.*
 #from friendships f
 #INNER JOIN members m
@@ -13,6 +16,6 @@ class CreateFriendshipView < ActiveRecord::Migration
   end
 
   def self.down
-
+    drop_table :friendship_views
   end
 end

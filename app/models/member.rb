@@ -7,8 +7,13 @@ class Member < ActiveRecord::Base
   #for omniauth
   #has_many :authentications
 
-  has_many :role_members
-  has_many :roles, :through => :role_members
+  #has_many :role_members
+  #has_many :roles, :through => :role_members
+
+  include Rollable::Base
+  rollables :team, :event, :rink,
+    :roles => ['admin', 'moderator'],
+    :allow_nil => true
 
   has_one :address, :as => :addressable, :dependent => :destroy
   belongs_to :rink, :foreign_key => :homerink_id
