@@ -1,6 +1,33 @@
+# files in the 'roles/' folder are going away
+# not sure why i was trying to use
+
 class Role < ActiveRecord::Base
   belongs_to :role
   belongs_to :rollable, :polymorphic => true
+
+  def self.all_role_names
+    (app_roles | event_roles | rink_roles | org_roles | team_roles)
+  end
+
+  def self.app_roles
+    ['appadmin', 'appmanager', 'appmoderator', 'appmember']
+  end
+
+  def self.event_roles
+    ['eventadmin', 'eventmoderator', 'eventregistrant', 'eventattendee', 'eventrsvp']
+  end
+
+  def self.rink_roles
+    ['orgadmin', 'orgmanager', 'orgregionalrep', 'orgstaterep', 'orgmember', 'orgcompetitor', 'orgtopskater']
+  end
+
+  def self.org_roles
+    ['rinkowner', 'rinkemployee', 'rinkpatron']
+  end
+
+  def self.team_roles
+    ['teamcreator', 'teamcaptain', 'teammember']
+  end
 end
 
 #

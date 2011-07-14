@@ -11,8 +11,8 @@ class Member < ActiveRecord::Base
   #has_many :roles, :through => :role_members
 
   include Rollable::Base
-  rollables :team, :event, :rink,
-    :roles => ['admin', 'moderator'],
+  rollables :team, :rink,
+    :roles => Role.all_role_names,
     :allow_nil => true
 
   has_one :address, :as => :addressable, :dependent => :destroy
