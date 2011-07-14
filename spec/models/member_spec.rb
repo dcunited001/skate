@@ -11,7 +11,7 @@ describe Member do
   it { should have_one :address }
   it { should belong_to :rink }
 
-  #it { should have_many :friends }
+  it { should have_many :friends }
   it { should have_many :friend_requests_recd }
   it { should have_many :friend_requests_sent }
 
@@ -42,6 +42,9 @@ describe Member do
       admin.is_appadmin?.should be_true
 
       subject.is_appadmin?.should_not be_true
+
+      subject.assign_role(:appadmin)
+      subject.is_appadmin?.should be_true
     end
   end
 
@@ -56,15 +59,15 @@ describe Member do
     context 'homerink has been set and' do
       before do
         @rink = Factory(:rink)
+        @another_rink = Factory(:rink)
         subject.rink = @rink
       end
 
       it 'can be set to a new home rink' do
         subject.rink.should equal(@rink)
 
-        another_rink = Factory(:rink)
-        subject.rink = another_rink
-        subject.rink.should equal(another_rink)
+        subject.rink = @another_rink
+        subject.rink.should equal(@another_rink)
       end
 
       it 'can list other mutual friends at that rink' do
@@ -86,35 +89,18 @@ describe Member do
       @member_sent_request_by_subject_one = Factory(:member)
       @member_sent_request_by_subject_two = Factory(:member)
       @member_sent_request_by_another_member = Factory(:member)
+      @member_sent_request_to_another_member = Factory(:member)
       @member_sent_request_to_subject = Factory(:member)
       @member_sent_no_requests = Factory(:member)
-
-      @friend_sent_by_subject = Factory(:member)
-      @friend_sent_to_subject = Factory(:member)
-      @not_friends_anymore = Factory(:member)
-
 
       Factory(:friendship, :member_requesting => subject , :member_requested => @member_sent_request_by_subject_one)
       Factory(:friendship, :member_requesting => subject , :member_requested => @member_sent_request_by_subject_two)
 
       Factory(:friendship, :member_requesting => @member_sent_request_by_subject_one, :member_requested => @member_sent_request_by_subject_two)
+      Factory(:friendship, :member_requesting => @member_sent_request_to_another_member, :member_requested => @member_sent_request_by_subject_two)
       Factory(:friendship, :member_requesting => @member_sent_request_to_subject, :member_requested => subject)
-
-      Factory(:friend, :member_requesting => subject , :member_requested => @friend_sent_by_subject)
-      Factory(:friend, :member_requesting => @friend_sent_to_subject , :member_requested => subject)
-      Factory(:friend, :member_requesting => @not_friends_anymore , :member_requested => subject, :rejected => true, :active => false)
     end
 
-    it 'knows they are already friends with a member' do
-      subject.already_friends_with(@friend_sent_by_subject).should be_true
-      subject.already_friends_with(@friend_sent_to_subject).should be_true
-      subject.already_friends_with(@not_friends_anymore).should be_false
-
-      #pending friend requests don't count
-      #rejected friend requests don't count
-      #accepted friend requests that aren't active don't count
-      #active friend requests do count
-    end
 
     it "knows they are already requested by a member" do
       subject.already_friend_request_from(@member_sent_request_by_subject_two).should be_false
@@ -129,9 +115,43 @@ describe Member do
       subject.already_friend_request_to(@member_sent_no_requests).should be_false
     end
 
-    it 'knows if they are mutually friends with another member through a friend' do
-      pending
+    context 'that are active' do
+      before do
+        @friend_sent_by_subject = Factory(:member)
+        @friend_sent_to_subject = Factory(:member)
+        @not_friends_anymore = Factory(:member)
+
+        Factory(:friend, :member_requesting => subject , :member_requested => @friend_sent_by_subject)
+        Factory(:friend, :member_requesting => @friend_sent_to_subject , :member_requested => subject)
+        Factory(:friend, :member_requesting => @not_friends_anymore , :member_requested => subject, :rejected => true, :active => false)
+      end
+
+      it 'knows whether it is friend requestable' do
+        subject.friend_requestable?(@member_sent_request_to_another_member).should be_true
+        subject.friend_requestable?(@not_friends_anymore).should be_true
+        subject.friend_requestable?(@member_sent_no_requests).should be_true
+
+        subject.friend_requestable?(@friend_sent_by_subject).should be_false
+        subject.friend_requestable?(@friend_sent_to_subject).should be_false
+        subject.friend_requestable?(@member_sent_request_by_subject_one).should be_false
+        subject.friend_requestable?(@member_sent_request_to_subject).should be_false
+      end
+
+      it 'knows they are already friends with a member' do
+        subject.already_friends_with(@member_sent_request_by_subject_one).should be_false
+        subject.already_friends_with(@member_sent_request_to_subject).should be_false
+        subject.already_friends_with(@member_sent_request_to_another_member).should be_false
+
+        subject.already_friends_with(@friend_sent_by_subject).should be_true
+        subject.already_friends_with(@friend_sent_to_subject).should be_true
+        subject.already_friends_with(@not_friends_anymore).should be_false
+      end
+
+      it 'knows if they are mutually friends with another member through a friend' do
+        pending
+      end
     end
+
   end
 
   context 'on a Team' do

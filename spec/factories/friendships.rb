@@ -5,7 +5,7 @@ end
 
 Factory.define(:friend, :parent => :friendship) do |friend|
   friend.active true
-  friend.accepted true
+  friend.approved true
 end
 
 Factory.define(:rejected_friendship, :parent => :friendship) do |friendship|
@@ -13,7 +13,7 @@ Factory.define(:rejected_friendship, :parent => :friendship) do |friendship|
 end
 
 Factory.define(:ended_friendship, :parent => :friendship) do |friendship|
-  friendship.accepted true
+  friendship.approved true
 end
 
 
