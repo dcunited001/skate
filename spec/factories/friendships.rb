@@ -14,6 +14,7 @@ end
 
 Factory.define(:ended_friendship, :parent => :friendship) do |friendship|
   friendship.approved true
+  friendship.rejected true
 end
 
 

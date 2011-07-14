@@ -7,9 +7,6 @@ class Member < ActiveRecord::Base
   #for omniauth
   #has_many :authentications
 
-  #has_many :role_members
-  #has_many :roles, :through => :role_members
-
   include Rollable::Base
   rollables :team, :rink,
     :roles => Role.all_role_names,
