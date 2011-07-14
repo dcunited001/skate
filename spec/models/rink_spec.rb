@@ -8,25 +8,35 @@ describe Rink do
   it { should belong_to :owner }
   it { should belong_to :contact }
 
-  it { should have_many :role_members }
-
   it { should validate_presence_of(:name) }
 
-  context 'Owner and Contact' do
+  context ' - Owner and Contact - ' do
     before do
       #create some members
-      owner = Factory(:member)
-      contact = Factory(:member)
+      @owner_name = 'Owner McDude'
+      @contact_name = 'Rink O\'Manager'
+
+      @owner = Factory(:member, :first_name => @owner_name.split(' ')[0], :last_name => @owner_name.split(' ')[1])
+      @contact = Factory(:member, :first_name => @contact_name.split(' ')[0], :last_name => @contact_name.split(' ')[1])
     end
 
     it 'can set the owner' do
-      pending
+      subject.get_owner_name.should equal(Rink::DEFAULT_MISSING_OWNER_NAME)
+      subject.owner = "new owner"
+      subject.get_owner_name.should equal("new owner")
+      subject.owner = @owner
+      subject.get_owner_name.full_name.should equal(@owner_name)
     end
 
     it 'can set the contact' do
-      pending
+      subject.get_contact_name.should equal(Rink::DEFAULT_MISSING_CONTACT_NAME)
+      subject.contact = "new contact"
+      subject.get_contact_name.should equal("new contact")
+      subject.contact = @contact
+      subject.get_contact_name.full_name.should equal(@contact_name)
     end
 
+    # these are already pretty much tested
     it 'can display the owner\'s name' do
       pending
     end
@@ -35,33 +45,30 @@ describe Rink do
       pending
     end
 
-    it 'can tell if it has an owner set and if it has an owner member set' do
+    it 'know if it has an owner set and if it has an owner member set' do
       subject.is_owner_set?.should be_false
-      subject.missing_owner_name.should be_true
+      subject.owner_name_set?.should be_false
 
       subject.owner_name = 'Some Owner'
+      subject.owner_name_set?.should be_true
+      subject.is_owner_set?.should be_true
+
+      subject.owner = @owner
       subject.owner_name_set?.should be_false
-      subject.is_owner_set?.should be_true
+      subject.is_contact_set?.should be_true
     end
 
-    it 'can tell if it has a contact set and if it has an contact member set' do
-      pending
-    end
+    it 'know if it has a contact set or if it has a contact member set' do
+      subject.is_contact_set?.should be_false
+      subject.contact_name_set?.should be_false
 
-    it 'can set owner to a name or member' do
-      subject.is_owner_set?.should be_false
+      subject.contact_name = 'Some Contact'
+      subject.contact_name_set?.should be_true
+      subject.is_contact_set?.should be_true
 
-      owner = Factory(:member)
-      subject.owner = owner
-
-      subject.is_owner_set?.should be_true
-      #TODO: subject.owner_name.should be owner.name
-
-      #TODO: assert that owner's homerink is also set?
-    end
-
-    it 'can set contact to a name or member' do
-      pending
+      subject.contact = @contact
+      subject.contact_name_set?.should be_false
+      subject.is_contact_set?.should be_true
     end
   end
 

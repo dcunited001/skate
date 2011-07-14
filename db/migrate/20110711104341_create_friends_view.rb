@@ -4,7 +4,7 @@ class CreateFriendsView < ActiveRecord::Migration
     execute('
 CREATE VIEW v_friends AS
 
-SELECT m.*
+SELECT f.member_requested_id, f.member_requesting_id, m.*
 FROM members m
 JOIN friendships f
 ON (m.id = f.member_requested_id) OR (m.id = f.member_requesting_id)

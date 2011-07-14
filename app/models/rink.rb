@@ -1,5 +1,6 @@
 class Rink < ActiveRecord::Base
   DEFAULT_MISSING_OWNER_NAME = 'N/A'
+  DEFAULT_MISSING_CONTACT_NAME = 'N/A'
 
   has_one :address, :as => :addressable, :dependent => :destroy
 
@@ -14,6 +15,10 @@ class Rink < ActiveRecord::Base
 
   validates_presence_of :name
 
+
+  # ======================================
+  # OWNER HELPERS
+  # ======================================
   #TODO: add some metaprogramming here to refactor?
   def owner_name_set?
     (owner_name.nil? || owner_name.empty?)
@@ -25,7 +30,40 @@ class Rink < ActiveRecord::Base
         : owner_name)
   end
 
+  def contact_name_set?
+    (contact_name.nil? || contact_name.empty?)
+  end
 
+  def get_contact_name
+    (!contact.nil?) ? contact.full_name
+        : (contact_name_set? ? DEFAULT_MISSING_CONTACT_NAME
+        : contact_name)
+  end
+
+  def owner=(member)
+    if owner.is_a? Member
+      self[:owner] = member       #how to avoid infinite loop?
+      owner_name = member.full_name
+    else
+      owner_name= member
+    end
+    save
+  end
+
+  def contact=(member)
+    if contact.is_a? Member
+      self[:contact] = member
+      contact_name = member.full_name
+    else
+      contact_name = member
+    end
+    save
+  end
+
+
+  # ======================================
+  # CONTACTED/VERIFIED/REGISTERED HELPERS
+  # ======================================
   # is there a better way to refactor these 'set' methods
   #  (I.E. maybe pass in the name of the general attribute)
   def set_contacted
