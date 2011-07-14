@@ -81,18 +81,16 @@ describe Member do
     end
   end
 
-  context 'With friendships, members' do
+  context 'With friendships' do
     before do
-      let(:mem2) { Factory(:member) }
-      let(:mem3) { Factory(:member) }
-      let(:mem4) { Factory(:member) }
-      let(:mem5) { Factory(:member) }
+      @members = []
+      5.times { @members << Factory(:member) }
 
-      let(:pending_from_subject_to_mem2) { Factory(:friendship, :member_requesting => subject , :member_requested => subject) }
-      let(:pending_from_subject_to_mem3) { Factory(:friendship, :member_requesting => subject , :member_requested => subject) }
+      Factory(:friendship, :member_requesting => subject , :member_requested => @members[1])
+      Factory(:friendship, :member_requesting => subject , :member_requested => @members[2])
 
-      let(:pending_from_mem2_to_mem3) { Factory(:friendship, :member_requesting => subject , :member_requested => subject) }
-      let(:pending_from_mem4_to_subject) { Factory(:friendship, :member_requesting => subject , :member_requested => subject) }
+      Factory(:friendship, :member_requesting => @members[1], :member_requested => @members[2])
+      Factory(:friendship, :member_requesting => @members[3], :member_requested => subject)
     end
 
     it 'knows they are already friends with a member' do
@@ -100,16 +98,16 @@ describe Member do
     end
 
     it "knows they are already requested by a member" do
-      subject.already_friend_request_from(mem3).should be_false
-      subject.already_friend_request_from(mem4).should be_true
-      subject.already_friend_request_from(mem5).should be_false
+      subject.already_friend_request_from(@members[2]).should be_false
+      subject.already_friend_request_from(@members[3]).should be_true
+      subject.already_friend_request_from(@members[4]).should be_false
     end
 
     it 'knows they are already requesting a member' do
-      subject.already_friend_request_to(mem2).should be_true
-      subject.already_friend_request_to(mem3).should be_true
-      subject.already_friend_request_to(mem4).should be_false
-      subject.already_friend_request_to(mem5).should be_false
+      subject.already_friend_request_to(@members[1]).should be_true
+      subject.already_friend_request_to(@members[2]).should be_true
+      subject.already_friend_request_to(@members[3]).should be_false
+      subject.already_friend_request_to(@members[4]).should be_false
     end
 
     it 'knows if they are mutually friends with another member through a friend' do
