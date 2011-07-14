@@ -126,18 +126,9 @@ ActiveRecord::Schema.define(:version => 20110713220351) do
   add_index "rinks", ["owner_id"], :name => "owner_id_index"
   add_index "rinks", ["visible"], :name => "visible_index"
 
-  create_table "role_members", :force => true do |t|
-    t.integer  "role_id"
-    t.integer  "member_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "role_members", ["member_id"], :name => "member_id"
-  add_index "role_members", ["role_id"], :name => "role_id"
-
   create_table "roles", :force => true do |t|
     t.string   "name"
+    t.integer  "member_id"
     t.integer  "role_id"
     t.integer  "rollable_id"
     t.string   "rollable_type"

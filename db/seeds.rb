@@ -1,13 +1,4 @@
 # ======================================
-# ROLES
-# ======================================
-puts 'Creating Roles'
-Role.types.each_value do |role_type|
-  role_class = eval("#{role_type}Role")
-  role_class.names.each_key { |role_name| role_class.get(role_name)}
-end
-
-# ======================================
 # STATES
 # ======================================
 puts 'Loading States'
@@ -46,7 +37,7 @@ southcentral.states << State.where(:abbrev => ['AS', 'LA', 'TX', 'OK', 'KS', 'NM
 puts 'Creating Rinks'
 rinks_yml = YAML::load_file(File.join(Rails.root, 'db/seeds','rinks.yml'))
 rinks_yml.each { |r|
-  puts r[:name]
+  #puts r[:name]
   addy = Address.new(r[:address])
   if addy.valid?
     rink = Rink.new(r)
@@ -68,18 +59,13 @@ puts '  (rink addresses should already be geocoded)'
 puts 'Creating Admin Accounts'
 admins = [
   {:first_name => 'David',   :last_name => 'Conner',    :email => 'dconner.pro@gmail.com', :birthday => '5/11/1986'},
-  {:first_name => 'System',  :last_name => 'Admin',      :email => 'admin@somewebsite.com', :birthday => '12/21/2012'}]
+  {:first_name => 'System',  :last_name => 'Admin',     :email => 'admin@somewebsite.com', :birthday => '12/21/2012'}]
 
 admins.each do |person|
   member = Member.create!(person.merge(:password => 'password!'))
-  member.roles << Role.get(:app_admin)
-  member.save
+  member.roles.create(:name => 'appadmin')
 end
-
-members = 5.times { Factory(:member) }
 
 puts 'Creating Member Accounts'
-members.each do |person|
-  member = Member.create!(person.merge(:password => 'password!'))
-end
+5.times { Factory(:member) }
 

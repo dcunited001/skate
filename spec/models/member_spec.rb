@@ -6,7 +6,6 @@ describe Member do
   let(:admin) { Factory(:admin) }
 
   #it { should have_many :authentications }
-  it { should have_many :role_members }
   it { should have_many :roles }
 
   it { should have_one :address }

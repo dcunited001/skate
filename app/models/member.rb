@@ -38,24 +38,7 @@ class Member < ActiveRecord::Base
   #  Role Helpers
   #========================================
   def add_basic_member_role
-    roles << AppRole.get(:app_member)
-  end
-
-  #retrieve roles
-  def role_symbols
-    roles.map do |role|
-      role.name.to_sym
-    end
-  end
-
-  def is?(role)
-    unless role.is_a? Role
-      role = Role.get(role)
-      unless role.is_a? Role
-        throw "#{role} is not a valid role."
-      end
-    end
-    roles.include? role
+    roles.create(:name => 'appuser')
   end
 
   #========================================

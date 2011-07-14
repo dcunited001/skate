@@ -2,7 +2,7 @@
 # not sure why i was trying to use
 
 class Role < ActiveRecord::Base
-  belongs_to :role
+  belongs_to :member
   belongs_to :rollable, :polymorphic => true
 
   def self.all_role_names
@@ -10,7 +10,7 @@ class Role < ActiveRecord::Base
   end
 
   def self.app_roles
-    ['appadmin', 'appmanager', 'appmoderator', 'appmember']
+    ['appadmin', 'appmanager', 'appmoderator', 'appmember', 'appuser']
   end
 
   def self.event_roles
