@@ -76,6 +76,10 @@ class Member < ActiveRecord::Base
     !(already_friends_with(member) || already_friend_request_to(member) || already_friend_request_from(member))
   end
 
+  def mutually_friends_with member, through_member
+    false
+  end
+
   #========================================
   #  Rink Helpers
   #========================================

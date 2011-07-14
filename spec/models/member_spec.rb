@@ -147,6 +147,19 @@ describe Member do
         subject.already_friends_with(@not_friends_anymore).should be_false
       end
 
+      it 'should list the correct friends' do
+        subject.friends.should include(@friend_sent_by_subject)
+        subject.friends.should include(@friend_sent_to_subject)
+
+        subject.friends.should_not include(@not_friends_anymore)
+        subject.friends.should_not include(@member_sent_request_by_subject_one)
+        subject.friends.should_not include(@member_sent_request_to_subject)
+      end
+
+      it 'should list the correct mutual friends' do
+        pending
+      end
+
       it 'knows if they are mutually friends with another member through a friend' do
         pending
       end

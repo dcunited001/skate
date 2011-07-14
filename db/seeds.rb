@@ -54,8 +54,6 @@ puts '  (rink addresses should already be geocoded)'
 # ======================================
 # MEMBERS
 # ======================================
-# TODO: hard code basic admin users
-# TODO: hard code basic manager users
 puts 'Creating Admin Accounts'
 admins = [
   {:first_name => 'David',   :last_name => 'Conner',    :email => 'dconner.pro@gmail.com', :birthday => '5/11/1986'},
@@ -66,6 +64,44 @@ admins.each do |person|
   member.assign_role(:appadmin)
 end
 
-puts 'Creating Member Accounts'
-5.times { Factory(:member) }
+puts 'Creating Some Member Accounts'
+og_member = Factory(:member)
+member_sent_request_by_subject_one = Factory(:member)
+member_sent_request_by_subject_two = Factory(:member)
+member_sent_request_by_another_member = Factory(:member)
+member_sent_request_to_another_member = Factory(:member)
+member_sent_request_to_subject = Factory(:member)
+member_sent_no_requests = Factory(:member)
+
+friend_member_sent_by_subject = Factory(:member)
+friend_member_sent_to_subject = Factory(:member)
+member_not_friends_anymore = Factory(:member)
+
+# ======================================
+# FRIENDS AND FRIENDSHIPS
+# ======================================
+puts 'Creating Some Friend Requests and Friends as a Starting Point'
+request_sent_by_subject_one = Factory(:friendship, :member_requesting => og_member, :member_requested => member_sent_request_by_subject_one)
+request_sent_by_subject_two = Factory(:friendship, :member_requesting => og_member, :member_requested => member_sent_request_by_subject_two)
+
+request_sent_to_another_member = Factory(:friendship, :member_requesting => member_sent_request_to_another_member, :member_requested => member_sent_request_by_subject_two)
+request_sent_to_another_member_two = Factory(:friendship, :member_requesting => member_sent_request_by_subject_one, :member_requested => member_sent_request_by_subject_two)
+request_sent_to_subject = Factory(:friendship, :member_requesting => member_sent_request_to_subject, :member_requested => og_member)
+
+friend_sent_by_subject = Factory(:friend, :member_requesting => og_member , :member_requested => friend_member_sent_by_subject)
+friend_sent_to_subject = Factory(:friend, :member_requesting => friend_member_sent_to_subject , :member_requested => og_member)
+not_friends_anymore = Factory(:friend, :member_requesting => member_not_friends_anymore , :member_requested => og_member, :rejected => true, :active => false)
+
+
+# ======================================
+# TEAMS
+# ======================================
+
+
+
+# ======================================
+# TEAM MEMBERS
+# ======================================
+
+
 
