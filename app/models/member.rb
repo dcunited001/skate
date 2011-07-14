@@ -17,7 +17,7 @@ class Member < ActiveRecord::Base
 
   has_many :friend_requests_recd, :class_name => 'Friendship', :foreign_key => 'member_requested_id'
   has_many :friend_requests_sent, :class_name => 'Friendship', :foreign_key => 'member_requesting_id'
-  has_many :friends, :class_name => 'Friendship', :finder_sql => "Select * from v_friends"
+  has_many :friends #, :class_name => 'Friend', :finder_sql => "Select * from v_friends"
 
   has_many :team_requests_recd, :class_name => 'TeamMember', :foreign_key => 'member_requested_id'
   has_many :team_requests_sent, :class_name => 'TeamMember', :foreign_key => 'member_requesting_id'
