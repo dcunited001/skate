@@ -33,21 +33,15 @@ describe Member do
   #context 'Roleable Roles' do # and potent potables
   context 'App Roles' do
     it 'can tell you if it\'s a member' do
-      subject.is?(Role::MEMBER).should be_true
-      subject.is?(Role::ADMIN).should_not be_true
+      subject.is_appuser?.should be_true
+      subject.is_appadmin?.should_not be_true
     end
 
     it 'can tell you if it\'s an admin' do
-      admin.is?(Role::MEMBER).should be_true
-      admin.is?(Role::ADMIN).should be_true
+      admin.is_appuser?.should be_true
+      admin.is_appadmin?.should be_true
 
-      subject.is?(Role::ADMIN).should_not be_true
-    end
-
-    it 'can also take a role object' do
-      admin_role = Role.get(Role::ADMIN)
-      admin.is?(admin_role).should be_true
-      member.is?(admin_role).should_not be_true
+      subject.is_appadmin?.should_not be_true
     end
   end
 
@@ -89,14 +83,36 @@ describe Member do
 
   context 'With friendships, members' do
     before do
-      #set up some friends
+      let(:mem2) { Factory(:member) }
+      let(:mem3) { Factory(:member) }
+      let(:mem4) { Factory(:member) }
+      let(:mem5) { Factory(:member) }
+
+      let(:pending_from_subject_to_mem2) { Factory(:friendship, :member_requesting => subject , :member_requested => subject) }
+      let(:pending_from_subject_to_mem3) { Factory(:friendship, :member_requesting => subject , :member_requested => subject) }
+
+      let(:pending_from_mem2_to_mem3) { Factory(:friendship, :member_requesting => subject , :member_requested => subject) }
+      let(:pending_from_mem4_to_subject) { Factory(:friendship, :member_requesting => subject , :member_requested => subject) }
     end
 
-    it 'can tell if they are friends with another member' do
+    it 'knows they are already friends with a member' do
       pending
     end
 
-    it 'can tell if they are mutually friends with another member through a friend' do
+    it "knows they are already requested by a member" do
+      subject.already_friend_request_from(mem3).should be_false
+      subject.already_friend_request_from(mem4).should be_true
+      subject.already_friend_request_from(mem5).should be_false
+    end
+
+    it 'knows they are already requesting a member' do
+      subject.already_friend_request_to(mem2).should be_true
+      subject.already_friend_request_to(mem3).should be_true
+      subject.already_friend_request_to(mem4).should be_false
+      subject.already_friend_request_to(mem5).should be_false
+    end
+
+    it 'knows if they are mutually friends with another member through a friend' do
       pending
     end
   end

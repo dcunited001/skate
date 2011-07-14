@@ -30,10 +30,6 @@ ActiveRecord::Schema.define(:version => 20110713220351) do
 
   add_index "addresses", ["addressable_type", "addressable_id"], :name => "index_addresses_on_addressable_type_and_addressable_id", :unique => true
 
-  create_table "friendship_views", :force => true do |t|
-    t.string "pending"
-  end
-
   create_table "friendships", :force => true do |t|
     t.integer  "member_requesting_id"
     t.integer  "member_requested_id"

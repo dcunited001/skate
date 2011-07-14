@@ -1,9 +1,18 @@
-class CreateFriendshipView < ActiveRecord::Migration
+class CreateFriendsView < ActiveRecord::Migration
   def self.up
 
-    create_table :friendship_views do |t|
-      t.string :pending
-    end
+    execute('
+CREATE VIEW v_friends AS
+
+SELECT m.*
+FROM members m
+JOIN friendships f
+ON (m.id = f.member_requested_id) OR (m.id = f.member_requesting_id)
+WHERE f.active = true')
+
+# need to get the above view to match the following query without using parameters
+# some parameters can be used in the finder_sql
+
 #'SELECT m.*
 #from friendships f
 #INNER JOIN members m
@@ -16,6 +25,7 @@ class CreateFriendshipView < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :friendship_views
+    execute('
+DROP VIEW v_friends')
   end
 end

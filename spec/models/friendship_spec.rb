@@ -4,12 +4,17 @@ describe Friendship do
   it { should belong_to :member_requesting }
   it { should belong_to :member_requested }
 
+  let(:mem1) { Factory(:member) }
+  let(:mem2) { Factory(:member) }
+  let(:mem3) { Factory(:member) }
+  let(:mem4) { Factory(:member) }
+
   context 'Request Rules' do
     before do
 
     end
 
-    it 'knows if the member requested is already friends with the requestor' do
+    it 'validates if the member requested is already friends with the requestor' do
       pending
     end
 

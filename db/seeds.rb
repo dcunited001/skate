@@ -63,7 +63,7 @@ admins = [
 
 admins.each do |person|
   member = Member.create!(person.merge(:password => 'password!'))
-  member.roles.create(:name => 'appadmin')
+  member.assign_role(:appadmin)
 end
 
 puts 'Creating Member Accounts'

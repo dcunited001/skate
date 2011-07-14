@@ -17,7 +17,7 @@ Factory.define(:admin, :parent => :member) do |member|
   member.first_name 'Admin'
 
   member.after_create do |m|
-    m.roles << AppRole.get(Role::ADMIN)
+    m.assign_role(:appadmin)
   end
 end
 

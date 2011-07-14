@@ -20,7 +20,7 @@ class Member < ActiveRecord::Base
 
   has_many :friend_requests_recd, :class_name => 'Friendship', :foreign_key => 'member_requested_id'
   has_many :friend_requests_sent, :class_name => 'Friendship', :foreign_key => 'member_requesting_id'
-  #has_many :friends, :class_name => 'Friendship', :finder_sql => 'select * from view'
+  has_many :friends, :class_name => 'Friendship', :finder_sql => 'Select * from v_friends where '
 
   has_many :team_requests_recd, :class_name => 'TeamMember', :foreign_key => 'member_requested_id'
   has_many :team_requests_sent, :class_name => 'TeamMember', :foreign_key => 'member_requesting_id'
@@ -41,6 +41,18 @@ class Member < ActiveRecord::Base
     roles.create(:name => 'appuser')
   end
 
+  def assign_role(role, *args)
+    target = args.first.presence
+    role = (role.to_s if role.is_a?(Symbol))
+    roles.create!(:name => role, :rollable => target)
+  end
+
+  #member.is_owner_of?(horse) # => true
+  #user.is_owner(horse)
+  #user.is_admin?
+  #target_model.has_admin?
+  #target_model.get_admins
+
   #========================================
   #  Formatting Helpers
   #========================================
@@ -51,7 +63,17 @@ class Member < ActiveRecord::Base
   #========================================
   #  Friend Helpers
   #========================================
+  def already_friend_request_from member
+    friend_requests_recd.sent_from(member).any?
+  end
 
+  def already_friend_request_to member
+    friend_requests_sent.sent_to(member).any?
+  end
+
+  def already_friends_with member
+    friends.include? member
+  end
 
   #========================================
   #  Rink Helpers
