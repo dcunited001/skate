@@ -83,26 +83,32 @@ describe Member do
 
   context 'With friendships' do
     before do
-      @members, @friends = []
-      5.times { @members << Factory(:member) }
-      3.times { @friends << Factory (:member) }
+      @member_sent_request_by_subject_one = Factory(:member)
+      @member_sent_request_by_subject_two = Factory(:member)
+      @member_sent_request_by_another_member = Factory(:member)
+      @member_sent_request_to_subject = Factory(:member)
+      @member_sent_no_requests = Factory(:member)
 
-      Factory(:friendship, :member_requesting => subject , :member_requested => @members[1])
-      Factory(:friendship, :member_requesting => subject , :member_requested => @members[2])
+      @friend_sent_by_subject = Factory(:member)
+      @friend_sent_to_subject = Factory(:member)
+      @not_friends_anymore = Factory(:member)
 
-      Factory(:friendship, :member_requesting => @members[1], :member_requested => @members[2])
-      Factory(:friendship, :member_requesting => @members[3], :member_requested => subject)
 
-      Factory(:friend, :member_requesting => subject , :member_requested => @friends[0])
-      Factory(:friend, :member_requesting => @friends[1] , :member_requested => subject)
-      Factory(:friend, :member_requesting => @friends[2] , :member_requested => subject, :rejected => true, :active => false)
+      Factory(:friendship, :member_requesting => subject , :member_requested => @member_sent_request_by_subject_one)
+      Factory(:friendship, :member_requesting => subject , :member_requested => @member_sent_request_by_subject_two)
+
+      Factory(:friendship, :member_requesting => @member_sent_request_by_subject_one, :member_requested => @member_sent_request_by_subject_two)
+      Factory(:friendship, :member_requesting => @member_sent_request_to_subject, :member_requested => subject)
+
+      Factory(:friend, :member_requesting => subject , :member_requested => @friend_sent_by_subject)
+      Factory(:friend, :member_requesting => @friend_sent_to_subject , :member_requested => subject)
+      Factory(:friend, :member_requesting => @not_friends_anymore , :member_requested => subject, :rejected => true, :active => false)
     end
 
     it 'knows they are already friends with a member' do
-      pending
-
-      subject.already_friends_with(@friends[0]).should be_true
-      subject.already_friends_with(@friends[1]).should be_true
+      subject.already_friends_with(@friend_sent_by_subject).should be_true
+      subject.already_friends_with(@friend_sent_to_subject).should be_true
+      subject.already_friends_with(@not_friends_anymore).should be_false
 
       #pending friend requests don't count
       #rejected friend requests don't count
@@ -111,16 +117,16 @@ describe Member do
     end
 
     it "knows they are already requested by a member" do
-      subject.already_friend_request_from(@members[2]).should be_false
-      subject.already_friend_request_from(@members[3]).should be_true
-      subject.already_friend_request_from(@members[4]).should be_false
+      subject.already_friend_request_from(@member_sent_request_by_subject_two).should be_false
+      subject.already_friend_request_from(@member_sent_request_to_subject).should be_true
+      subject.already_friend_request_from(@member_sent_no_requests).should be_false
     end
 
     it 'knows they are already requesting a member' do
-      subject.already_friend_request_to(@members[1]).should be_true
-      subject.already_friend_request_to(@members[2]).should be_true
-      subject.already_friend_request_to(@members[3]).should be_false
-      subject.already_friend_request_to(@members[4]).should be_false
+      subject.already_friend_request_to(@member_sent_request_by_subject_one).should be_true
+      subject.already_friend_request_to(@member_sent_request_by_subject_two).should be_true
+      subject.already_friend_request_to(@member_sent_request_to_subject).should be_false
+      subject.already_friend_request_to(@member_sent_no_requests).should be_false
     end
 
     it 'knows if they are mutually friends with another member through a friend' do
