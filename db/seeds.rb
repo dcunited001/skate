@@ -92,6 +92,21 @@ friend_sent_by_subject = Factory(:friend, :member_requesting => og_member , :mem
 friend_sent_to_subject = Factory(:friend, :member_requesting => friend_member_sent_to_subject , :member_requested => og_member)
 not_friends_anymore = Factory(:friend, :member_requesting => member_not_friends_anymore , :member_requested => og_member, :rejected => true, :active => false)
 
+#more friends
+Factory(:friend, :member_requesting => og_member, :member_requested => Factory(:member))
+Factory(:friend, :member_requesting => og_member, :member_requested => Factory(:member))
+Factory(:friend, :member_requesting => og_member, :member_requested => Factory(:member))
+Factory(:friend, :member_requesting => Factory(:member), :member_requested => og_member)
+Factory(:friend, :member_requesting => Factory(:member), :member_requested => og_member)
+
+Factory(:friend, :member_requesting => member_not_friends_anymore, :member_requested => Factory(:member))
+Factory(:friend, :member_requesting => Factory(:member), :member_requested => member_not_friends_anymore)
+Factory(:friend, :member_requesting => Factory(:member), :member_requested => member_not_friends_anymore)
+
+Factory(:friend, :member_requesting => member_sent_request_to_subject, :member_requested => Factory(:member))
+Factory(:friend, :member_requesting => member_sent_request_to_subject, :member_requested => Factory(:member))
+Factory(:friend, :member_requesting => Factory(:member), :member_requested => member_sent_request_to_subject)
+Factory(:friend, :member_requesting => Factory(:member), :member_requested => member_sent_request_to_subject)
 
 # ======================================
 # TEAMS

@@ -4,24 +4,14 @@ class CreateFriendsView < ActiveRecord::Migration
     execute('
 CREATE VIEW v_friends AS
 
-SELECT f.member_requested_id, f.member_requesting_id, m.*
+SELECT m.id as member_id, m2.*
 FROM members m
-JOIN friendships f
-ON (m.id = f.member_requested_id) OR (m.id = f.member_requesting_id)
+  JOIN friendships f
+  ON (m.id = f.member_requested_id) OR (m.id = f.member_requesting_id)
+JOIN members m2
+  ON ((f.member_requested_id = m2.id) OR (f.member_requesting_id = m2.id))
+  AND (m.id != m2.id)
 WHERE f.active = true')
-
-# need to get the above view to match the following query without using parameters
-# some parameters can be used in the finder_sql
-
-#'SELECT m.*
-#from friendships f
-#INNER JOIN members m
-#    on (m.id = f.member_id and f.member_id != #{id})
-#    or (m.id = f.friend_id and f.friend_id != #{id})
-#where (f.member_id = #{id} or f.friend_id = #{id})
-#    and active = true;'
-
-    # going to need to change this view to join from the members first, then friendships (and probably back to members)
   end
 
   def self.down
