@@ -1,5 +1,9 @@
-It's kind of broken at the moment since i originally designed it without migrations.  
-Currently trying to add seed data to the application so it will work for whoever clones it.  
-Also adding testing to the application.
+There are alot of features that are broken in this branch from when I switched from MySQL to Postgres.  
 
-And the app was written a long time ago, so there's quite a few bad habits in there.
+I'm currently working on rewriting the application from scrap in in Rails 3.1, which you can view in the aptly named rails3one branch.
+
+The code in the new branch is much cleaner, but only includes models and model specs so far.  I want to get this part of the app done and designed before I do anything with the interface.
+
+Right now, the master branch migrates, seeds and runs fine, but there are alot of actions that blow up.
+
+Definitely check out /rinks/locate
