@@ -17,10 +17,10 @@ class Member < ActiveRecord::Base
 
   has_many :friend_requests_recd, :class_name => 'Friendship', :foreign_key => 'member_requested_id'
   has_many :friend_requests_sent, :class_name => 'Friendship', :foreign_key => 'member_requesting_id'
-  has_many :friends #, :class_name => 'Friend', :finder_sql => "Select * from v_friends"
+  has_many :friends # Don't need this anymore ===> :class_name => 'Friend', :finder_sql => "Select * from v_friends"
 
-  has_many :team_requests_recd, :class_name => 'TeamMember', :foreign_key => 'member_requested_id'
-  has_many :team_requests_sent, :class_name => 'TeamMember', :foreign_key => 'member_requesting_id'
+  has_many :team_requests_recd, :class_name => 'TeamRequest', :foreign_key => 'member_requested_id'
+  has_many :team_requests_sent, :class_name => 'TeamRequest', :foreign_key => 'member_requesting_id'
   #has_many :team_members, :finder_sql => 'select * from view'
 
   validates_presence_of :first_name, :last_name
@@ -60,23 +60,23 @@ class Member < ActiveRecord::Base
   #========================================
   #  Friend Helpers
   #========================================
-  def already_friend_request_from member
+  def already_friend_request_from? member
     friend_requests_recd.sent_from(member).any?
   end
 
-  def already_friend_request_to member
+  def already_friend_request_to? member
     friend_requests_sent.sent_to(member).any?
   end
 
-  def already_friends_with member
-    friends.include? member
+  def already_friends_with? member
+    friends.include? member  #need to override equals method?
   end
 
   def friend_requestable? member
-    !(already_friends_with(member) || already_friend_request_to(member) || already_friend_request_from(member))
+    !(already_friends_with?(member) || already_friend_request_to?(member) || already_friend_request_from?(member))
   end
 
-  def mutually_friends_with member, through_member
+  def mutually_friends_with? member, through_member
     false
   end
 
@@ -85,5 +85,31 @@ class Member < ActiveRecord::Base
   #========================================
   def has_rink?
     (homerink_id > 0)
+  end
+
+  #========================================
+  #  Team Helpers
+  #========================================
+  def has_team?
+    false
+  end
+
+  #========================================
+  #  Team Request Helpers
+  #========================================
+  def already_team_request_from? team, member
+    true
+  end
+
+  def already_team_request_to? team, member
+    true
+  end
+
+  def already_on_team? team
+    true
+  end
+
+  def team_requestable? team, member
+    !(already_friend_request_from?(team, member) || already_friend_request_to?(team, member) || already_on_team?(team))
   end
 end

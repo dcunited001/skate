@@ -8,12 +8,17 @@ describe Team do
 
   it { should validate_presence_of :name }
 
-  context 'Creator' do
+  context 'with a Creator and Captains' do
     before do
-
+      @team_creator = Factory(:member)
+      @team_captian = Factory(:member)
     end
 
-    it 'can get and set the team\'s creator and his/her roles' do
+    it 'can get and set the team\'s creator' do
+      pending
+    end
+
+    it 'can get and set the team\'s captain' do
       pending
     end
   end

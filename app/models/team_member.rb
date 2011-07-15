@@ -1,6 +1,3 @@
-class TeamMember < ActiveRecord::Base
-  belongs_to :member_requested, :class_name => 'Member'
-  belongs_to :member_requesting, :class_name => 'Member'
-
-  belongs_to :team
+class TeamMember < Member
+  set_table_name 'v_team_members'
 end

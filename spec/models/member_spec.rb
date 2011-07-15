@@ -103,16 +103,16 @@ describe Member do
 
 
     it "knows they are already requested by a member" do
-      subject.already_friend_request_from(@member_sent_request_by_subject_two).should be_false
-      subject.already_friend_request_from(@member_sent_request_to_subject).should be_true
-      subject.already_friend_request_from(@member_sent_no_requests).should be_false
+      subject.already_friend_request_from?(@member_sent_request_by_subject_two).should be_false
+      subject.already_friend_request_from?(@member_sent_request_to_subject).should be_true
+      subject.already_friend_request_from?(@member_sent_no_requests).should be_false
     end
 
     it 'knows they are already requesting a member' do
-      subject.already_friend_request_to(@member_sent_request_by_subject_one).should be_true
-      subject.already_friend_request_to(@member_sent_request_by_subject_two).should be_true
-      subject.already_friend_request_to(@member_sent_request_to_subject).should be_false
-      subject.already_friend_request_to(@member_sent_no_requests).should be_false
+      subject.already_friend_request_to?(@member_sent_request_by_subject_one).should be_true
+      subject.already_friend_request_to?(@member_sent_request_by_subject_two).should be_true
+      subject.already_friend_request_to?(@member_sent_request_to_subject).should be_false
+      subject.already_friend_request_to?(@member_sent_no_requests).should be_false
     end
 
     context 'that are active' do
@@ -138,13 +138,13 @@ describe Member do
       end
 
       it 'knows they are already friends with a member' do
-        subject.already_friends_with(@member_sent_request_by_subject_one).should be_false
-        subject.already_friends_with(@member_sent_request_to_subject).should be_false
-        subject.already_friends_with(@member_sent_request_to_another_member).should be_false
+        subject.already_friends_with?(@member_sent_request_by_subject_one).should be_false
+        subject.already_friends_with?(@member_sent_request_to_subject).should be_false
+        subject.already_friends_with?(@member_sent_request_to_another_member).should be_false
 
-        subject.already_friends_with(@friend_sent_by_subject).should be_true
-        subject.already_friends_with(@friend_sent_to_subject).should be_true
-        subject.already_friends_with(@not_friends_anymore).should be_false
+        subject.already_friends_with?(@friend_sent_by_subject).should be_true
+        subject.already_friends_with?(@friend_sent_to_subject).should be_true
+        subject.already_friends_with?(@not_friends_anymore).should be_false
       end
 
       it 'should list the correct friends' do
@@ -154,6 +154,10 @@ describe Member do
         subject.friends.should_not include(@not_friends_anymore)
         subject.friends.should_not include(@member_sent_request_by_subject_one)
         subject.friends.should_not include(@member_sent_request_to_subject)
+      end
+
+      it 'can tell when friends are equal members' do
+        pending
       end
 
       it 'should list the correct mutual friends' do
@@ -169,11 +173,17 @@ describe Member do
 
   context 'on a Team' do
     before do
-      #set up some teams
+      @team = Factory(:team)
+
+      @team_creator = Factory(:member)
+      @team_captain = Factory(:member)
     end
 
     it 'knows if they are on a team' do
-      pending
+      subject.has_team?.should be_false
+
+      Factory(:team_member, :member_requesting => @team_creator, :member_requested => subject)
+      subject.has_team?.should be_true
     end
 
     it 'knows if it\'s the captain of a team' do
@@ -183,35 +193,65 @@ describe Member do
     it 'knows if it\'s the creator of a team' do
       pending
     end
-  end
 
-  context 'with Team Requests' do
-    before do
+    context 'with Team Requests' do
+      before do
+        @team
 
-    end
+        @another_team = Factory(:team)
+        @another_team_creator = Factory(:member)
+        #set team owner
 
-    it 'knows if it is team-requestable' do
-      pending
-    end
+        @yet_another_team = Factory(:team)
 
-    it 'knows if it has an open team request from a specific member' do
-      pending
-    end
+        @member_sent_request_by_subject_one = Factory(:member)
+        @member_sent_request_by_subject_two = Factory(:member)
+        @member_sent_request_by_subject_for_another_team = Factory(:member)
+        @member_sent_request_by_another_member = Factory(:member)
+        @member_sent_request_to_another_member = Factory(:member)
+        @member_sent_request_to_subject = Factory(:member)
+        @member_sent_request_to_subject_for_another_team = Factory(:member)
+        @member_sent_no_requests = Factory(:member)
 
-    it 'knows if it has an open team request from a specific team' do
-      pending
-    end
+        Factory(:team_request, :member_requesting => subject, :member_requested => @member_sent_request_by_subject_one, :team => @team)
+        Factory(:team_request, :member_requesting => subject, :member_requested => @member_sent_request_by_subject_two, :team => Factory(:team))
+        Factory(:team_request, :member_requesting => @member_sent_request_to_another_member, :member_requested => @member_sent_request_by_subject_two, :team => @team)
+        Factory(:team_request, :member_requesting => @member_sent_request_by_subject_one, :member_requested => @member_sent_request_by_subject_two, :team => @another_team)
+        Factory(:team_request, :member_requesting => @member_sent_request_to_subject, :member_requested => subject, :team => Factory(:team))
+        Factory(:team_request, :member_requesting => @member_sent_request_to_subject_for_another_team, :member_requested => subject, :team => @another_team)
+        Factory(:team_request, :member_requesting => subject, :member_requested => @member_sent_request_by_subject_for_another_team, :team => Factory(:team))
+      end
 
-    it 'knows if it has an open team request to a specific team' do
-      pending
-    end
+      it 'knows if it is team-requestable' do
+        subject.team_requestable?(@team, @member_sent_request_by_subject_one).should be_false
+        subject.team_requestable?(@team, @member_sent_request_by_subject_two).should be_true
 
-    it 'can list all pending sent team requests' do
-      pending
-    end
+        subject.team_requestable?(@team)
+      end
 
-    it 'can list all pending received team requests' do
-      pending
+      it 'knows if it has an open team request from a specific member' do
+        pending
+      end
+
+      it 'knows if it has an open team request from a specific team' do
+        pending
+      end
+
+      it 'knows if it has an open team request to a specific team' do
+        pending
+      end
+
+      it 'can list all pending sent team requests' do
+        pending
+      end
+
+      it 'can list all pending received team requests' do
+        pending
+      end
+
+      context 'that are active' do
+
+      end
     end
   end
 
