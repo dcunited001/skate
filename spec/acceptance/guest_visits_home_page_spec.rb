@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
-feature 'Guest views available features' do
+feature 'Guest can browse sinatra app' do
   before do
 
   end
@@ -22,10 +22,8 @@ feature 'Guest views available features' do
 
     scenario 'Guests can view the Signup page' do
       within 'nav' do
-        click 'Mission'
+        click 'Register'
       end
-
-
     end
 
     scenario 'Guests can view the features page' do
@@ -40,16 +38,14 @@ feature 'Guest views available features' do
 
     scenario 'Guests can view the About page' do
       within 'nav' do
-        click 'Contact'
+        click 'About'
       end
-
     end
 
     scenario 'Guests can view the Contact page' do
       within 'nav' do
         click 'Contact'
       end
-
     end
 
     scenario 'Guests can view the Mission page' do

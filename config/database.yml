@@ -14,7 +14,7 @@ development:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: sk8_dev
+  database: skate_dev
   pool: 5
   username: testapp
   password: testapp
@@ -30,7 +30,7 @@ test:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: sk8_test
+  database: skate_test
   pool: 5
   username: testapp
   password: testapp
@@ -49,7 +49,7 @@ production:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: sk8_prod
+  database: skate_prod
   pool: 5
   username: testapp
   password: testapp
