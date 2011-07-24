@@ -1,22 +1,27 @@
 !!!
 %head
-  %link{:rel=>'stylesheet', :href=>'/assets/master.css', :type => "text/css"}
+  -# may change this to reference only guest.css.sass
+  %link{:rel=>'stylesheet', :href=>'/assets/960.css', :type => "text/css" }
+  %link{:rel=>'stylesheet', :href=>'/assets/master.css', :type => "text/css" }
 
 %body
-  %header
-    %h1 Skate
+  %header.container_16
+    .grid_16
+      %h1 Skate
 
-  %nav
-    %ul
-      %li
-        %a{:href => '/'} Home
-      - [:mission, :features, :about, :contact].each do |page|
-        %li
-          %a{:href => page.to_s}= page.to_s.capitalize
+  %nav.container_16
+    .grid_16
+      %ul
+        %li.guest-nav
+          %a{:href => '/'} Home
+        - [:mission, :features, :about, :contact].each do |page|
+          %li.guest-nav
+            %a{:href => page.to_s}= page.to_s.capitalize
 
-  %section.main
-    %h2 GuestApp
+  .container_16
+    %section.main
+      %h2 GuestApp
 
-    = yield
+      = yield
 
-  %footer
+  %footer.container_16
