@@ -1,0 +1,14 @@
+.login-or-register
+  - if member_signed_in?
+    .grid_2.alpha
+      %h2= current_member.first_name
+    .grid_2.omega
+      %h2
+        = link_to 'Log Out', destroy_member_session_path
+  - else
+    .grid_2.alpha
+      %h2
+        = link_to 'Log In', new_member_session_path
+    .grid_2.omega
+      %h2
+        = link_to 'Register', new_member_registration_path

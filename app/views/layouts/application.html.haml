@@ -7,7 +7,9 @@
 %body
   = render :partial => 'shared/notice_and_alert'
 
-  = render :partial => 'shared/header'
+  .container_16
+    = render :partial => 'shared/header'
+    = render :partial => 'shared/signon'
   = render :partial => 'shared/nav'
 
   = content_for?(:template) ? yield(:template) : yield

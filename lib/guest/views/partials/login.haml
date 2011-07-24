@@ -1,7 +1,18 @@
+-# need to figure out how to distinguish whether or not
+-#  a user is logged in with devise from Sinatra
+-#  member_signed_in? doesn't work out of the box
+
 .login-or-register.grid_4
-  .grid_2.alpha
-    %h2
-      %a{:href => '/login'}Log In
-  .grid_2.omega
-    %h2
-      %a{:href => '/register'}Register
+  - if (env['warden'].authenticated?)
+    .grid_2.alpha
+      %h2= env['warden'].user.first_name.capitalize
+    .grid_2.omega
+      %h2
+        %a{:href => '/logout'}Log Out
+  - else
+    .grid_2.alpha
+      %h2
+        %a{:href => '/login'}Log In
+    .grid_2.omega
+      %h2
+        %a{:href => '/register'}Register

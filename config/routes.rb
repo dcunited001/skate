@@ -1,8 +1,5 @@
-def logged_in?(request)
-  request.env["warden"].authenticate?
-end
-
 Sk8::Application.routes.draw do
+
   devise_for :member, :path => '', :path_names => {
       :sign_in => "login",
       :sign_out => "logout",
