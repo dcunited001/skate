@@ -1,0 +1,22 @@
+!!!
+%head
+  %link{:rel=>'stylesheet', :href=>'/stylesheets/style.css', :type => "text/css"}
+
+%body
+  %header
+    %h1 Skate
+
+  %nav
+    %ul
+      %li
+        %a{:href => '/'} Home
+      - [:mission, :features, :about, :contact].each do |page|
+        %li
+          %a{:href => page.to_s}= page.to_s.capitalize
+
+  %section.main
+    %h2 GuestApp
+
+    = yield
+
+  %footer

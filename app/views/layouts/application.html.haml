@@ -1,0 +1,14 @@
+!!!
+
+%head
+  %title Skate
+  = stylesheet_link_tag 'master', '960'
+  = javascript_include_tag 'application'
+  = yield :stylesheets
+
+%body
+  %p.notice= notice
+  %p.alert= alert
+
+  = content_for?(:content) ? yield(:content) : yield
+

@@ -241,6 +241,9 @@ GEM
       json_pure
       rubyzip
     shoulda-matchers (1.0.0.beta2)
+    sinatra (1.2.6)
+      rack (~> 1.1)
+      tilt (< 2.0, >= 1.2.2)
     sprockets (2.0.0.beta.10)
       hike (~> 1.0)
       rack (~> 1.0)
@@ -300,6 +303,7 @@ DEPENDENCIES
   ruby-debug19
   sass-rails (~> 3.1.0.rc)
   shoulda-matchers
+  sinatra
   sqlite3
   steak
   turn

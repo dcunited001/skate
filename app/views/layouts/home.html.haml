@@ -1,0 +1,8 @@
+- content_for :stylesheets do
+  -# nothing for now
+
+- content_for :content do
+  %h2 Content here
+  = yield
+
+- render :file => 'layouts/application'

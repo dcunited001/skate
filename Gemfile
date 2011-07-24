@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.0.rc4'
+gem 'sinatra'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -15,9 +16,6 @@ gem 'declarative_authorization'
 gem 'omniauth', '0.2.6'
 gem 'addressable', '2.2.4'
 gem 'rollable'
-
-gem 'pg'
-#gem 'rails_sql_views'
 
 gem 'haml'
 gem 'awesome_print'

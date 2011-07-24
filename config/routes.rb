@@ -7,7 +7,6 @@ Sk8::Application.routes.draw do
 
 
 
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -65,9 +64,14 @@ Sk8::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 
+  #Routes for Sinatra GuestApp
+  match '/', :to => GuestApp, :constraints => lambda { |r| !r.env["warden"].authenticate? }
+  [:mission, :features, :about, :contact].each do |page|
+    match "/#{page.to_s}", :to => GuestApp
+  end
 
-
-  root :to => 'home#index', :constraints => lambda { |r| logged_in?(r) }
-  root :to => 'guest#index', :constraints => lambda { |r| !logged_in(r) }
+  root :to => 'home#index'
+  #root :to => 'home#index', :constraints => lambda { |r| r.env["warden"].authenticate? }
+  #root :to => GuestApp, :constraints => lambda { |r| !r.env["warden"].authenticate? }
 
 end
