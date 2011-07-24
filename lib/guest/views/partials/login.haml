@@ -8,7 +8,12 @@
       %h2= env['warden'].user.first_name.capitalize
     .grid_2.omega
       %h2
-        %a{:href => '/logout', :method => 'DELETE'}Log Out
+        -# this doesn't work, the link is simply not submitting DELETE request
+        -# a GET request is making it to routes.rb . . . moving on..
+        %a{:href => '/logout', :method => :delete, :rel => 'nofollow'}Log Out
+
+        -# this doesn't either, with method or data-method
+        -#<a href="/logout" data-method="delete" rel="nofollow">Log Out</a>
   - else
     .grid_2.alpha
       %h2

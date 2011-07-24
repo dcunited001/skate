@@ -6,9 +6,12 @@ Sk8::Application.routes.draw do
       :sign_up => "register" }
   #devise_for :devise
 
-  match 'home' => 'home#index'
+  #hack because when on sinatra page, for whatever reason
+  #   the links do not allow me to submit a DELETE request to the logout action
+  #match 'logout' => 'devise/sessions#logout'
 
   #Routes for Sinatra GuestApp
+  match 'home' => 'home#index'
   match '/', :to => GuestApp, :constraints => lambda { |r| !r.env["warden"].authenticate? }
   [:mission, :features, :about, :contact].each do |page|
     match "/#{page.to_s}", :to => GuestApp

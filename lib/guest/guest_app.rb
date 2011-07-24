@@ -1,6 +1,8 @@
 class GuestApp < Sinatra::Base
   require 'haml'
 
+  enable :method_override
+
   set :views, File.dirname(__FILE__) + '/views'
   set :haml, :format => :html5
 
