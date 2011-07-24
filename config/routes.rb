@@ -1,7 +1,12 @@
+def logged_in?(request)
+  request.env["warden"].authenticate?
+end
+
 Sk8::Application.routes.draw do
-
-
   devise_for :members
+
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -51,7 +56,7 @@ Sk8::Application.routes.draw do
   #   end
 
   # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
+  # just remember to delete public/index.html.bak.
   # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
@@ -60,5 +65,9 @@ Sk8::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 
-  root :to => 'home#index'
+
+
+  root :to => 'home#index', :constraints => lambda { |r| logged_in?(r) }
+  root :to => 'guest#index', :constraints => lambda { |r| !logged_in(r) }
+
 end
