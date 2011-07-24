@@ -1,7 +1,7 @@
 class GuestApp < Sinatra::Base
   require 'haml'
 
-  set :views, File.dirname(__FILE__)
+  set :views, File.dirname(__FILE__) + '/views'
   set :haml, :format => :html5
 
   get '/' do

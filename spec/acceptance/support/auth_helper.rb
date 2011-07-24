@@ -1,8 +1,8 @@
 module AuthHelper
   def login_as(member)
-    visit "/sign-in"
-    within '#sign_in' do
-      fill_in("member[email]", :with => member.email)
+    visit "/login"
+    within '#login' do
+      fill_in("member[email]", :with => member[:email])
       fill_in("member[password]", :with => 'password')
       click_button("Sign In")
     end
@@ -16,3 +16,5 @@ module AuthHelper
     visit '/users/auth/facebook'
   end
 end
+
+RSpec.configuration.include AuthHelper, :type => :acceptance

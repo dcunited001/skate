@@ -6,6 +6,13 @@ feature 'Guest creates an account' do
   end
 
   scenario 'Starting from the home page' do
+    visit root_path
+
+    within '.login-or-register' do
+      click_link 'Register'
+    end
+
+
 
   end
 end

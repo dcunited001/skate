@@ -1,0 +1,18 @@
+!!!
+%head
+  = haml :"partials/head"
+
+%body
+  .container_16
+    = haml :"partials/header"
+    = haml :"partials/login"
+
+  = haml :"partials/nav"
+  .container_16
+    %section.main
+      %h2 GuestApp
+
+      = yield
+
+  = haml :"partials/footer"
+

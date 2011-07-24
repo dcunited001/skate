@@ -11,7 +11,6 @@ feature 'Guest can browse sinatra app' do
     end
 
     scenario 'Guests can\'t login' do
-
       guest_member = { :email => 'guest_email@example.com' }
       login_as(guest_member)
 
@@ -22,7 +21,7 @@ feature 'Guest can browse sinatra app' do
 
     scenario 'Guests can view the Signup page' do
       within 'nav' do
-        click 'Register'
+        click_link 'Register'
       end
 
       within 'section.main' do
@@ -32,7 +31,7 @@ feature 'Guest can browse sinatra app' do
 
     scenario 'Guests can view the Features page' do
       within 'nav' do
-        click 'Features'
+        click_link 'Features'
       end
 
       within 'section.main' do
@@ -42,7 +41,7 @@ feature 'Guest can browse sinatra app' do
 
     scenario 'Guests can view the About page' do
       within 'nav' do
-        click 'About'
+        click_link 'About'
       end
 
       within 'section.main' do
@@ -52,7 +51,7 @@ feature 'Guest can browse sinatra app' do
 
     scenario 'Guests can view the Contact page' do
       within 'nav' do
-        click 'Contact'
+        click_link 'Contact'
       end
 
       within 'section.main' do
@@ -62,14 +61,12 @@ feature 'Guest can browse sinatra app' do
 
     scenario 'Guests can view the Mission page' do
       within 'nav' do
-        click 'Mission'
+        click_link 'Mission'
       end
 
       within 'section.main' do
         page.should have_content('Mission')
       end
     end
-
-
   end
 end
