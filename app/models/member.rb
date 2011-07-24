@@ -113,3 +113,9 @@ class Member < ActiveRecord::Base
     !(already_friend_request_from?(team, member) || already_friend_request_to?(team, member) || already_on_team?(team))
   end
 end
+
+
+#for ice javascript templates
+class MemberCube < Ice::BaseCube
+
+end

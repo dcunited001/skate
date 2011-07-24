@@ -21,6 +21,7 @@ gem 'rollable'
 gem 'haml'
 gem 'awesome_print'
 gem 'jquery-rails'
+gem 'ice'
 
 gem 'geokit'
 

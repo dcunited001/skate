@@ -8,7 +8,7 @@ Sk8::Application.routes.draw do
 
   #hack because when on sinatra page, for whatever reason
   #   the links do not allow me to submit a DELETE request to the logout action
-  #match 'logout' => 'devise/sessions#logout'
+  #match 'logout' => 'devise/sessions#logout' . . .
 
   #Routes for Sinatra GuestApp
   match 'home' => 'home#index'
