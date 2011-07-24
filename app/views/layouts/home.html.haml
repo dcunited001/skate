@@ -1,7 +1,8 @@
-- content_for :stylesheets
+-# content_for :stylesheets
   -# when i need to add controller specific stylesheets
 
 - content_for :template do
-  = yield
+  %section.main
+    = yield
 
 = render :template => 'layouts/application'
