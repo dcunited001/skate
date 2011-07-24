@@ -4,11 +4,11 @@
       %h2= current_member.first_name.capitalize
     .grid_2.omega
       %h2
-        = link_to 'Log Out', destroy_member_session_path, :method => 'delete'
+        = link_to 'Log Out', destroy_member_session_path, :method => 'delete', :options => { :id => '#logout-link'}
   - else
     .grid_2.alpha
       %h2
-        = link_to 'Log In', new_member_session_path
+        = link_to 'Log In', new_member_session_path, :options => { :id => '#login-link'}
     .grid_2.omega
       %h2
-        = link_to 'Register', new_member_registration_path
+        = link_to 'Register', new_member_registration_path, :options => { :id => '#register-link'}

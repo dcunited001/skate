@@ -116,6 +116,6 @@ end
 
 
 #for ice javascript templates
-class MemberCube < Ice::BaseCube
-
-end
+#class MemberCube < Ice::BaseCube
+#
+#end
