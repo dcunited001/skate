@@ -10,5 +10,9 @@
   %p.notice= notice
   %p.alert= alert
 
-  = content_for?(:content) ? yield(:content) : yield
+  -# I'm trying to use nested templates,
+  -#but it's just not rendering with yield :sections
+  =# content_for?(:content) ? yield(:content) : yield
+
+  = yield
 

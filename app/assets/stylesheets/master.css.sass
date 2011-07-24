@@ -1,0 +1,34 @@
+//color scheme
+$blue: #b42
+$light-blue: #e84
+$lighter-blue: #faa
+$lightest-blue: #fcc
+
+$green: #191
+$light-green: #5c5
+$lighter-green: #7d7
+
+$gray: #555
+
+//global styles
+body
+  :font-family Arial, sans-serif
+
+a
+  color: $green
+  text-decoration: none
+  font-weight: bold
+  &:hover
+    color: $lighter-green
+  &:visited
+    color: $light-green
+
+
+@import nav.css.sass
+@import menu.css.sass
+@import content.css.sass
+
+@import admin.css.sass
+@import users.css.sass
+@import guest.css.sass
+

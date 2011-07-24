@@ -1,8 +1,13 @@
-- content_for :stylesheets do
-  -# nothing for now
+-# i'm not real sure why this doesn't work
 
-- content_for :content do
-  %h2 Content here
-  = yield
+-#- content_for :stylesheets do
+-#  -# nothing for now
+-#
+-#- content_for :content do
+-#  %h2 Content here
+-#
+-#- render :template => 'layouts/application'
 
-- render :file => 'layouts/application'
+= yield
+
+= render :template => 'layouts/application'

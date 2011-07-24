@@ -7,6 +7,7 @@ gem 'sinatra'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # Asset template engines
+gem 'compass', :require => false
 gem 'sass-rails', "~> 3.1.0.rc"
 gem 'coffee-script'
 gem 'uglifier'
