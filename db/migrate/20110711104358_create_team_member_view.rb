@@ -6,7 +6,7 @@ class CreateTeamMemberView < ActiveRecord::Migration
     end
 
 #'SELECT team_mems.*
-#FROM members this_member
+#FROM devise this_member
 #INNER JOIN team_members active_tm
 #  ON  (this_member.id = active_tm.member_id
 #  OR this_member.id = active_tm.requestor_id)
@@ -16,7 +16,7 @@ class CreateTeamMemberView < ActiveRecord::Migration
 #INNER JOIN team_members tm
 #  ON t.id = tm.team_id
 #  AND tm.active = true
-#INNER JOIN members team_mems
+#INNER JOIN devise team_mems
 #  ON (team_mems.id = tm.requestor_id and t.creator_id = #{id})
 #  OR (team_mems.id = tm.member_id and t.creator_id != #{id})
 #WHERE this_member.id = #{id}

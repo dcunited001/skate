@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20110713220351) do
   add_index "friendships", ["member_requested_id", "approved"], :name => "member_requested_approved_index"
   add_index "friendships", ["member_requested_id", "member_requesting_id", "active"], :name => "member_requested_member_requesting_active_index"
 
-  create_table "members", :force => true do |t|
+  create_table "devise", :force => true do |t|
     t.string   "email",                                   :default => "",    :null => false
     t.string   "encrypted_password",       :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"

@@ -7,7 +7,7 @@ Sk8::Application.routes.draw do
       :sign_in => "login",
       :sign_out => "logout",
       :sign_up => "register" }
-  #devise_for :members
+  #devise_for :devise
 
   match 'home' => 'home#index'
 

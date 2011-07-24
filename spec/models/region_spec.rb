@@ -20,7 +20,7 @@ describe Region do
       pending
     end
 
-    it 'can list all the members with an address in that region' do
+    it 'can list all the devise with an address in that region' do
       pending
     end
 

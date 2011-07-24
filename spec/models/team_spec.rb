@@ -46,7 +46,7 @@ describe Team do
 
     end
 
-    it 'should list the current active team members' do
+    it 'should list the current active team devise' do
       pending
     end
 

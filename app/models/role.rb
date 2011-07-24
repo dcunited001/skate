@@ -36,7 +36,7 @@ end
 #  MEMBER = :app_member
 #
 #  has_many :role_members
-#  has_many :members, :through => :role_members
+#  has_many :devise, :through => :role_members
 #
 #  def self.names
 #    all_names = {}

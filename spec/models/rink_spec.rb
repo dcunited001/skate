@@ -12,7 +12,7 @@ describe Rink do
 
   context ' - Owner and Contact - ' do
     before do
-      #create some members
+      #create some devise
       @owner_name = 'Owner McDude'
       @contact_name = 'Rink O\'Manager'
 
@@ -77,7 +77,7 @@ describe Rink do
       #set up some skaters
     end
 
-    it 'can list the members who consider this their home rink' do
+    it 'can list the devise who consider this their home rink' do
       pending
     end
   end

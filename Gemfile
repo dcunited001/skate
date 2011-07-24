@@ -10,7 +10,7 @@ gem 'sinatra'
 gem 'compass', :require => false
 gem 'sass-rails', "~> 3.1.0.rc"
 gem 'coffee-script'
-gem 'uglifier'
+#gem 'uglifier'
 
 gem 'devise', '1.4.2'
 gem 'declarative_authorization'

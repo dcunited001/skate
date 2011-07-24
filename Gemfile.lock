@@ -266,9 +266,6 @@ GEM
     turn (0.8.2)
       ansi (>= 1.2.2)
     tzinfo (0.3.29)
-    uglifier (1.0.0)
-      execjs (>= 0.3.0)
-      multi_json (>= 1.0.2)
     vcr (1.10.0)
     warden (1.0.4)
       rack (>= 1.0)
@@ -314,6 +311,5 @@ DEPENDENCIES
   sqlite3
   steak
   turn
-  uglifier
   vcr
   webmock (= 1.6.2)

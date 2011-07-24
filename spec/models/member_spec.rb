@@ -156,7 +156,7 @@ describe Member do
         subject.friends.should_not include(@member_sent_request_to_subject)
       end
 
-      it 'can tell when friends are equal members' do
+      it 'can tell when friends are equal devise' do
         pending
       end
 
