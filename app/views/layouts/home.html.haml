@@ -1,13 +1,7 @@
--# i'm not real sure why this doesn't work
+- content_for :stylesheets
+  -# when i need to add controller specific stylesheets
 
--#- content_for :stylesheets do
--#  -# nothing for now
--#
--#- content_for :content do
--#  %h2 Content here
--#
--#- render :template => 'layouts/application'
-
-= yield
+- content_for :template do
+  = yield
 
 = render :template => 'layouts/application'
