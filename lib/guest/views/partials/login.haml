@@ -8,7 +8,7 @@
       %h2= env['warden'].user.first_name.capitalize
     .grid_2.omega
       %h2
-        %a{:href => '/logout'}Log Out
+        %a{:href => '/logout', :method => 'DELETE'}Log Out
   - else
     .grid_2.alpha
       %h2

@@ -1,10 +1,10 @@
 .login-or-register
   - if member_signed_in?
     .grid_2.alpha
-      %h2= current_member.first_name
+      %h2= current_member.first_name.capitalize
     .grid_2.omega
       %h2
-        = link_to 'Log Out', destroy_member_session_path
+        = link_to 'Log Out', destroy_member_session_path, :method => 'delete'
   - else
     .grid_2.alpha
       %h2
