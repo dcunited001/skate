@@ -3,7 +3,11 @@ def logged_in?(request)
 end
 
 Sk8::Application.routes.draw do
-  devise_for :members
+  devise_for :member, :path => '', :path_names => {
+      :sign_in => "login",
+      :sign_out => "logout",
+      :sign_up => "register" }
+  #devise_for :members
 
   match 'home' => 'home#index'
 
