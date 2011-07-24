@@ -1,44 +1,38 @@
-
 .section.container_16
   .grid_5
     %br
   .grid_6
-    %h2 Sign up
+    %h2
+      Sign up or
+      = link_to "Sign in", new_session_path(resource_name)
+
     = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
       = devise_error_messages!
 
       %fieldset
         %legend Log In Information
-        %p
+        .field.grid_6
           = f.label :email
-          %br
           = f.email_field :email
-        %p
+        .field.grid_3
           = f.label :password
-          %br
           = f.password_field :password
-        %p
+        .field.grid_3
           = f.label :password_confirmation
-          %br
           = f.password_field :password_confirmation
 
       %fieldset
         %legend Personal Information
-        %p
+        .field.grid_3
           = f.label :first_name
-          %br
           = f.text_field :first_name
-        %p
+        .field.grid_3
           = f.label :last_name
-          %br
           = f.text_field :last_name
-        %p
+        .field.grid_6
           = f.label :birthday
-          %br
           %input{:type => 'date', :name => 'member[birthday]', :id => 'member_birthday'}
 
-
       %p= f.submit "Sign up"
-    = render :partial => "devise/shared/links"
   .grid_5
     %br
