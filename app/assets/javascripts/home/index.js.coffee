@@ -1,4 +1,3 @@
-Login = require '../lib/login'
-
 $ ->
-  Login.set_up_login_events()
+  #disabling for now
+  #Login.set_up_login_events()

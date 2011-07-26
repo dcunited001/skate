@@ -21,3 +21,7 @@ Factory.define(:admin, :parent => :member) do |member|
   end
 end
 
+Factory.define(:private_member, :parent => :member) do |member|
+  #pseudocode
+  #member.privacy_settings.visibility = PrivacySettings::PRIVATE_VISIBILITY
+end

@@ -5,7 +5,7 @@ feature 'Guest creates an account' do
     @member = Factory(:member)
   end
 
-  scenario 'Starting from the home page' do
+  scenario 'Starting from the guestapp home page' do
     visit root_path
 
     within '.login' do
@@ -17,12 +17,20 @@ feature 'Guest creates an account' do
       fill_in "Password", :with => 'password'
       fill_in "Confirm Password", :with => 'password'
 
+      fill_in "Alias", :with => 'Alias01234'
       fill_in "First Name", :with => 'TestMember'
       fill_in "Last Name", :with => 'Lastnaam'
-      fill_in "Birthday", :with => 'Birthday'
+      fill_in "Birthday", :with => '2011-02-31'
+
+      fill_in "phone", :with => '3216547890'
+
+      #solve captcha
+
+      click_button 'Sign Up'
     end
 
+    #Email_Spec_Stuff
 
-
+    page.should have_content 'Great Success!'
   end
 end

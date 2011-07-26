@@ -1,0 +1,27 @@
+<div class="login-modal">
+  <h2>Sign in or <a href="/register">Sign Up</a></h2>
+  <form id="#login-form">
+    <fieldset>
+      <div class="field">
+        <label for="member_email">Email</label>
+        <input id="member_email" name="member[email]" size="30" type="email" value>
+      </div>
+      <div class="field">
+        <label for="member_password">Password</label>
+        <input id="member_password" name="member[email]" size="30" type="password" value>
+      </div>
+      <div class="field">
+        <input name="member[remember_me]" type="hidden" value="0">
+        <label for="member_remember_me">Email</label>
+        <input id="member_remember_me" name="member[email]" size="30" type="checkbox" value>
+      </div>
+      <div class="actions">
+        <input class="actions" type="submit" value="Sign In">
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+
+<!--Render with-->
+<!--window.JST['templates/modal_errors']-->
