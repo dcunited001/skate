@@ -44,6 +44,14 @@ class Member < ActiveRecord::Base
     roles.create!(:name => role, :rollable => target)
   end
 
+  #========================================
+  #  Privacy Helpers
+  #========================================
+  def set_privacy_visibility
+    #pending
+    false
+  end
+
   #member.is_owner_of?(horse) # => true
   #user.is_owner(horse)
   #user.is_admin?
@@ -112,6 +120,8 @@ class Member < ActiveRecord::Base
   def team_requestable? team, member
     !(already_friend_request_from?(team, member) || already_friend_request_to?(team, member) || already_on_team?(team))
   end
+
+
 end
 
 
