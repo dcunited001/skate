@@ -20,7 +20,7 @@ feature 'Guest can browse sinatra app' do
     end
 
     scenario 'Guests can view the Signup page' do
-      within 'nav' do
+      within '.login' do
         click_link 'Register'
       end
 

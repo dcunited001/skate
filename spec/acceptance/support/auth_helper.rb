@@ -3,7 +3,7 @@ module AuthHelper
     #this needs to be changed to a modal javascript
 
     visit "/login"
-    within '#login' do
+    within 'login' do
       fill_in("member[email]", :with => member[:email])
       fill_in("member[password]", :with => 'password')
       click_button("Log In")

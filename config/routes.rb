@@ -1,5 +1,19 @@
 Sk8::Application.routes.draw do
 
+  get "members/index"
+
+  get "members/show"
+
+  get "members/edit"
+
+  get "members/delete"
+
+  get "members/create"
+
+  get "members/update"
+
+  get "members/destroy"
+
   devise_for :member, :path => '', :path_names => {
       :sign_in => "login",
       :sign_out => "logout",

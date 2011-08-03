@@ -22,6 +22,8 @@
   </form>
 </div>
 
+<%= 'eco syntax is almost exactly like erb' %>
+<%= 'you can pass in locals to the view: ' + local_var.toString() %>
 
-<!--Render with-->
+<!--Render template/modal_errors.jst.eco with the following js-->
 <!--window.JST['templates/modal_errors']-->

@@ -1,9 +1,4 @@
 class Member < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-
   #for omniauth
   #has_many :authentications
 
@@ -30,6 +25,31 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   after_create :add_basic_member_role
+
+  #========================================
+  #  Devise Configuration
+  #========================================
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+          # Include default devise modules. Others available are:
+          # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+
+  #constants for devise login
+  DEVISE_LINKS_CLASS = '.login'
+  DEVISE_FORM_CLASS = '.login-form'
+  DEVISE_FORM_ID = '.login-form'
+
+  SIGN_IN_LINK_TEXT = 'Log In'
+  SIGN_IN_LINK_ID = '#login-link'
+
+  SIGN_OUT_LINK_TEXT = 'Log Out'
+  SIGN_OUT_LINK_ID = '#logout-link'
+
+  SIGN_UP_LINK_TEXT = 'Sign Up'
+  SIGN_UP_LINK_ID = '#signup-link'
+
+  REGISTER_LINK_TEXT = 'Register'
+  REGISTER_LINK_ID = '#register'
 
   #========================================
   #  Role Helpers

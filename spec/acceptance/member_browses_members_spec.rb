@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../acceptance_helper')
+require File.expand_path(File.dirname(__FILE__) + 'acceptance_helper')
 
 feature 'Member browses members: ' do
   before do
@@ -8,20 +8,30 @@ feature 'Member browses members: ' do
     login_as(@member)
   end
 
-  scenario 'they can see a paginated list of members' do
+  scenario 'they can see a list of members, not including themselves' do
     within 'nav' do
       click_link 'Members'
     end
 
-    @other_members.each do |member|
-      within "member-#{member.id}" do
-        page.should have_content member.alias
-      end
+    within "member-#{member.id}" do
+      page.should have_content @other_members.first.alias
+      page.should have_content @other_members.last.alias
+      page.should_not have_content @member.alias
     end
+
+    #@other_members.each do |member|
+    #  within "member-#{member.id}" do
+    #    page.should have_content member.alias
+    #  end
+    #end
   end
 
   scenario 'they can\'t see private members' do
     @private_member = Factory(:private_member)
+
+    within 'nav' do
+      click_link 'Members'
+    end
 
     within '.members-list' do
       page.should_not have_content @private_member.alias
@@ -41,6 +51,10 @@ feature 'Member browses members: ' do
     @private_not_mutual_friend = Factory(:member)
     @private_not_mutual_friend.set_privacy_visibility(true)
 
+    within 'nav' do
+      click_link 'Members'
+    end
+
     within '.members-list' do
       page.should have_content @mutual_friend.alias
       page.should have_content @private_mutual_friend.alias
@@ -52,5 +66,6 @@ feature 'Member browses members: ' do
 
   scenario 'but they can still see private members they are not mutual friends with if they are team mates' do
     puts 'fml'
+    pending
   end
 end

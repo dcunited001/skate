@@ -2,7 +2,7 @@
 -#  a user is logged in with devise from Sinatra
 -#  member_signed_in? doesn't work out of the box
 
-.login-or-register.grid_4
+.login.grid_4
   - if (env['warden'].authenticated?)
     .grid_2.alpha
       %h2= env['warden'].user.first_name.capitalize
