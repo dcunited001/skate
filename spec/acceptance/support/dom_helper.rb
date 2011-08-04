@@ -3,7 +3,7 @@ module DomHelper
     "##{str}"
   end
 
-  def to_class(string)
+  def to_class(str)
     ".#{str}"
   end
 end

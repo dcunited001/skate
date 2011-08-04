@@ -19,12 +19,13 @@ feature 'Guest can browse sinatra app' do
       end
     end
 
+    #this is already covered by guest_creates_an_account
     scenario 'Guests can view the Signup page' do
       within to_class(DeviseNames::DEVISE_LINKS_CLASS) do
         click_link DeviseNames::REGISTER_LINK_TEXT
       end
 
-      within 'section.main' do
+      within to_id(DeviseNames::SIGN_UP_FORM_ID) do
         page.should have_content(DeviseNames::SIGN_UP_LINK_TEXT)
       end
     end

@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + 'acceptance_helper')
+require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature 'Member browses members: ' do
   before do
@@ -13,9 +13,13 @@ feature 'Member browses members: ' do
       click_link 'Members'
     end
 
-    within "member-#{member.id}" do
-      page.should have_content @other_members.first.alias
-      page.should have_content @other_members.last.alias
+    within ".members-list" do
+      within ".member-list#member-#{@other_members.first.id}" do
+        page.should have_content @other_members.first.alias
+      end
+      within ".member-list#member-#{@other_members.last.id}" do
+        page.should have_content @other_members.last.alias
+      end
       page.should_not have_content @member.alias
     end
 

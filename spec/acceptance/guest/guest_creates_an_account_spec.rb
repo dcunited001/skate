@@ -31,6 +31,7 @@ feature 'Guest creates an account' do
 
     #Email_Spec_Stuff
 
-    page.should have_content 'Great Success!'
+    #page.should have_content 'Great Success!'
+    page.should have_content 'Welcome! You have signed up successfully.'
   end
 end
