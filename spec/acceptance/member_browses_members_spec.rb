@@ -15,10 +15,10 @@ feature 'Member browses members: ' do
 
     within ".members-list" do
       within "#member-#{@other_members.first.id}" do
-        page.should have_content @other_members.first.alias
+        page.should have_link @other_members.first.alias
       end
       within "#member-#{@other_members.last.id}" do
-        page.should have_content @other_members.last.alias
+        page.should have_link @other_members.last.alias
       end
       page.should_not have_content @member.alias
     end

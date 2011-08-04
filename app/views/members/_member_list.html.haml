@@ -1,5 +1,5 @@
 .member-list{:id => "member-#{member.id}"}
-  %h3= member.alias
+  %h3= link_to member.alias, member_path(member)
   %p
     %b Name:
     = member.full_name

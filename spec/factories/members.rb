@@ -1,6 +1,7 @@
 Factory.define(:member, :class => 'Member') do |member|
   member.first_name 'Normal'
-  member.sequence(:last_name) {|n| "User #{n}"}
+  member.sequence(:last_name) {|n| "User#{n}"}
+  member.sequence(:alias) {|n| "normaluser#{n}"}
   member.sequence(:email) {|n| "email#{n}@example.org"}
   member.password 'password'
   member.password_confirmation 'password'
