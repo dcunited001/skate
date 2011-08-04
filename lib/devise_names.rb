@@ -21,6 +21,4 @@ class DeviseNames
 
   CURRENT_MEMBER_ID = 'current-member'
 
-  INVALID_SIGN_IN_MESSAGE = 'Invalid Email or Password'
-
 end

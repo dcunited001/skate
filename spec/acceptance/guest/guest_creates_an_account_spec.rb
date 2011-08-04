@@ -8,11 +8,11 @@ feature 'Guest creates an account' do
   scenario 'Starting from the guestapp home page' do
     visit root_path
 
-    within DeviseNames::DEVISE_LINKS_CLASS do
+    within to_class(DeviseNames::DEVISE_LINKS_CLASS) do
       click_link DeviseNames::REGISTER_LINK_TEXT
     end
 
-    within DeviseNames::SIGN_UP_FORM_ID do
+    within to_id(DeviseNames::SIGN_UP_FORM_ID) do
       fill_in "Email", :with => 'test_member@example.com'
       fill_in "Password", :with => 'password'
       fill_in "Confirm Password", :with => 'password'

@@ -15,12 +15,12 @@ feature 'Guest can browse sinatra app' do
       login_as(guest_member)
 
       within '.alert' do
-        page.should have_content(DeviseNames::INVALID_SIGN_IN_MESSAGE)
+        page.should have_content('Invalid email or password')
       end
     end
 
     scenario 'Guests can view the Signup page' do
-      within DeviseNames::DEVISE_LINKS_CLASS do
+      within to_class(DeviseNames::DEVISE_LINKS_CLASS) do
         click_link DeviseNames::REGISTER_LINK_TEXT
       end
 
