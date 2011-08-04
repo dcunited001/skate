@@ -1,17 +1,17 @@
-.login.grid_4
+%div{:class => "grid_4 #{DeviseNames::DEVISE_LINKS_CLASS}"}
   - if member_signed_in?
     .grid_2.alpha
-      %h2= current_member.first_name.capitalize
+      %h2{:id => DeviseNames::CURRENT_MEMBER_ID }= current_member.first_name.capitalize
     .grid_2.omega
       %h2
         =# link_to 'Log Out', destroy_member_session_path, :method => 'delete', :id => 'logout-link'
-        = link_to 'Log Out', destroy_member_session_path, :method => 'delete', :id => 'logout-link'
+        = link_to DeviseNames::SIGN_OUT_LINK_TEXT, destroy_member_session_path, :method => 'delete', :id => DeviseNames::SIGN_OUT_LINK_ID
   - else
     .grid_2.alpha
       %h2
         =# link_to 'Log In', new_member_session_path, :id => 'login-link'
-        = link_to 'Log In', new_member_session_path, :id => 'login-link'
+        = link_to DeviseNames::SIGN_IN_LINK_TEXT, new_member_session_path, :id => DeviseNames::SIGN_IN_LINK_ID
     .grid_2.omega
       %h2
         =# link_to 'Register', new_member_registration_path, :id => 'register-link'
-        = link_to 'Register', new_member_registration_path, :id => 'register-link'
+        = link_to DeviseNames::REGISTER_LINK_TEXT, new_member_registration_path, :id => DeviseNames::REGISTER_LINK_ID

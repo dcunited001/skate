@@ -8,11 +8,11 @@ feature 'Guest creates an account' do
   scenario 'Starting from the guestapp home page' do
     visit root_path
 
-    within '.login' do
-      click_link 'Register'
+    within DeviseNames::DEVISE_LINKS_CLASS do
+      click_link DeviseNames::REGISTER_LINK_TEXT
     end
 
-    within '#signup' do
+    within DeviseNames::SIGN_UP_FORM_ID do
       fill_in "Email", :with => 'test_member@example.com'
       fill_in "Password", :with => 'password'
       fill_in "Confirm Password", :with => 'password'
@@ -26,7 +26,7 @@ feature 'Guest creates an account' do
 
       #solve captcha
 
-      click_button 'Sign Up'
+      click_button DeviseNames::SIGN_UP_LINK_TEXT
     end
 
     #Email_Spec_Stuff

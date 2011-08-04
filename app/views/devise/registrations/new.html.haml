@@ -4,9 +4,9 @@
   #signup.grid_6
     %h2
       Sign up or
-      = link_to "Sign in", new_session_path(resource_name)
+      = link_to DeviseNames::SIGN_IN_LINK_TEXT, new_session_path(resource_name)
 
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :class => DeviseNames::SIGN_UP_FORM_ID) do |f|
       = devise_error_messages!
 
       %fieldset
@@ -33,6 +33,6 @@
           = f.label :birthday
           %input{:type => 'date', :name => 'member[birthday]', :id => 'member_birthday'}
 
-      %p= f.submit "Sign up"
+      %p= f.submit DeviseNames::SIGN_UP_LINK_TEXT
   .grid_5
     %br

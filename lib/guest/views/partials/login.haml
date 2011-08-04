@@ -2,7 +2,7 @@
 -#  a user is logged in with devise from Sinatra
 -#  member_signed_in? doesn't work out of the box
 
-.login.grid_4
+%div{:class => "grid_4 #{DeviseNames::DEVISE_LINKS_CLASS}"}
   - if (env['warden'].authenticated?)
     .grid_2.alpha
       %h2= env['warden'].user.first_name.capitalize
@@ -10,14 +10,14 @@
       %h2
         -# this doesn't work, the link is simply not submitting DELETE request
         -# a GET request is making it to routes.rb . . . moving on..
-        %a{:href => '/logout', :method => :delete, :rel => 'nofollow', :id => 'login-link'}Log Out
+        %a{:href => '/logout', :method => :delete, :rel => 'nofollow', :id => DeviseNames::SIGN_OUT_LINK_ID}=DeviseNames::SIGN_OUT_LINK_TEXT
 
         -# this doesn't either, with method or data-method
         -#<a href="/logout" data-method="delete" rel="nofollow">Log Out</a>
   - else
     .grid_2.alpha
       %h2
-        %a{:href => '/login', :id => 'login-link'}Log In
+        %a{:href => '/login', :id => DeviseNames::SIGN_IN_LINK_ID}=DeviseNames::SIGN_IN_LINK_TEXT
     .grid_2.omega
       %h2
-        %a{:href => '/register', :id => 'register-link'}Register
+        %a{:href => '/register', :id => DeviseNames::REGISTER_LINK_ID}=DeviseNames::REGISTER_LINK_TEXT

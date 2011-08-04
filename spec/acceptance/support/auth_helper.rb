@@ -3,10 +3,10 @@ module AuthHelper
     #this needs to be changed to a modal javascript
 
     visit "/login"
-    within 'login' do
+    within DeviseNames::DEVISE_FORM_CLASS do
       fill_in("member[email]", :with => member[:email])
       fill_in("member[password]", :with => 'password')
-      click_button("Log In")
+      click_button(DeviseNames::SIGN_IN_LINK_TEXT)
     end
   end
 

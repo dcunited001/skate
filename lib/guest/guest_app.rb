@@ -1,5 +1,6 @@
 class GuestApp < Sinatra::Base
   require 'haml'
+  require File.dirname(__FILE__) + '/../devise_names'
 
   enable :method_override
 
