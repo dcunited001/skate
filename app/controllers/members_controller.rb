@@ -9,16 +9,7 @@ class MembersController < ApplicationController
     @member = Member.find_by_id(params[:id])
   end
 
-  def edit
-  end
-
   def delete
-  end
-
-  def create
-  end
-
-  def update
   end
 
   def destroy

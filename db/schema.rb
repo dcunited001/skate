@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20110713220351) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "alias"
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "homerink_id",                             :default => -1
