@@ -1,5 +1,19 @@
 Sk8::Application.routes.draw do
 
+  get "rinks/index"
+
+  get "rinks/show"
+
+  get "rinks/edit"
+
+  get "rinks/create"
+
+  get "rinks/update"
+
+  get "rinks/delete"
+
+  get "rinks/destroy"
+
   resources :members
 
   devise_for :member, :path => '', :path_names => {
