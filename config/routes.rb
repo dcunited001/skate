@@ -1,7 +1,10 @@
 Sk8::Application.routes.draw do
 
   resources :rinks
-  resources :members
+  resources :members do
+    #resources :private_settings
+    #resources :checkins
+  end
 
   devise_for :member, :path => '', :path_names => {
       :sign_in => "login",

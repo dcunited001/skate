@@ -9,8 +9,6 @@ feature 'Member browses rinks: ' do
   end
 
   scenario 'they can view a list of rinks' do
-    click_link 'Rinks'
-
     within 'nav' do
       click_link 'Rinks'
     end
@@ -32,6 +30,7 @@ feature 'Member browses rinks: ' do
       page.should_not have_content @invisible_rink.name
     end
   end
+
 
 
 end

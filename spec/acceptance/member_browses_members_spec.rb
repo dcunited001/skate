@@ -5,6 +5,8 @@ feature 'Member browses members: ' do
     @member = Factory(:member)
     @other_members = (1..5).each_with_object(Array.new) {|i,members| members << Factory(:member)}
 
+    @private_member = Factory(:private_member)
+
     login_as(@member)
   end
 
@@ -71,5 +73,23 @@ feature 'Member browses members: ' do
   scenario 'but they can still see private members they are not mutual friends with if they are team mates' do
     puts 'fml'
     pending
+  end
+
+  context 'they can view a members profile' do
+    before do
+      within 'nav' do
+        click_link 'Members'
+      end
+    end
+
+    scenario 'if that member is public' do
+      within '.members-list' do
+        #click a rink link
+      end
+    end
+
+    scenario 'unless that member is private' do
+
+    end
   end
 end
