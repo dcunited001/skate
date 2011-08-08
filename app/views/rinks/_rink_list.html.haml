@@ -1,1 +1,13 @@
-.rink-list{:id => "rink-#{rink.id}"
+.rink-list{:id => "rink-#{rink.id}"}
+  %h3
+    %p
+      %b Name:
+      = rink_name_as_link(rink)
+
+    %p
+      %b Phone:
+      = rink.phone
+
+    %p
+      %b Website:
+      = link_to rink.website
