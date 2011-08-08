@@ -50,10 +50,32 @@ class Member < ActiveRecord::Base
   #========================================
   #  Privacy Helpers
   #========================================
+  PRIVACY_FULL_NAME = 'full_name'
+  PRIVACY_FIRST_NAME = 'first_name'
+  PRIVACY_NO_NAME = 'no_name'
+
   def set_privacy_visibility
     #pending
     false
   end
+
+  #later on i definitely want to use
+  #   caching on these model helpers
+  #   to improve the performance here
+  def name_with_privacy_settings
+    # query (cached?) name privacy settings here
+    name_privacy = 'full_name'
+
+    case name_privacy
+      when PRIVACY_FULL_NAME
+        full_name
+      when PRIVACY_FIRST_NAME
+        first_name
+      when PRIVACY_NO_NAME
+        PRIVACY_NO_NAME
+    end
+  end
+
 
   #member.is_owner_of?(horse) # => true
   #user.is_owner(horse)
