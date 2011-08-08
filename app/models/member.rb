@@ -50,6 +50,7 @@ class Member < ActiveRecord::Base
   #========================================
   #  Privacy Helpers
   #========================================
+  # the best place for these privacy constant might actually be the privacy settings model, when i come to cross that bridge
   PRIVACY_FULL_NAME = 'full_name'
   PRIVACY_FIRST_NAME = 'first_name'
   PRIVACY_NO_NAME = 'no_name'

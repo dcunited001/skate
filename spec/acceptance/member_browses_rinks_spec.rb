@@ -30,7 +30,4 @@ feature 'Member browses rinks: ' do
       page.should_not have_content @invisible_rink.name
     end
   end
-
-
-
 end

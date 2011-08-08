@@ -84,7 +84,7 @@ feature 'Member browses members: ' do
 
     scenario 'if that member is public' do
       within '.members-list' do
-        #click a rink link
+        #click a public member link
       end
     end
 

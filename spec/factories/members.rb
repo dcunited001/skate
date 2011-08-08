@@ -23,6 +23,9 @@ Factory.define(:admin, :parent => :member) do |member|
 end
 
 Factory.define(:private_member, :parent => :member) do |member|
+  member.first_name 'Private'
+  member.sequence(:alias) {|n| "privateuser#{n}"}
+
   #pseudocode
   #member.privacy_settings.visibility = PrivacySettings::PRIVATE_VISIBILITY
 end
