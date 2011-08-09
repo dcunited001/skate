@@ -1,7 +1,7 @@
 %div{:class => "grid_4 #{DeviseNames::DEVISE_LINKS_CLASS}"}
   - if member_signed_in?
     .grid_2.alpha
-      %h2{:id => DeviseNames::CURRENT_MEMBER_ID }= current_member.first_name.capitalize
+      %h2{:id => DeviseNames::CURRENT_MEMBER_ID }= link_to current_member.first_name.capitalize, "/members/#{current_member.alias}"
     .grid_2.omega
       %h2
         =# link_to 'Log Out', destroy_member_session_path, :method => 'delete', :id => 'logout-link'

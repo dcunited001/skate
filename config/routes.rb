@@ -6,6 +6,8 @@ Sk8::Application.routes.draw do
     #resources :checkins
   end
 
+  match 'members/:alias' => 'members#show', :constraints => /^[a-zA-Z]+[a-zA-Z0-9]*/
+
   devise_for :member, :path => '', :path_names => {
       :sign_in => "login",
       :sign_out => "logout",

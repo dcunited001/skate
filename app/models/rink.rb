@@ -3,7 +3,6 @@ class Rink < ActiveRecord::Base
   DEFAULT_MISSING_CONTACT_NAME = 'N/A'
 
   has_one :address, :as => :addressable, :dependent => :destroy
-
   belongs_to :owner, :class_name => 'Member'
   belongs_to :contact, :class_name => 'Member'
 

@@ -11,7 +11,7 @@
 
       %fieldset
         %legend Log In Information
-        .field.grid_6
+        .field.grid_3
           = f.label :email
           = f.email_field :email
         .field.grid_3
@@ -32,9 +32,31 @@
         .field.grid_3
           = f.label :last_name
           = f.text_field :last_name
-        .field.grid_6
+        .field.grid_3
+          = f.label :phone
+          = f.text_field :phone
+        .field.grid_3
           = f.label :birthday
           %input{:type => 'date', :name => 'member[birthday]', :id => 'member_birthday'}
+
+      %fieldset
+        %legend Address Information
+        = fields_for :address do |address|
+          .field.grid_3
+            = address.label :line_one
+            = address.text_field :line_one
+          .field.grid_3
+            = address.label :line_two
+            = address.text_field :line_two
+          .field.grid_3
+            = address.label :city
+            = address.text_field :city
+          .field.grid_3
+            = address.label :state
+            = address.text_field :state
+          .field.grid_3
+            = address.label :zip
+            = address.text_field :zip
 
       %p= f.submit DeviseNames::SIGN_UP_LINK_TEXT
   .grid_5

@@ -6,7 +6,11 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find_by_id(params[:id])
+    if (params[:id] =~ /^[0-9]+/)
+      @member = Member.find_by_id(params[:id])
+    else
+      @member = Member.find_by_alias(params[:id])
+    end
   end
 
   def delete
