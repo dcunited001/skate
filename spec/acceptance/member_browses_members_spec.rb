@@ -83,13 +83,24 @@ feature 'Member browses members: ' do
     end
 
     scenario 'if that member is public' do
+
       within '.members-list' do
-        #click a public member link
+        click_link @other_members.first.alias
+      end
+
+      within '.member-detail' do
+        page.should have_content @other_members.first.name_with_privacy_settings
       end
     end
 
     scenario 'unless that member is private' do
+      within '.members-list' do
+        click_link @private_member.alias
+      end
 
+      within '.member-detail' do
+        page.should have_content "#{@private_member.alias} has a private profile."
+      end
     end
   end
 end

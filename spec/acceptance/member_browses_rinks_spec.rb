@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + './acceptance_helper')
+require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 feature 'Member browses rinks: ' do
   before do
@@ -28,6 +28,36 @@ feature 'Member browses rinks: ' do
 
     within '.rinks-list' do
       page.should_not have_content @invisible_rink.name
+    end
+  end
+
+  context 'they can view a rinks profile' do
+    before do
+      @invisible_rink = Factory(:invisible_rink)
+
+      within 'nav' do
+        click_link 'Rinks'
+      end
+    end
+
+    scenario 'if the rink is visible' do
+      within '.rinks-list' do
+        click_link @rinks.first.name
+      end
+
+      within '.rink-detail' do
+        page.should have_content @rinks.first.name
+      end
+    end
+
+    scenario 'unless the rink is invisible' do
+      within '.rinks-list' do
+        visit rink_path(@invisible_rink.id)
+      end
+
+      within '.rink-detail' do
+        page.should have_content "#{@invisible_rink.name} does not have a profile"
+      end
     end
   end
 end

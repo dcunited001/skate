@@ -42,6 +42,7 @@ rinks_yml.each { |r|
   if addy.valid?
     rink = Rink.new(r)
     rink.address = addy
+    rink.visible = true
     rink.save
   end
 }

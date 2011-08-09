@@ -12,6 +12,7 @@
     = render :partial => 'shared/login'
   = render :partial => 'shared/nav'
 
-  = content_for?(:template) ? yield(:template) : yield
+  .container_16
+    = content_for?(:template) ? yield(:template) : yield
 
   = render :partial => 'shared/footer'

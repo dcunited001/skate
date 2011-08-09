@@ -1,9 +1,14 @@
 .rink-detail
-  %h2= rink.name
-  %p
-    Rink Pic
-  %p
-    %b Description:
-    = rink.description
-  %p
-    and other fields
+  - if rink.visible
+    %h2= rink.name
+    %p
+      Rink Pic
+    %p
+      %b Description:
+      = rink.description
+    %p
+      and other fields
+  - else
+    %h2
+      = rink.name
+      does not have a profile.

@@ -2,5 +2,17 @@
   %h2= member.alias
   %p
     %b Name:
-    = render :partial => 'member_name'
+    = render :partial => 'member_name', :locals => { :member => member }
+  %p
+    %b Homerink:
+    TODO
+  %p
+    %b Email:
+    = member.email
+  %p
+    %b Phone:
+    = member.phone
+
+
+
 

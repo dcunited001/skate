@@ -16,6 +16,7 @@ end
 
 Factory.define(:admin, :parent => :member) do |member|
   member.first_name 'Admin'
+  member.sequence(:alias) {|n| "adminuser#{n}"}
 
   member.after_create do |m|
     m.assign_role(:appadmin)

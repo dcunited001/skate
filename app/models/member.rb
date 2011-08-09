@@ -65,7 +65,7 @@ class Member < ActiveRecord::Base
   #   to improve the performance here
   def name_with_privacy_settings
     # query (cached?) name privacy settings here
-    name_privacy = 'full_name'
+    name_privacy = PRIVACY_FULL_NAME
 
     case name_privacy
       when PRIVACY_FULL_NAME
