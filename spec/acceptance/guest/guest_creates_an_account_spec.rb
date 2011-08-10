@@ -17,7 +17,7 @@ feature 'Guest creates an account' do
         :password => 'password',
 
         :alias => 'Alias01234',
-        :first_name => 'TestMember',
+        :first_name => 'Testmember',
         :last_name => 'Lastnaam',
         :phone => '3216547890',
         :birthday => '2011-02-31',
@@ -48,11 +48,9 @@ feature 'Guest creates an account' do
       click_button DeviseNames::SIGN_UP_LINK_TEXT
     end
 
-    save_and_open_page
-
     page.should have_content 'Welcome! You have signed up successfully.'
 
-    click_link test_member[:first_name]
+    click_link test_member[:first_name].capitalize
 
     within '.member-detail' do
       page.should have_content test_member[:alias]

@@ -1,6 +1,9 @@
 class Address < ActiveRecord::Base
   belongs_to :addressable, :polymorphic => true
 
+  #WHAT TO CALL THIS FIELD??
+  belongs_to :real_state, :foreign_key => :state, :primary_key => :abbrev, :class_name => 'State'
+
   attr_accessible :line_one, :line_two, :city, :state, :zip
 
   validates_presence_of :city, :line_one
