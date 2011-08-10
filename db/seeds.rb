@@ -58,7 +58,7 @@ puts '  (rink addresses should already be geocoded)'
 puts 'Creating Admin Accounts'
 admins = [
   {:first_name => 'David',   :last_name => 'Conner', :alias => 'dconner', :email => 'dconner.pro@gmail.com', :birthday => '5/11/1986'},
-  {:first_name => 'System',  :last_name => 'Admin', :alias => 'admin', :email => 'admin@somewebsite.com', :birthday => '12/21/2012'}]
+  {:first_name => 'System',  :last_name => 'Admin', :alias => 'admin', :email => 'admin@somewebsite.com', :birthday => '21/12/1969'}]
 
 admins.each do |person|
   member = Member.create!(person.merge(:password => 'password!'))

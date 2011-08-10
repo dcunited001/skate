@@ -45,6 +45,7 @@ GEM
       sys-uname
     autotest-growl (0.2.9)
     awesome_print (0.4.0)
+    babosa (0.3.5)
     bcrypt-ruby (2.1.4)
     builder (3.0.0)
     capybara (0.4.1.2)
@@ -108,6 +109,8 @@ GEM
       multipart-post (~> 1.1.0)
       rack (< 2, >= 1.1.0)
     ffi (1.0.9)
+    friendly_id (3.2.1.1)
+      babosa (~> 0.3.0)
     fssm (0.2.7)
     geokit (1.6.0)
     gherkin (2.4.2)
@@ -306,6 +309,7 @@ DEPENDENCIES
   devise (= 1.4.2)
   email_spec
   factory_girl_rails
+  friendly_id
   geokit
   haml
   ice

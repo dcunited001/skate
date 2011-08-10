@@ -17,6 +17,7 @@ gem 'declarative_authorization'
 gem 'omniauth', '0.2.6'
 gem 'addressable', '2.2.4'
 gem 'rollable'
+gem 'friendly_id'
 
 gem 'haml'
 gem 'awesome_print'
