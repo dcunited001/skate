@@ -11,7 +11,25 @@ module AuthHelper
   end
 
   def create_account(member)
+    within to_id(DeviseNames::SIGN_UP_FORM_ID) do
+      fill_in "Email", :with => member[:email]
+      fill_in "Password", :with => member[:password]
+      fill_in "Confirm Password", :with => member[:password]
 
+      fill_in "Alias", :with => member[:alias]
+      fill_in "First Name", :with => member[:first_name]
+      fill_in "Last Name", :with => member[:last_name]
+      fill_in "Phone", :with => member[:phone]
+      fill_in "Birthday", :with => member[:birthday]
+
+      fill_in "Line One", :with => member[:line_one]
+      fill_in "Line Two", :with => member[:line_two]
+      fill_in "City", :with => member[:city]
+      fill_in "State", :with => member[:state]
+      fill_in "Zip", :with => member[:zip]
+
+      click_button DeviseNames::SIGN_UP_LINK_TEXT
+    end
   end
 
   def logout
