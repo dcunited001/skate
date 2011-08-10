@@ -27,35 +27,35 @@
           = f.label :alias
           = f.text_field :alias
         .field.grid_3
-          = f.label :first_name
+          = f.label :first_name, 'First Name'
           = f.text_field :first_name
         .field.grid_3
-          = f.label :last_name
+          = f.label :last_name, 'Last Name'
           = f.text_field :last_name
         .field.grid_3
-          = f.label :phone
+          = f.label :phone, 'Phone'
           = f.text_field :phone
         .field.grid_3
-          = f.label :birthday
+          = f.label :birthday, 'Birthday'
           %input{:type => 'date', :name => 'member[birthday]', :id => 'member_birthday'}
 
       %fieldset
         %legend Address Information
         = fields_for :address do |address|
           .field.grid_3
-            = address.label :line_one
+            = address.label :line_one, 'Line One'
             = address.text_field :line_one
           .field.grid_3
-            = address.label :line_two
+            = address.label :line_two, 'Line Two'
             = address.text_field :line_two
           .field.grid_3
-            = address.label :city
+            = address.label :city, 'City'
             = address.text_field :city
           .field.grid_3
-            = address.label :state
+            = address.label :state, 'State'
             = address.text_field :state
           .field.grid_3
-            = address.label :zip
+            = address.label :zip, 'Zip'
             = address.text_field :zip
 
       %p= f.submit DeviseNames::SIGN_UP_LINK_TEXT

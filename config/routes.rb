@@ -4,7 +4,11 @@ Sk8::Application.routes.draw do
   resources :members do
     #resources :private_settings
     #resources :checkins
+
+    #resources :friends  #?? best way to view a member's friends??
   end
+
+  resources :friends
 
   #match 'members/:alias' => 'members#show', :constraints => /^[a-zA-Z]+[a-zA-Z0-9]*/
 
