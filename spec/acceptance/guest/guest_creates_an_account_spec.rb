@@ -52,12 +52,27 @@ feature 'Guest creates an account' do
 
     click_link test_member[:first_name].capitalize
 
+    #assume that the last created member in the table is the one we just created
+    test_member_db = Member.order("created_at DESC").last
+
+    #better way to verify that an address was created correctly?
+    #   may be better to step through to the edit action of a member,
+    #   once this has been implemented
+    test_member_db.address.line_one.should_equal test_member[:line_one]
+    test_member_db.address.state.should_equal test_member[:state]
+    test_member_db.address.city.should_equal test_member[:city]
+    test_member_db.address.zip.should_equal test_member[:zip]
+
     within '.member-detail' do
       page.should have_content test_member[:alias]
       page.should have_content test_member[:first_name]
-      page.should have_content test_member[:state]
-    end
 
-    pending 'verify that the newest member has the correct address, phone and birthday'
+      puts '===================='
+      puts test_member_db.birthday
+      puts test_member_db.address
+      puts '===================='
+
+      page.should have_content test_member_db.address.real_state.name
+    end
   end
 end

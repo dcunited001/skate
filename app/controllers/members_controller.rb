@@ -6,6 +6,7 @@ class MembersController < ApplicationController
   end
 
   def show
+
     if (params[:id] =~ /^[0-9]+/)
       @member = Member.find_by_id(params[:id])
     else

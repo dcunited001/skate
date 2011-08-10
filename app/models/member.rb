@@ -22,7 +22,7 @@ class Member < ActiveRecord::Base
   validates_uniqueness_of :alias
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :phone, :birthday, :alias, :address_attributes
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :phone, :birthday, :alias, :address, :address_attributes
   accepts_nested_attributes_for :address
 
   after_create :add_basic_member_role

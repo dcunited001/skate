@@ -2,8 +2,7 @@
 # STATES
 # ======================================
 puts 'Loading States'
-states_yml = YAML::load_file(File.join(Rails.root, 'db/seeds','states.yml'))
-states_yml.each { |state| State.create!(state) }
+State.load_from_yaml
 
 #TODO: provinces?
 #states.each do |s|
@@ -21,13 +20,13 @@ northwest = Region.create!(:name => 'Northwest', :description => 'Oregon')
 southwest = Region.create!(:name => 'Southwest', :description => 'Cali')
 southcentral = Region.create!(:name => 'South Central', :description => 'Tejas')
 
-northeast.states << State.where(:abbrev => ['ME', 'VT', 'NH', 'MA', 'RI', 'NY', 'PA', 'MD', 'DE', 'DC', 'WV', 'VA'])
-southeast.states << State.where(:abbrev => ['TN', 'NC', 'SC', 'GA', 'MS', 'AL', 'FL'])
-greatlakes.states << State.where(:abbrev => ['OH', 'KY', 'IL', 'IN', 'MI', 'WI', 'MO'])
-midwest.states << State.where(:abbrev => ['IA', 'MN', 'ND', 'SD', 'MT', 'WY', 'CO', 'UT'])
-northwest.states << State.where(:abbrev => ['WA', 'ID', 'OR', 'AK'])
-southwest.states << State.where(:abbrev => ['CA', 'AZ', 'NV', 'HI'])
-southcentral.states << State.where(:abbrev => ['AS', 'LA', 'TX', 'OK', 'KS', 'NM'])
+northeast.states << State.where(:abbrev => %w(ME VT NH MA RI NY PA MD DE DC WV VA))
+southeast.states << State.where(:abbrev => %w(TN NC SC GA MS AL FL))
+greatlakes.states << State.where(:abbrev => %w(OH KY IL IN MI WI MO))
+midwest.states << State.where(:abbrev => %w(IA MN ND SD MT WY CO UT))
+northwest.states << State.where(:abbrev => %w(WA ID OR AK))
+southwest.states << State.where(:abbrev => %w(CA AZ NV HI))
+southcentral.states << State.where(:abbrev => %w(AS LA TX OK KS NM))
 
 # ======================================
 # RINKS
@@ -60,8 +59,17 @@ admins = [
   {:first_name => 'David',   :last_name => 'Conner', :alias => 'dconner', :email => 'dconner.pro@gmail.com', :birthday => '5/11/1986'},
   {:first_name => 'System',  :last_name => 'Admin', :alias => 'admin', :email => 'admin@somewebsite.com', :birthday => '21/12/1969'}]
 
+#OG Addy
+og_addy = {
+    :line_one => '123 OG Cruise',
+    :city => 'Los Angeles',
+    :state => 'CA',
+    :zip => '90013'
+}
+
 admins.each do |person|
   member = Member.create!(person.merge(:password => 'password!'))
+  member.address = Address.create!(og_addy)
   member.assign_role(:appadmin)
 end
 

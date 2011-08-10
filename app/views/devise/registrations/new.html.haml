@@ -41,22 +41,23 @@
 
       %fieldset
         %legend Address Information
-        = fields_for :address do |address|
+        - resource.build_address
+        = f.fields_for :address do |a|
           .field.grid_3
-            = address.label :line_one, 'Line One'
-            = address.text_field :line_one
+            = a.label :line_one, 'Line One'
+            = a.text_field :line_one
           .field.grid_3
-            = address.label :line_two, 'Line Two'
-            = address.text_field :line_two
+            = a.label :line_two, 'Line Two'
+            = a.text_field :line_two
           .field.grid_3
-            = address.label :city, 'City'
-            = address.text_field :city
+            = a.label :city, 'City'
+            = a.text_field :city
           .field.grid_3
-            = address.label :state, 'State'
-            = address.text_field :state
+            = a.label :state, 'State'
+            = a.text_field :state
           .field.grid_3
-            = address.label :zip, 'Zip'
-            = address.text_field :zip
+            = a.label :zip, 'Zip'
+            = a.text_field :zip
 
       %p= f.submit DeviseNames::SIGN_UP_LINK_TEXT
   .grid_5

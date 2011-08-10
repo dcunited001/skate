@@ -1,5 +1,7 @@
 .member-detail
   %h2= member.alias
+  skates in
+  %h2= member.address.real_state.name
   %p
     %b Name:
     = render :partial => 'member_name', :locals => { :member => member }
