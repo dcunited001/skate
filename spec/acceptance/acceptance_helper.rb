@@ -15,6 +15,14 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 Capybara.javascript_driver = :webkit
 
+def initialize_test_seeds
+  puts 'Initializing Test Seeds: '
+
+  State.load_from_yaml
+end
+
+
+
 RSpec.configure do |config|
 
 # If you're not using ActiveRecord, or you'd prefer not to run each of your
@@ -23,7 +31,10 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
+    initialize_test_seeds
+    tables_to_preserve = %w(states regions region_states)
+
+    DatabaseCleaner.strategy = :truncation, {:except => tables_to_preserve}
   end
 
   config.before(:each) do

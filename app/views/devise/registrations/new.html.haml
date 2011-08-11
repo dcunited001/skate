@@ -1,14 +1,11 @@
 .section.container_16
-  .grid_5
-    %br
-  #signup.grid_6
-    %h2
-      Sign up or
-      = link_to DeviseNames::SIGN_IN_LINK_TEXT, new_session_path(resource_name)
+  %h2
+    Sign up or
+    = link_to DeviseNames::SIGN_IN_LINK_TEXT, new_session_path(resource_name)
 
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :class => DeviseNames::SIGN_UP_FORM_ID) do |f|
-      = devise_error_messages!
-
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :class => DeviseNames::SIGN_UP_FORM_ID) do |f|
+    = devise_error_messages!
+    .grid_6
       %fieldset
         %legend Log In Information
         .field.grid_3
@@ -21,6 +18,9 @@
           = f.label :password_confirmation, "Confirm Password"
           = f.password_field :password_confirmation
 
+      %p= f.submit DeviseNames::SIGN_UP_LINK_TEXT
+
+    #signup.grid_5
       %fieldset
         %legend Personal Information
         .field.grid_3
@@ -39,6 +39,7 @@
           = f.label :birthday, 'Birthday'
           %input{:type => 'date', :name => 'member[birthday]', :id => 'member_birthday'}
 
+    .grid_5
       %fieldset
         %legend Address Information
         - resource.build_address
@@ -58,7 +59,3 @@
           .field.grid_3
             = a.label :zip, 'Zip'
             = a.text_field :zip
-
-      %p= f.submit DeviseNames::SIGN_UP_LINK_TEXT
-  .grid_5
-    %br

@@ -14,7 +14,18 @@ class Team < ActiveRecord::Base
     #add and remove roles appropriately
   end
 
-  def add_add_captain member
+  def add_captain member
+
+  end
+
+  def remove_captain member
 
   end
 end
+
+
+# whats the best way to add and remove roles when added to the creator or captain
+# - belongs_to callbacks don't exist
+
+
+# best way to expose

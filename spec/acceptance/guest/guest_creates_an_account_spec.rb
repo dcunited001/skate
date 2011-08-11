@@ -28,21 +28,20 @@ feature 'Guest creates an account' do
     #better way to verify that an address was created correctly?
     #   may be better to step through to the edit action of a member,
     #   once this has been implemented
-    test_member_db.address.line_one.should_equal test_member[:line_one]
-    test_member_db.address.state.should_equal test_member[:state]
-    test_member_db.address.city.should_equal test_member[:city]
-    test_member_db.address.zip.should_equal test_member[:zip]
+    test_member_db.address.line_one.should be_equal test_member[:line_one]
+    test_member_db.address.state.should be_equal test_member[:state]
+    test_member_db.address.city.should be_equal test_member[:city]
+    test_member_db.address.zip.should be_equal test_member[:zip]
 
     within '.member-detail' do
       page.should have_content test_member[:alias]
       page.should have_content test_member[:first_name]
 
-      puts '===================='
-      puts test_member_db.birthday
-      puts test_member_db.address
-      puts '===================='
-
       page.should have_content test_member_db.address.real_state.name
     end
+  end
+
+  scenario 'and follows instructions after receiving email notifications' do
+    pending 'Need to add Email Spec to test suite and configure'
   end
 end

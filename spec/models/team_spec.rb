@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Team do
-  subject { Factory(:team) }
+  @team_creator = Factory(:member)
+  subject { Factory(:team, :creator => @team_creator) }
 
   it { should belong_to :creator }
   it { should belong_to :rink }
@@ -10,16 +11,22 @@ describe Team do
 
   context 'with a Creator and Captains' do
     before do
-      @team_creator = Factory(:member)
       @team_captian = Factory(:member)
     end
 
-    it 'can get and set the team\'s creator' do
-      pending
+    # Do i really need to test this?
+    it 'can get and set the team\'s creator and roles are added and removed appropriately' do
+      @team_creator.is_teamcreator_of?(subject).should be_true
+
+      @new_creator = Factory(:member)
+      subject.set_creator @new_creator
+
+      @new_creator.is_teamcreator_of?(subject).should be_true
+      subject.creator.should be @new_creator
     end
 
-    it 'can get and set the team\'s captain' do
-      pending
+    it 'can get and set the team\'s captains and roles are added and removed appropriately' do
+      pending 'need to create the team members view, test that out.  also need to create the postgres rules'
     end
   end
 

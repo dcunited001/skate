@@ -1,0 +1,17 @@
+
+= f.fields_for :address do |a|
+  .field.grid_3
+    = a.label :line_one, 'Line One'
+    = a.text_field :line_one
+  .field.grid_3
+    = a.label :line_two, 'Line Two'
+    = a.text_field :line_two
+  .field.grid_3
+    = a.label :city, 'City'
+    = a.text_field :city
+  .field.grid_3
+    = a.label :state, 'State'
+    = a.text_field :state
+  .field.grid_3
+    = a.label :zip, 'Zip'
+    = a.text_field :zip
