@@ -8,7 +8,10 @@ describe TeamMember do
 
   context 'Request Rules' do
     before do
+      @member = Factory(:member)
 
+      @team_creator = Factory(:team_creator)
+      @team_member = Factory(:team_member, :team => @team_creator.team)
     end
 
     it 'knows if the member requested is already on a team' do

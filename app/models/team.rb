@@ -5,7 +5,9 @@ class Team < ActiveRecord::Base
   belongs_to :homerink, :class_name => 'Rink'
   belongs_to :creator, :class_name => 'Member'
   has_many :team_requests
-  #has_many :team_members # don't know that this is the best way
+
+  #has_many :team_members
+  #has_many :team_captains
 
   validates_presence_of :name
 
