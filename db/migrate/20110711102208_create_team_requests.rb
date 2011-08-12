@@ -1,6 +1,6 @@
-class CreateTeamMembers < ActiveRecord::Migration
+class CreateTeamRequests < ActiveRecord::Migration
   def self.up
-    create_table "team_members", :force => true do |t|
+    create_table "team_requests", :force => true do |t|
       t.integer  "team_id"
       t.integer  "member_requesting_id"
       t.integer  "member_requested_id"
@@ -17,12 +17,12 @@ class CreateTeamMembers < ActiveRecord::Migration
 
     #TODO: create view to obtain a list of friends as an association
 
-    add_index :team_members, [:team_id], :name => "team_id_index"
-    add_index :team_members, [:member_requested_id], :name => "member_requested_id_index"
+    add_index :team_requests, [:team_id], :name => "team_id_index"
+    add_index :team_requests, [:member_requested_id], :name => "member_requested_id_index"
     #add_index :team_members, [:member_requesting_id], :name => "member_requesting_id_index" #this index is probably going to be read from less
   end
 
   def self.down
-    drop_table :team_members
+    drop_table :team_requests
   end
 end

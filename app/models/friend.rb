@@ -1,9 +1,6 @@
 class Friend < Member
   set_table_name 'v_friends'
 
-  #how to get your friend's friends ?
-  #has_many :friends, :foreign_key => 'member_id'
-
   def friends
     super #it's ssssuper, thanks for asking
   end

@@ -141,11 +141,7 @@ ActiveRecord::Schema.define(:version => 20110713220351) do
     t.datetime "updated_at"
   end
 
-  create_table "team_member_views", :force => true do |t|
-    t.string "pending"
-  end
-
-  create_table "team_members", :force => true do |t|
+  create_table "team_requests", :force => true do |t|
     t.integer  "team_id"
     t.integer  "member_requesting_id"
     t.integer  "member_requested_id"
@@ -160,8 +156,8 @@ ActiveRecord::Schema.define(:version => 20110713220351) do
     t.datetime "updated_at"
   end
 
-  add_index "team_members", ["member_requested_id"], :name => "member_requested_id_index"
-  add_index "team_members", ["team_id"], :name => "team_id_index"
+  add_index "team_requests", ["member_requested_id"], :name => "member_requested_id_index"
+  add_index "team_requests", ["team_id"], :name => "team_id_index"
 
   create_table "teams", :force => true do |t|
     t.string   "name"

@@ -156,7 +156,19 @@ describe Member do
         subject.friends.should_not include(@member_sent_request_to_subject)
       end
 
-      it 'can tell when friends are equal devise' do
+      it 'can delete friends from its list' do
+        subject.friends.should include(@friend_sent_by_subject)
+        subject.friends.should include(@friend_sent_to_subject)
+        subject.friends.should_not include(@not_friends_anymore)
+
+        deleted_friend = subject.friends.first
+        subject.friends.should include(deleted_friend)
+
+        deleted.friend.delete
+        subject.friends.should_not include(deleted_friend)
+      end
+
+      it 'can tell when friends are equal' do
         pending
       end
 

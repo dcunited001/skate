@@ -1,0 +1,116 @@
+#this is way too fragile, but I'm not sure
+#   how to specify the order in which objects are created/dropped
+#   short of creating a configuration yaml file that
+#   specifies the dependencies between each object
+
+#there's probably a million better ways to do this
+#   but it's my first time creating a module like this,
+#   sue me
+
+module SqlLoader
+  class SqlLoaderBase
+    CREATE_START = 'Creating objects for'
+    CREATE_ERRORS = 'Encountered errors creating objects:'
+    CREATE_DELIMETER = '================================='
+    NO_CREATE_ERRORS = 'All objects created successfully!'
+
+    DROP_START = 'Dropping objects for'
+    DROP_ERRORS = 'Encountered errors dropping objects:'
+    DROP_DELIMETER = '================================='
+    NO_DROP_ERRORS = 'All objects dropped successfully!'
+
+    SQL_LOADER_ROOT = File.join(Rails.root, 'db/sql_loader')
+    Dir[File.join(SQL_LOADER_ROOT, "*.rb")].each {|rb| require rb }
+
+    def self.relative_name
+      name.to_s.split('::').last
+    end
+
+    def self.get_sql_files
+      #for each type, append it's sql files into an array in an order that can be executed
+      sql_object_types = %w[table view index rule function]
+
+      sql_object_types.each_with_object([]) do |type, files|
+        files.concat(Dir[File.join(SQL_LOADER_ROOT, relative_name.underscore, "#{type}_*.sql")])
+      end
+    end
+
+    def self.create
+      errors = []
+
+      puts "#{CREATE_START} #{relative_name}"
+
+      get_sql_files.each do |sql|
+        begin
+          ActiveRecord::Base.connection.execute(IO.read(sql))
+        rescue
+          errors << $!
+        end
+      end
+
+      create_error_output(errors)
+    end
+
+    def self.drop
+      errors = []
+
+      puts "#{DROP_START} #{relative_name}"
+
+      get_sql_files.reverse.each do |f|
+        sql = drop_statement(f)
+
+        begin
+          puts "============= " + sql
+          ActiveRecord::Base.connection.execute(sql)
+        rescue
+          errors << $!
+        end
+      end
+
+      drop_error_output(errors)
+    end
+
+    def self.drop_statement(filename)
+      case File.basename(filename, '.sql')
+        when /(^table.*)/i
+          return "DROP TABLE IF EXISTS#{$1};"
+        when /(^view.*)/i
+          return "DROP VIEW IF EXISTS #{$1};"
+        when /(^rule_(.*)_(insert|delete|update))/i
+          return "DROP RULE IF EXISTS #{$1} ON #{$2};"
+      end
+    end
+
+    # ERROR OUTPUT
+
+    def self.create_error_output errors
+      out = "Creating #{relative_name} Objects: "
+
+      if errors.any?
+        out += "#{CREATE_ERRORS}\n"
+        errors.each {|e| out += "\n\n#{CREATE_DELIMETER}\n#{e}\n" }
+
+        puts out
+        raise "SqlLoader Exception"
+      else
+        out += NO_CREATE_ERRORS
+        puts out
+      end
+    end
+
+    def self.drop_error_output errors
+      out = "Dropping #{relative_name} Objects: "
+
+      if errors.any?
+        out += "#{DROP_ERRORS}\n"
+        errors.each {|e| out += "\n\n#{DROP_DELIMETER}\n#{e}\n" }
+
+        puts out
+        raise "SqlLoader Exception"
+      else
+        out += NO_DROP_ERRORS
+        puts out
+      end
+    end
+  end
+end
