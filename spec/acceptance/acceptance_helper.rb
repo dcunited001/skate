@@ -21,8 +21,6 @@ def initialize_test_seeds
   State.load_from_yaml
 end
 
-
-
 RSpec.configure do |config|
 
 # If you're not using ActiveRecord, or you'd prefer not to run each of your
