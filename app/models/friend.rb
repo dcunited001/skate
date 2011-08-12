@@ -5,8 +5,8 @@ class Friend < Member
     super #it's ssssuper, thanks for asking
   end
 
-  def == (friend)
-    id == friend.id
+  def == (member)
+    id == member.id
     #eql?(friend)
     #super if friend.is_a? Member
   end
