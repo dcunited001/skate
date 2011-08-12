@@ -1,4 +1,4 @@
-class TeamMate < ActiveRecord
+class TeamMate < ActiveRecord::Base
   set_table_name 'view_team_mates'
 
   def == (team_mate)

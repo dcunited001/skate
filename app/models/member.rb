@@ -17,7 +17,7 @@ class Member < ActiveRecord::Base
   has_many :team_requests_recd, :class_name => 'TeamRequest', :foreign_key => 'member_requested_id'
   has_many :team_requests_sent, :class_name => 'TeamRequest', :foreign_key => 'member_requesting_id'
 
-  #has_many :team_mates
+  has_many :team_mates
   #has_one :team
 
   validates_presence_of :first_name, :last_name, :birthday, :alias
