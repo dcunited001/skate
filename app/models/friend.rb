@@ -1,5 +1,5 @@
 class Friend < Member
-  set_table_name 'v_friends'
+  set_table_name 'view_friends'
 
   def friends
     super #it's ssssuper, thanks for asking
