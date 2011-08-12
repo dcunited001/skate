@@ -1,6 +1,8 @@
 class Friend < Member
   set_table_name 'view_friends'
 
+  attr_accessible :id, :member_id
+
   def friends
     super #it's ssssuper, thanks for asking
   end

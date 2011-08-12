@@ -117,10 +117,18 @@ class Member < ActiveRecord::Base
     false
   end
 
+  # WHY YOU NO WORKING!!
   def add_to_friends member
-    new_friend = Friend.new(:member_requesting => self, :member_requested => member).save
+    new_friend = Friend.new(:member_id => self, :id => member).save
 
     #self.friends << new_friend
+  end
+
+  # WHY YOU NO WORKING!!
+  # a.friends << (b.to_friend(a))  #really wish i could reduce the syntax here
+  # not sure how to override the collection method << for a specific model
+  def to_friend member
+    Friend.new(:member_id => self, :id => member)
   end
 
   #========================================
