@@ -7,6 +7,22 @@
 #   but it's my first time creating a module like this,
 #   sue me
 
+#the naming convention for sql files is very specific
+#   tables: table_model_names.sql
+#   view:   view_model_names.sql
+#   rules:  rule_target_view_action (target view is what it sounds like, action is either insert update or delete)
+#
+#   everything else is to be implemented
+
+#the order in which scripts are ran (for each object type)
+#   1. tables
+#   2. views
+#   3. functions
+#   4. indexes
+#   5. rules
+
+#the order is reversed when dropping objects
+
 module SqlLoader
   class SqlLoaderBase
     CREATE_START = 'Creating objects for'
@@ -28,7 +44,7 @@ module SqlLoader
 
     def self.get_sql_files
       #for each type, append it's sql files into an array in an order that can be executed
-      sql_object_types = %w[table view index rule function]
+      sql_object_types = %w[table view function index rule]
 
       sql_object_types.each_with_object([]) do |type, files|
         files.concat(Dir[File.join(SQL_LOADER_ROOT, relative_name.underscore, "#{type}_*.sql")])
