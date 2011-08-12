@@ -6,8 +6,7 @@ class Rink < ActiveRecord::Base
   belongs_to :owner, :class_name => 'Member'
   belongs_to :contact, :class_name => 'Member'
 
-  #how to do
-  #has_many :role_members, :as => :roleable, :dependent => :destroy
+  has_many :teams
 
   attr_accessible :name, :address_attributes, :phone, :email, :website, :owner_name, :contact_name, :description
   accepts_nested_attributes_for :address
