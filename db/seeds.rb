@@ -120,8 +120,9 @@ Factory(:friend, :member_requesting => Factory(:member), :member_requested => me
 # ======================================
 # TEAMS
 # ======================================
-
-
+@jammers_va = Factory(:team, :name => 'Jammers VA')
+@breaksk8 = Factory(:team, :name => 'Breaksk8')
+@phase_two = Factory(:team, :name => 'Phase Two')
 
 # ======================================
 # TEAM MEMBERS

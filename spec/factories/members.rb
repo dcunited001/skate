@@ -37,24 +37,24 @@ end
 
 # ugh complicated
 
-Factory.define(:team_member, :parent => :member) do |member|
-  member.first_name 'Teammember'
-  member.sequence(:alias) {|n| "teammember#{n}"}
-
-  member.team {|m| m.association(:team)}
-
-  member.after_create do |m|
-    m.assign_role(:teammember, m.team)
-  end
-end
-
-Factory.define(:team_creator, :parent => :member) do |member|
-  member.first_name 'Teamcreator'
-  member.sequence(:alias) {|n| "teamcreator#{n}"}
-
-  member.team {|m| m.association(:team, :creator => m)}
-
-  member.after_create do |m|
-    m.assign_role(:teamcreator, m.team)
-  end
-end
+#Factory.define(:team_member, :parent => :member) do |member|
+#  member.first_name 'Teammember'
+#  member.sequence(:alias) {|n| "teammember#{n}"}
+#
+#  member.team {|m| m.association(:team)}
+#
+#  member.after_create do |m|
+#    m.assign_role(:teammember, m.team)
+#  end
+#end
+#
+#Factory.define(:team_creator, :parent => :member) do |member|
+#  member.first_name 'Teamcreator'
+#  member.sequence(:alias) {|n| "teamcreator#{n}"}
+#
+#  member.team {|m| m.association(:team, :creator => m)}
+#
+#  member.after_create do |m|
+#    m.assign_role(:teamcreator, m.team)
+#  end
+#end
