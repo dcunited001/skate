@@ -31,7 +31,6 @@ Factory.define(:private_member, :parent => :member) do |member|
   #member.privacy_settings.visibility = PrivacySettings::PRIVATE_VISIBILITY
 end
 
-
 # I'm really not sure if these will work, with the roles that need to be added
 # might be better to add some helpers to create the objects
 

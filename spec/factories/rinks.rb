@@ -49,11 +49,6 @@ end
 #  rink.Contact { Factory.next(:rink_owner_user) } #???
 #end
 
-Factory.define(:default_rink, :parent => :rink) do |rink|
-  
-end
-
-
 #    t.string   "owner_name"
 #    t.integer  "owner_id",  :default => -1
 

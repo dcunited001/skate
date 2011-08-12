@@ -120,13 +120,35 @@ Factory(:friend, :member_requesting => Factory(:member), :member_requested => me
 # ======================================
 # TEAMS
 # ======================================
-@jammers_va = Factory(:team, :name => 'Jammers VA')
-@breaksk8 = Factory(:team, :name => 'Breaksk8')
-@phase_two = Factory(:team, :name => 'Phase Two')
+puts 'Creating some members for teams'
+
+#jammers-va
+dcunited = Factory(:member, :alias => 'dcunited001')
+xm_jester_mx = Factory(:member, :alias => 'xm-Jester-mx')
+cooper = Factory(:member, :alias => 'cory-coopster')
+
+beef_jerky = Factory(:member, :alias => 'beef_jerky')
+shannon = Factory(:member, :alias => 'breaksk8master')
+
+dennis_gk = Factory(:member, :alias => 'dennis-gk')
+ballentine = Factory(:member, :alias => 'ballentine')
+
+quinton = Factory(:member, :alias => 'quinton')
+james = Factory(:member, :alias => 'anaconda')
+
+puts 'Creating Some Teams'
+jammers_va = Factory(:team, :name => 'Jammers VA', :creator => dcunited)
+breaksk8 = Factory(:team, :name => 'Breaksk8', :creator => shannon)
+phase_two = Factory(:team, :name => 'Phase Two', :creator => dennis_gk)
+authentic = Factory(:team, :name => 'Authentic Freaks', :creator => james)
 
 # ======================================
 # TEAM MEMBERS
 # ======================================
+
+
+
+
 
 
 
