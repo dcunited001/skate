@@ -16,7 +16,7 @@ describe Member do
   it { should have_many :friend_requests_sent }
 
   #it {should have_many :teams }
-  #it {should have_many :team_members }
+  it {should have_many :team_mates }
   it { should have_many :team_requests_recd }
   it { should have_many :team_requests_sent }
 
@@ -46,6 +46,40 @@ describe Member do
       subject.assign_role(:appadmin)
       subject.is_appadmin?.should be_true
     end
+
+    context 'adding and removing roles' do
+      before do
+        @team_creator = Factory(:member)
+        @team = Factory(:team, :creator => @team_creator)
+      end
+
+      it 'can assign new roles' do
+        subject.is_appadmin?.should be_false
+
+        subject.assign_role(:appadmin)
+        subject.is_appadmin?.should be_true
+
+        subject.is_teamcreator_of?(@team).should be_false
+
+        subject.assign_role(:teamcreator, @team)
+        subject.is_teamcreator_of?(@team).should be_true
+      end
+
+      it 'can remove roles' do
+        subject.is_appadmin?.should be_false
+
+        subject.assign_role(:appadmin)
+        subject.is_appadmin?.should be_true
+
+        subject.remove_role(:appadmin)
+        subject.is_appadmin?.should be_false
+
+        @team_creator.is_teamcreator_of?(@team).should be_true
+        @team_creator.remove_role(:teamcreator, @team)
+        @team_creator.is_teamcreator_of?(@team).should be_false
+      end
+    end
+
   end
 
   context 'Rink' do
@@ -207,15 +241,16 @@ describe Member do
     end
 
     context 'with Team Requests' do
-      before do
-        @team
+      before(:all) do
+        @team = Factory(:team, :creator => subject)
 
-        @another_team = Factory(:team)
         @another_team_creator = Factory(:member)
-        #set team owner
+        @another_team = Factory(:team, :creator => @another_team_creator)
 
         @yet_another_team = Factory(:team)
+      end
 
+      before(:each) do
         @member_sent_request_by_subject_one = Factory(:member)
         @member_sent_request_by_subject_two = Factory(:member)
         @member_sent_request_by_subject_for_another_team = Factory(:member)
@@ -242,15 +277,36 @@ describe Member do
       end
 
       it 'knows if it has an open team request from a specific member' do
-        pending
+        #subject was sent a request to be on @another team from this member
+        subject.already_team_request_from?(@member_sent_request_to_subject_for_another_team).should be_true
+
+        #subject was sent a request from this member
+        subject.already_team_request_from?(@member_sent_request_to_subject).should be_true
+
+        #this member was sent a request by the subject to be on the subjects team
+        @member_sent_request_by_subject_one.already_team_request_from?(subject).should be_true
+        subject.already_team_request_from?(@member_sent_request_by_subject_one).should be_false
       end
 
       it 'knows if it has an open team request from a specific team' do
-        pending
+        #request from the subject's own team
+        subject.already_request_from?(@team).should be_true
+
+        #subject was sent a request from this member, but it was not for @another_team
+        subject.already_team_request_from?(@member_sent_request_to_subject).should be_false
+
+        #this member was sent a request by the subject to be on the subjects team
+        @member_sent_request_by_subject_one.already_team_request_from?(subject).should be_true
+        @member_sent_request_by_subject_one.already_team_request_from?(subject).should be_true
+        subject.already_team_request_from?(@member_sent_request_by_subject_one).should be_false
       end
 
       it 'knows if it has an open team request to a specific team' do
         pending
+      end
+
+      it 'knows if it is already on a specific team' do
+        pending 'need to implement the team relationship for a member'
       end
 
       it 'can list all pending sent team requests' do

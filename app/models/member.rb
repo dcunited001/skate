@@ -50,6 +50,14 @@ class Member < ActiveRecord::Base
     roles.create!(:name => role, :rollable => target)
   end
 
+  def remove_role(role, *args)
+    target = args.first.presence
+
+    #target is nil when appropriate
+    role = Role.where(:name => role, :member => self, :rollable => target).first
+    role.delete
+  end
+
   #========================================
   #  Privacy Helpers
   #========================================
@@ -148,20 +156,52 @@ class Member < ActiveRecord::Base
   #========================================
   #  Team Request Helpers
   #========================================
-  def already_team_request_from? team, member
-    true
+  def already_team_request_from? *args
+    team, member = nil, nil
+    args.each do |a|
+      team = a if a.is_a? Team
+      member = a if a.is_a? Member
+    end
+
+    if (team and member)
+      true #already_team_request_from? team, member
+    elsif (team)
+      true #already_team_request_from? team
+    elsif (member)
+      true #already_team_request_from? member
+    else
+      false
+      raise "invalid input exception, already_team_request_from? requires a member or a team"
+    end
   end
 
-  def already_team_request_to? team, member
-    true
+  def already_team_request_to? *args
+    team, member = nil, nil
+    args.each do |a|
+      team = a if a.is_a? Team
+      member = a if a.is_a? Member
+    end
+
+    if (team and member)
+      true #already_team_request_to? team, member
+    elsif (team)
+      true #already_team_request_to? team
+    elsif (member)
+      true #already_team_request_to? member
+    else
+      false
+      raise "invalid input exception, already_team_request_from? requires a member or a team"
+    end
   end
 
   def already_on_team? team
-    true
+    false
   end
 
   def team_requestable? team, member
-    !(already_friend_request_from?(team, member) || already_friend_request_to?(team, member) || already_on_team?(team))
+    false
+
+    #!(already_friend_request_from?(team, member) || already_friend_request_to?(team, member) || already_on_team?(team))
   end
 end
 

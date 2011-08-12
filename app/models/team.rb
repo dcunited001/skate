@@ -10,6 +10,12 @@ class Team < ActiveRecord::Base
 
   validates_presence_of :name
 
+  def creator= member
+    Team.transaction do
+      creator.remove_role
+    end
+  end
+
   def set_creator member
     #set the creator
     #add and remove roles appropriately
