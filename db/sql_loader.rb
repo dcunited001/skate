@@ -38,6 +38,18 @@ module SqlLoader
     SQL_LOADER_ROOT = File.join(Rails.root, 'db/sql_loader')
     Dir[File.join(SQL_LOADER_ROOT, "*.rb")].each {|rb| require rb }
 
+    def self.create_all
+      [Friend,
+       TeamMember,
+       TeamCaptain].each {|klass| klass.create}
+    end
+
+    def self.drop_all
+      [Friend,
+       TeamMember,
+       TeamCaptain].each {|klass| klass.drop}
+    end
+
     def self.relative_name
       name.to_s.split('::').last
     end

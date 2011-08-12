@@ -36,5 +36,16 @@ RSpec.configure do |config|
   #email spec helpers
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
+
+  config.before(:all) do
+    #create the appropriate SQL Views/Rules/Etc
+    SqlLoader::SqlLoaderBase.create_all
+  end
+
+  config.after(:all) do
+    #drop the SQL Views/Rules/Etc
+    SqlLoader::SqlLoaderBase.drop_all
+  end
 end
+
 

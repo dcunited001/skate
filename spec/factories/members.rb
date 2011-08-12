@@ -35,19 +35,26 @@ end
 # I'm really not sure if these will work, with the roles that need to be added
 # might be better to add some helpers to create the objects
 
-#Factory.define(:team_member, :parent => :member) do |member|
-#  member.first_name 'Teammember'
-#  member.sequence(:alias) {|n| "teammember#{n}"}
-#
-#  member.team {|m| m.association(:team, :creator => m)}
-#  #how to assign teammember
-#end
-#
-#Factory.define(:team_creator, :parent => :team_member) do |member|
-#  member.first_name 'Teamcreator'
-#  member.sequence(:alias) {|n| "teamcreator#{n}"}
-#
-#  member.team {|m| m.association(:team, :creator => m)}
-#
-#  #how to assign teamcreator role to this member?
-#end
+# ugh complicated
+
+Factory.define(:team_member, :parent => :member) do |member|
+  member.first_name 'Teammember'
+  member.sequence(:alias) {|n| "teammember#{n}"}
+
+  member.team {|m| m.association(:team)}
+
+  member.after_create do |m|
+    m.assign_role(:teammember, m.team)
+  end
+end
+
+Factory.define(:team_creator, :parent => :member) do |member|
+  member.first_name 'Teamcreator'
+  member.sequence(:alias) {|n| "teamcreator#{n}"}
+
+  member.team {|m| m.association(:team, :creator => m)}
+
+  member.after_create do |m|
+    m.assign_role(:teamcreator, m.team)
+  end
+end

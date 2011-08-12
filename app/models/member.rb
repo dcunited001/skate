@@ -12,11 +12,13 @@ class Member < ActiveRecord::Base
 
   has_many :friend_requests_recd, :class_name => 'Friendship', :foreign_key => 'member_requested_id'
   has_many :friend_requests_sent, :class_name => 'Friendship', :foreign_key => 'member_requesting_id'
-  has_many :friends # Don't need this anymore ===> :class_name => 'Friend', :finder_sql => "Select * from v_friends"
+  has_many :friends
 
   has_many :team_requests_recd, :class_name => 'TeamRequest', :foreign_key => 'member_requested_id'
   has_many :team_requests_sent, :class_name => 'TeamRequest', :foreign_key => 'member_requesting_id'
-  #has_many :team_members, :finder_sql => 'select * from view'
+
+  #has_many :team_mates
+  #has_one :team
 
   validates_presence_of :first_name, :last_name, :birthday, :alias
   validates_uniqueness_of :alias
@@ -147,8 +149,6 @@ class Member < ActiveRecord::Base
   def team_requestable? team, member
     !(already_friend_request_from?(team, member) || already_friend_request_to?(team, member) || already_on_team?(team))
   end
-
-
 end
 
 
