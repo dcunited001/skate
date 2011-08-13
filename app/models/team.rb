@@ -18,7 +18,7 @@ class Team < ActiveRecord::Base
         TeamMember.where(:team_id => self.id, :member_requesting_id => creator.id, :member_requested_id => creator.id).first.delete
         creator.remove_role(:teamcreator, self)
       else
-        original_creator_id = member.id
+        self.original_creator_id = member.id
       end
 
       #create a special TeamRequest record for the new creator and assign roles
@@ -27,7 +27,8 @@ class Team < ActiveRecord::Base
         :member_requesting_id => member.id,
         :member_requested_id => member.id,
         :approved => true,
-        :active => true)
+        :active => true,
+        :incoming => false)
       member.assign_role(:teamcreator, self)
 
       #finally, if all is well in transaction-land,

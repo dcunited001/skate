@@ -40,18 +40,26 @@ module SqlLoader
     SQL_LOADER_ROOT = File.join(Rails.root, 'db/sql_loader')
     Dir[File.join(SQL_LOADER_ROOT, "*.rb")].each {|rb| require rb }
 
+    #order is important here,
+    #   as their objects will be created in order
+    #   and dropped in reverse order
+    def self.all_classes
+      #more advanced load options will be added later
+
+      [Member,
+      Friend,
+      TeamMate,
+      TeamMember,
+      TeamCaptain]
+    end
+
     def self.create_all
-      [Friend,
-       TeamMate,
-       TeamMember,
-       TeamCaptain].each {|klass| klass.create}
+      # i finally feel cool enough to spell class with a "k"
+      all_classes.each {|klass| klass.create}
     end
 
     def self.drop_all
-      [Friend,
-       TeamMate,
-       TeamMember,
-       TeamCaptain].each {|klass| klass.drop}
+      all_classes.reverse.each {|klass| klass.drop}
     end
 
     def self.relative_name
@@ -121,7 +129,7 @@ module SqlLoader
         out += "#{CREATE_ERRORS}\n"
         errors.each {|e| out += "\n\n#{CREATE_DELIMETER}\n#{e}\n" }
 
-        puts out if @@debug
+        puts out
         raise "SqlLoader Exception"
       else
         out += NO_CREATE_ERRORS
@@ -136,7 +144,7 @@ module SqlLoader
         out += "#{DROP_ERRORS}\n"
         errors.each {|e| out += "\n\n#{DROP_DELIMETER}\n#{e}\n" }
 
-        puts out if @@debug
+        puts out
         raise "SqlLoader Exception"
       else
         out += NO_DROP_ERRORS

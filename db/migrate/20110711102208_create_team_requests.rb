@@ -2,9 +2,9 @@ class CreateTeamRequests < ActiveRecord::Migration
   def self.up
     create_table "team_requests", :force => true do |t|
       t.integer  "team_id"
-      t.integer  "original_creator_id"
       t.integer  "member_requesting_id"
       t.integer  "member_requested_id"
+      t.boolean  "incoming",     :default => true
       t.boolean  "team_request", :default => true
       t.boolean  "approved",     :default => false
       t.boolean  "rejected",     :default => false

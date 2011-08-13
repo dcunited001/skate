@@ -1,4 +1,3 @@
-CREATE VIEW view_team_members AS
 
 -- i'll remove these comments as I determine my strategy here.
 
@@ -18,6 +17,8 @@ CREATE VIEW view_team_members AS
 --      that's going to open me up to some particularly nasty bugs
 --      which would probably silently ruin the integrity of my data
 
+--  changing team_requests table to use an "incoming" field to determine the team_member
+
 --  =============================================================================
 
 --goal of this view:
@@ -33,28 +34,46 @@ CREATE VIEW view_team_members AS
 --  using string substitution in the commented query below
 
 --  =============================================================================
+CREATE VIEW view_team_members AS
 
+SELECT t.id as team_id, tm.id as team_request_id, team_mems.*
+FROM teams t
 
-SELECT t.id as team_id, tm.id as team_request_id, this_member.id as member_id, team_mems.*
-FROM members this_member
-
---join to get the member's team
-INNER JOIN team_requests active_tm
-  ON (this_member.id = active_tm.member_requesting_id
-  OR this_member.id = active_tm.member_requested_id)
-  AND active_tm.active = true
-INNER JOIN teams t
-  ON active_tm.team_id = t.id
-
---join back to team_requests
---    to get the current team members
 INNER JOIN team_requests tm
   ON t.id = tm.team_id
   AND tm.active = true
+
 INNER JOIN members team_mems
-  ON (team_mems.id = tm.member_requesting_id and t.creator_id = this_member.id)
-  OR (team_mems.id = tm.member_requested_id and t.creator_id != this_member.id)
-WHERE team_mems.id != this_member.id
+  --if it's an incoming request, the member requesting is the team member
+  --otherwise the member requested is the team member
+  ON (team_mems.id = tm.member_requesting_id AND tm.incoming = true)
+  OR (team_mems.id = tm.member_requested_id AND tm.incoming = false)
+
+
+
+
+
+
+-- SELECT t.id as team_id, tm.id as team_request_id, this_member.id as member_id, team_mems.*
+-- FROM members this_member
+--
+-- --join to get the member's team
+-- INNER JOIN team_requests active_tm
+--   ON (this_member.id = active_tm.member_requesting_id
+--   OR this_member.id = active_tm.member_requested_id)
+--   AND active_tm.active = true
+-- INNER JOIN teams t
+--   ON active_tm.team_id = t.id
+--
+-- --join back to team_requests
+-- --    to get the current team members
+-- INNER JOIN team_requests tm
+--   ON t.id = tm.team_id
+--   AND tm.active = true
+-- INNER JOIN members team_mems
+--   ON (team_mems.id = tm.member_requesting_id and t.creator_id = this_member.id)
+--   OR (team_mems.id = tm.member_requested_id and t.creator_id != this_member.id)
+-- WHERE team_mems.id != this_member.id
 
 
 

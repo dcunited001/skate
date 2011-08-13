@@ -6,12 +6,4 @@ class TeamRequest < ActiveRecord::Base
 
   #scope :recd
   #scope :sent
-
-  after_create :set_original_creator
-
-  private
-
-  def set_original_creator
-    original_creator_id = team.original_creator_id
-  end
 end
