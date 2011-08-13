@@ -1,3 +1,5 @@
+
+
 CITY_TO_ZIP_HASH = {
     'Norfolk' => '23511',
     'Roanoke' => '24012',

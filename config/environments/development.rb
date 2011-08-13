@@ -25,3 +25,6 @@ Sk8::Application.configure do
   # Do not compress assets
   config.assets.compress = false
 end
+
+#require factory helpers to enable them in console
+require File.expand_path('../../lib/factory_helpers', __FILE__)

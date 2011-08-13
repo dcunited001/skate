@@ -37,3 +37,5 @@ Sk8::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
+
+require File.expand_path('../../lib/factory_helpers', __FILE__)

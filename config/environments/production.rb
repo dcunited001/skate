@@ -52,3 +52,5 @@ Sk8::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
+
+require File.expand_path('../../lib/factory_helpers', __FILE__)
