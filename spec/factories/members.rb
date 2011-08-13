@@ -14,15 +14,6 @@ Factory.define(:member, :class => 'Member') do |member|
   member.address {|m| m.association(:address)}
 end
 
-Factory.define(:admin, :parent => :member) do |member|
-  member.first_name 'Admin'
-  member.sequence(:alias) {|n| "adminuser#{n}"}
-
-  member.after_create do |m|
-    m.assign_role(:appadmin)
-  end
-end
-
 Factory.define(:private_member, :parent => :member) do |member|
   member.first_name 'Private'
   member.sequence(:alias) {|n| "privateuser#{n}"}
@@ -33,8 +24,6 @@ end
 
 # I'm really not sure if these will work, with the roles that need to be added
 # might be better to add some helpers to create the objects
-
-# ugh complicated
 
 #Factory.define(:team_member, :parent => :member) do |member|
 #  member.first_name 'Teammember'

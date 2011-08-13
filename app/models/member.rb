@@ -40,7 +40,7 @@ class Member < ActiveRecord::Base
   #  Role Helpers
   #========================================
   def add_appuser_role
-    roles.create(:name => 'appuser')
+    assign_role(:appuser)
   end
 
   def assign_role(role, *args)

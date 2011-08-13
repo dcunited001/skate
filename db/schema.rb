@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110812072441) do
+ActiveRecord::Schema.define(:version => 20121223235959) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "addressable_id"

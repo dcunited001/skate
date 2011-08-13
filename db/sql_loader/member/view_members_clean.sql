@@ -26,4 +26,4 @@ SELECT
   pro_skater,
   suspended,
   suspended_until
-FROM members
+FROM members;

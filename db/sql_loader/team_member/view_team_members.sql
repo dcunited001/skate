@@ -43,7 +43,7 @@ INNER JOIN team_requests tm
   ON t.id = tm.team_id
   AND tm.active = true
 
-INNER JOIN members team_mems
+INNER JOIN view_members_clean team_mems
   --if it's an incoming request, the member requesting is the team member
   --otherwise the member requested is the team member
   ON (team_mems.id = tm.member_requesting_id AND tm.incoming = true)

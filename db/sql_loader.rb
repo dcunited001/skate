@@ -44,13 +44,17 @@ module SqlLoader
     #   as their objects will be created in order
     #   and dropped in reverse order
     def self.all_classes
-      #more advanced load options will be added later
-
       [Member,
       Friend,
       TeamMate,
       TeamMember,
       TeamCaptain]
+
+      #Need to change this implementation to catch errors
+      #   for multiple classes, instead of blowing up
+      #   after the first class
+
+      # I'd really like to add more load options later
     end
 
     def self.create_all
