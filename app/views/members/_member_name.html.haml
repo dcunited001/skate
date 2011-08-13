@@ -1,4 +1,4 @@
-- unless member.name_with_privacy_settings == Member::PRIVACY_NO_NAME
-  = member.name_with_privacy_settings
+- unless member.name == Member::PRIVACY_NO_NAME
+  = member.name
 - else
   = Member::PRIVACY_NO_NAME

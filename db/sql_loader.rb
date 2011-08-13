@@ -25,6 +25,8 @@
 
 module SqlLoader
   class SqlLoaderBase
+    @@debug = false
+
     CREATE_START = 'Creating objects for'
     CREATE_ERRORS = 'Encountered errors creating objects:'
     CREATE_DELIMETER = '================================='
@@ -68,7 +70,7 @@ module SqlLoader
     def self.create
       errors = []
 
-      puts "#{CREATE_START} #{relative_name}"
+      puts "#{CREATE_START} #{relative_name}" if @@debug
 
       get_sql_files.each do |sql|
         begin
@@ -84,13 +86,12 @@ module SqlLoader
     def self.drop
       errors = []
 
-      puts "#{DROP_START} #{relative_name}"
+      puts "#{DROP_START} #{relative_name}" if @@debug
 
       get_sql_files.reverse.each do |f|
         sql = drop_statement(f)
 
         begin
-          puts "============= " + sql
           ActiveRecord::Base.connection.execute(sql)
         rescue
           errors << $!
@@ -120,11 +121,11 @@ module SqlLoader
         out += "#{CREATE_ERRORS}\n"
         errors.each {|e| out += "\n\n#{CREATE_DELIMETER}\n#{e}\n" }
 
-        puts out
+        puts out if @@debug
         raise "SqlLoader Exception"
       else
         out += NO_CREATE_ERRORS
-        puts out
+        puts out if @@debug
       end
     end
 
@@ -135,11 +136,11 @@ module SqlLoader
         out += "#{DROP_ERRORS}\n"
         errors.each {|e| out += "\n\n#{DROP_DELIMETER}\n#{e}\n" }
 
-        puts out
+        puts out if @@debug
         raise "SqlLoader Exception"
       else
         out += NO_DROP_ERRORS
-        puts out
+        puts out if @@debug
       end
     end
   end

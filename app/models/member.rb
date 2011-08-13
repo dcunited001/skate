@@ -70,11 +70,7 @@ class Member < ActiveRecord::Base
     false
   end
 
-  #later on i definitely want to use
-  #   caching on these model helpers
-  #   to improve the performance here
-  def name_with_privacy_settings
-    # query (cached?) name privacy settings here
+  def name
     name_privacy = PRIVACY_FULL_NAME
 
     case name_privacy
@@ -86,7 +82,6 @@ class Member < ActiveRecord::Base
         PRIVACY_NO_NAME
     end
   end
-
 
   #member.is_owner_of?(horse) # => true
   #user.is_owner(horse)

@@ -89,7 +89,7 @@ feature 'Member browses members: ' do
       end
 
       within '.member-detail' do
-        page.should have_content @other_members.first.name_with_privacy_settings
+        page.should have_content @other_members.first.name
       end
     end
 

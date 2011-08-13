@@ -1,4 +1,4 @@
-Factory.define(:team_request, :class => 'TeamRequests') do |team_request|
+Factory.define(:team_request, :class => 'TeamRequest') do |team_request|
   team_request.association :team
   team_request.association :member_requesting
   team_request.association :member_requested

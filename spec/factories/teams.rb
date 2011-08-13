@@ -4,5 +4,9 @@ Factory.define(:team, :class => 'Team') do |team|
 
   team.rink {|t| t.association(:rink)}
   team.address {|t| t.association(:address)}
+
+  team.after_create do
+    #necessary to create add the creator role?
+  end
 end
 

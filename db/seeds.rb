@@ -127,20 +127,31 @@ dcunited = Factory(:member, :alias => 'dcunited001')
 xm_jester_mx = Factory(:member, :alias => 'xm-Jester-mx')
 cooper = Factory(:member, :alias => 'cory-coopster')
 
+#breaksk8
 beef_jerky = Factory(:member, :alias => 'beef_jerky')
 shannon = Factory(:member, :alias => 'breaksk8master')
 
+#phase_two
 dennis_gk = Factory(:member, :alias => 'dennis-gk')
 ballentine = Factory(:member, :alias => 'ballentine')
 
+#authentic_freaks
 quinton = Factory(:member, :alias => 'quinton')
 james = Factory(:member, :alias => 'anaconda')
 
 puts 'Creating Some Teams'
 jammers_va = Factory(:team, :name => 'Jammers VA', :creator => dcunited)
+Factory(:team_member, :team => jammers_va, :member_requesting => dcunited, :member_requested => xm_jester_mx)
+Factory(:team_member, :team => jammers_va, :member_requesting => dcunited, :member_requested => cooper)
+
 breaksk8 = Factory(:team, :name => 'Breaksk8', :creator => shannon)
+Factory(:team_member, :team => breaksk8, :member_requesting => shannon, :member_requested => beef_jerky)
+
 phase_two = Factory(:team, :name => 'Phase Two', :creator => dennis_gk)
+Factory(:team_member, :team => phase_two, :member_requesting => dennis_gk, :member_requested => ballentine)
+
 authentic = Factory(:team, :name => 'Authentic Freaks', :creator => james)
+Factory(:team_member, :team => authentic, :member_requesting => james, :member_requested => quinton)
 
 # ======================================
 # TEAM MEMBERS

@@ -13,4 +13,16 @@ class Address < ActiveRecord::Base
   def to_s
     "#{line_one} #{(line_two + ' ') if !(line_two.nil? or line_two.empty)}#{city}, #{state} #{zip}"
   end
+
+  def as_hash
+    {
+      :line_one => self.line_one,
+      :line_two => self.line_two,
+      :city => self.city,
+      :state => self.state,
+      :zip => self.zip,
+      :latitude => self.latitude.to_f,
+      :longitude => self.longitude.to_f
+    }
+  end
 end

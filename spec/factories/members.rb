@@ -9,7 +9,7 @@ Factory.define(:member, :class => 'Member') do |member|
   member.birthday random_date(1985, 10)
   member.phone random_phone
 
-  member.rink_id -1
+  member. rink_id -1
 
   member.address {|m| m.association(:address)}
 

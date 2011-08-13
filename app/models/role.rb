@@ -5,6 +5,8 @@ class Role < ActiveRecord::Base
   belongs_to :member
   belongs_to :rollable, :polymorphic => true
 
+  # VALIDATE THAT THE SAME ROLE DOES NOT ALREADY EXIST
+
   def self.all_role_names
     (app_roles | event_roles | rink_roles | org_roles | team_roles)
   end

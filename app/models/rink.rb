@@ -119,15 +119,7 @@ class Rink < ActiveRecord::Base
       :description => self.description,
       :allow_comments => self.allow_comments,
 
-      :address => {
-          :line_one => self.address.line_one,
-          :line_two => self.address.line_two,
-          :city => self.address.city,
-          :state => self.address.state,
-          :zip => self.address.zip,
-          :latitude => self.address.latitude.to_f,
-          :longitude => self.address.longitude.to_f
-      }
+      :address => self.address.as_hash
     }
   end
 end
