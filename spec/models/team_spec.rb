@@ -23,6 +23,9 @@ describe Team do
 
       @new_creator.is_teamcreator_of?(subject).should be_true
       subject.creator.should be @new_creator
+
+      # need to test that a team's creator can be changed several times
+      #   and that it won't affect the team members returned
     end
 
     it 'can add a member as a team captain, only if they are already members of the team' do

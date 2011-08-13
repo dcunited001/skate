@@ -5,6 +5,7 @@ class Team < ActiveRecord::Base
   belongs_to :rink
   belongs_to :creator, :class_name => 'Member'
 
+  has_many :team_requests
   has_many :team_members
   #has_many :team_captains
 
@@ -12,8 +13,25 @@ class Team < ActiveRecord::Base
 
   def creator= member
     Team.transaction do
-      creator.remove_role(:teamcreator, self) if creator
+      #detach the old creator and remove roles (this will invoke the delete rule on the view)
+      if creator
+        TeamMember.where(:team_id => self.id, :member_requesting_id => creator.id, :member_requested_id => creator.id).first.delete
+        creator.remove_role(:teamcreator, self)
+      else
+        original_creator_id = member.id
+      end
+
+      #create a special TeamRequest record for the new creator and assign roles
+      #   hopefully in the future i can get the insert rules to work on the TeamMember view
+      team_requests << TeamRequest.create!(
+        :member_requesting_id => member.id,
+        :member_requested_id => member.id,
+        :approved => true,
+        :active => true)
       member.assign_role(:teamcreator, self)
+
+      #finally, if all is well in transaction-land,
+      #   set the creator_id column on the team
       self.creator_id = member.id
     end
   end

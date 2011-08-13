@@ -6,6 +6,7 @@
 * mutual friends view
 
 #### Members
+* view of members without private devise data
 
 #### Rinks
 * mutual members view

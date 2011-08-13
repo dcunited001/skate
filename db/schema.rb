@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20110812072441) do
 
   create_table "team_requests", :force => true do |t|
     t.integer  "team_id"
+    t.integer  "original_creator_id"
     t.integer  "member_requesting_id"
     t.integer  "member_requested_id"
     t.boolean  "team_request",         :default => true
@@ -161,14 +162,15 @@ ActiveRecord::Schema.define(:version => 20110812072441) do
 
   create_table "teams", :force => true do |t|
     t.string   "name"
+    t.integer  "original_creator_id"
     t.integer  "creator_id"
     t.integer  "address_id"
-    t.integer  "rink_id",        :default => -1
+    t.integer  "rink_id",             :default => -1
     t.datetime "sanction_date"
     t.datetime "create_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "allow_comments", :default => true
+    t.boolean  "allow_comments",      :default => true
   end
 
   add_index "teams", ["rink_id"], :name => "rink_id_index"

@@ -2,6 +2,7 @@ class CreateTeams < ActiveRecord::Migration
   def self.up
     create_table "teams", :force => true do |t|
       t.string   "name"
+      t.integer  "original_creator_id"
       t.integer  "creator_id"
       t.integer  "address_id"
       t.integer  "rink_id",    :default => -1
