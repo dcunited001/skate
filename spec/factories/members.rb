@@ -9,9 +9,13 @@ Factory.define(:member, :class => 'Member') do |member|
   member.birthday random_date(1985, 10)
   member.phone random_phone
 
-  member.homerink_id -1
+  member.rink_id -1
 
   member.address {|m| m.association(:address)}
+
+  member.after_create do |m|
+    m.assign_role(:appuser)
+  end
 end
 
 Factory.define(:admin, :parent => :member) do |member|

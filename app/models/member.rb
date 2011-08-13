@@ -8,17 +8,16 @@ class Member < ActiveRecord::Base
     :allow_nil => true
 
   has_one :address, :as => :addressable, :dependent => :destroy
-  belongs_to :rink, :foreign_key => :homerink_id
+  belongs_to :rink
 
+  has_many :friends
   has_many :friend_requests_recd, :class_name => 'Friendship', :foreign_key => 'member_requested_id'
   has_many :friend_requests_sent, :class_name => 'Friendship', :foreign_key => 'member_requesting_id'
-  has_many :friends
 
+  #has_one :team  #or has_many :teams with current_team method?
+  has_many :team_mates
   has_many :team_requests_recd, :class_name => 'TeamRequest', :foreign_key => 'member_requested_id'
   has_many :team_requests_sent, :class_name => 'TeamRequest', :foreign_key => 'member_requesting_id'
-
-  has_many :team_mates
-  #has_one :team
 
   validates_presence_of :first_name, :last_name, :birthday, :alias
   validates_uniqueness_of :alias
@@ -54,7 +53,7 @@ class Member < ActiveRecord::Base
     target = args.first.presence
 
     #target is nil when appropriate
-    role = Role.where(:name => role, :member => self, :rollable => target).first
+    role = Role.where(:name => role, :member_id => self.id, :rollable => target).first
     role.delete
   end
 
@@ -143,7 +142,7 @@ class Member < ActiveRecord::Base
   #  Rink Helpers
   #========================================
   def has_rink?
-    (homerink_id > 0)
+    (rink_id > 0)
   end
 
   #========================================
@@ -164,11 +163,11 @@ class Member < ActiveRecord::Base
     end
 
     if (team and member)
-      true #already_team_request_from? team, member
+      false #already_team_request_from? team, member
     elsif (team)
-      true #already_team_request_from? team
+      false #already_team_request_from? team
     elsif (member)
-      true #already_team_request_from? member
+      false #already_team_request_from? member
     else
       false
       raise "invalid input exception, already_team_request_from? requires a member or a team"
@@ -183,14 +182,14 @@ class Member < ActiveRecord::Base
     end
 
     if (team and member)
-      true #already_team_request_to? team, member
+      false #already_team_request_to? team, member
     elsif (team)
-      true #already_team_request_to? team
+      false #already_team_request_to? team
     elsif (member)
-      true #already_team_request_to? member
+      false #already_team_request_to? member
     else
       false
-      raise "invalid input exception, already_team_request_from? requires a member or a team"
+      raise "invalid input exception, already_team_request_to? requires a member or a team"
     end
   end
 

@@ -3,7 +3,7 @@ class AddColumnsToMembers < ActiveRecord::Migration
     add_column :members, :alias, :string
     add_column :members, :first_name, :string
     add_column :members, :last_name, :string
-    add_column :members, :homerink_id, :integer, :default => -1
+    add_column :members, :rink_id, :integer, :default => -1
     add_column :members, :birthday, :datetime
     add_column :members, :phone, :string
     add_column :members, :verified, :boolean
@@ -22,7 +22,7 @@ class AddColumnsToMembers < ActiveRecord::Migration
     remove_column :members, :alias
     remove_column :members, :first_name
     remove_column :members, :last_name
-    remove_column :members, :homerink_id
+    remove_column :members, :rink_id
     remove_column :members, :birthday
     remove_column :members, :phone
     remove_column :members, :verified

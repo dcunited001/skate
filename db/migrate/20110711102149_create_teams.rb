@@ -4,7 +4,7 @@ class CreateTeams < ActiveRecord::Migration
       t.string   "name"
       t.integer  "creator_id"
       t.integer  "address_id"
-      t.integer  "homerink_id",    :default => -1
+      t.integer  "rink_id",    :default => -1
       t.datetime "sanction_date"
       t.datetime "create_date"
       t.datetime "created_at"
@@ -12,7 +12,7 @@ class CreateTeams < ActiveRecord::Migration
       t.boolean  "allow_comments", :default => true
     end
 
-    add_index :teams, [:homerink_id], :name => "homerink_id_index"
+    add_index :teams, [:rink_id], :name => "rink_id_index"
   end
 
   def self.down

@@ -21,28 +21,19 @@ describe Rink do
     end
 
     it 'can set the owner' do
-      subject.get_owner_name.should equal(Rink::DEFAULT_MISSING_OWNER_NAME)
+      subject.get_owner_name.should == Rink::DEFAULT_MISSING_OWNER_NAME
       subject.owner = "new owner"
-      subject.get_owner_name.should equal("new owner")
+      subject.get_owner_name.should == "new owner"
       subject.owner = @owner
-      subject.get_owner_name.full_name.should equal(@owner_name)
+      subject.get_owner_name.full_name.should == @owner_name
     end
 
     it 'can set the contact' do
-      subject.get_contact_name.should equal(Rink::DEFAULT_MISSING_CONTACT_NAME)
+      subject.get_contact_name.should == Rink::DEFAULT_MISSING_CONTACT_NAME
       subject.contact = "new contact"
-      subject.get_contact_name.should equal("new contact")
+      subject.get_contact_name.should == "new contact"
       subject.contact = @contact
-      subject.get_contact_name.full_name.should equal(@contact_name)
-    end
-
-    # these are already pretty much tested
-    it 'can display the owner\'s name' do
-      pending
-    end
-
-    it 'can display the contact\'s name' do
-      pending
+      subject.get_contact_name.full_name.should == @contact_name
     end
 
     it 'know if it has an owner set and if it has an owner member set' do
@@ -73,12 +64,34 @@ describe Rink do
   end
 
   context 'Skaters' do
-    before do
-      #set up some skaters
+    before(:all) do
+      @another_rink = Factory(:rink)
+
+      @skater_one = Factory(:member, :rink => subject)
+      @skater_two = Factory(:member, :rink => subject)
+      @skater_three = Factory(:member, :rink => subject)
+
+      @another_rink_skater_one = Factory(:member, :rink => @another_rink)
+      @another_rink_skater_two = Factory(:member, :rink => @another_rink)
+
+      #set up some friend relationships between the users
     end
 
-    it 'can list the devise who consider this their home rink' do
-      pending
+    it 'can list the members who consider this their home rink' do
+      #this test really isnt necessary
+
+      subject.skaters.should include(@skater_one)
+      subject.skaters.should include(@skater_two)
+      subject.skaters.should_not include(@another_rink_skater_one)
+      subject.skaters.count.should be(3)
+
+      @another_rink.skaters.should include(@another_rink_skater_one)
+      @another_rink.skaters.should_not include(@skater_one)
+      @another_rink.skaters.count.should be(2)
+    end
+
+    it 'can list a members mutual friends who consider this their home rink' do
+      pending 'create Rink.mutual_members(member) method'
     end
   end
 

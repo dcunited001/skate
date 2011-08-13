@@ -16,7 +16,7 @@ describe Member do
   it { should have_many :friend_requests_sent }
 
   #it {should have_many :teams }
-  it {should have_many :team_mates }
+  it { should have_many :team_mates }
   it { should have_many :team_requests_recd }
   it { should have_many :team_requests_sent }
 
@@ -83,7 +83,7 @@ describe Member do
   end
 
   context 'Rink' do
-    it 'can be determined homerink to be set or unset' do
+    it 'knows if the homerink is set or unset' do
       subject.has_rink?.should be_false
 
       subject.rink = Factory(:rink)
@@ -104,12 +104,12 @@ describe Member do
         subject.rink.should equal(@another_rink)
       end
 
-      it 'can list other mutual friends at that rink' do
-        pending
-      end
-
       it 'can list other local skaters at that rink' do
         pending #move to rink_spec.rb?
+      end
+
+      it 'can list other mutual friends at that rink' do
+        pending
       end
 
       it 'can list other local teams' do
@@ -119,14 +119,16 @@ describe Member do
   end
 
   context 'With friendships' do
-    before do
+    before(:all) do
       @member_sent_request_by_subject_one = Factory(:member)
       @member_sent_request_by_subject_two = Factory(:member)
       @member_sent_request_by_another_member = Factory(:member)
       @member_sent_request_to_another_member = Factory(:member)
       @member_sent_request_to_subject = Factory(:member)
       @member_sent_no_requests = Factory(:member)
+    end
 
+    before(:each) do
       Factory(:friendship, :member_requesting => subject , :member_requested => @member_sent_request_by_subject_one)
       Factory(:friendship, :member_requesting => subject , :member_requested => @member_sent_request_by_subject_two)
 
@@ -270,25 +272,47 @@ describe Member do
       end
 
       it 'knows if it is team-requestable' do
+        pending 'implementation of Member team request methods'
+
         subject.team_requestable?(@team, @member_sent_request_by_subject_one).should be_false
         subject.team_requestable?(@team, @member_sent_request_by_subject_two).should be_true
 
         subject.team_requestable?(@team)
       end
 
-      it 'knows if it has an open team request from a specific member' do
-        #subject was sent a request to be on @another team from this member
+      it 'knows if it has an open team request from a specific member or team or both' do
+        pending 'implementation of Member team request methods'
+
+        # subject was sent a request to be on @another team from @member_sent_request_to_subject_for_another_team
+        subject.already_team_request_from?(@another_team).should be_true
         subject.already_team_request_from?(@member_sent_request_to_subject_for_another_team).should be_true
+        subject.already_team_request_from?(@member_sent_request_to_subject_for_another_team, @another_team).should be_true
+        subject.already_team_request_from?(@member_sent_request_to_subject_for_another_team, @yet_another_team).should be_false
+        subject.already_team_request_from?(@another_team, @member_sent_request_to_subject_for_another_team).should be_true  #order of params should not matter
+        subject.already_team_request_from?(@member_sent_request_to_subject_for_another_team, @yet_another_team).should be_false
+        subject.already_team_request_from?(@yet_another_team, @member_sent_request_to_subject_for_another_team).should be_false  #order of params should not matter
 
-        #subject was sent a request from this member
-        subject.already_team_request_from?(@member_sent_request_to_subject).should be_true
+        @member_sent_request_to_subject_for_another_team.already_team_request_from?(subject).should be_false
+        @member_sent_request_to_subject_for_another_team.already_team_request_from?(subject, @another_team).should be_false
+        @member_sent_request_to_subject_for_another_team.already_team_request_from?(@another_team).should be_false
 
-        #this member was sent a request by the subject to be on the subjects team
+        # @member_sent_request_by_subject_one was sent a request by the subject to be on the subjects team
         @member_sent_request_by_subject_one.already_team_request_from?(subject).should be_true
+        @member_sent_request_by_subject_one.already_team_request_from?(subject, @team).should be_true
+        @member_sent_request_by_subject_one.already_team_request_from?(@team, subject).should be_true
         subject.already_team_request_from?(@member_sent_request_by_subject_one).should be_false
+        subject.already_team_request_from?(@member_sent_request_by_subject_one, @team).should be_false
+        subject.already_team_request_from?(@team, @member_sent_request_by_subject_one).should be_false  #????? subject is already on this team, should be false bc its not pending
+
+        #subject was sent a request from this member to be on a generic team
+        subject.already_team_request_from?(@member_sent_request_to_subject).should be_true
+        subject.already_team_request_from?(@member_sent_request_to_subject, @another_team).should be_false
+
       end
 
       it 'knows if it has an open team request from a specific team' do
+        pending 'implementation of Member team request methods'
+
         #request from the subject's own team
         subject.already_request_from?(@team).should be_true
 
@@ -302,7 +326,7 @@ describe Member do
       end
 
       it 'knows if it has an open team request to a specific team' do
-        pending
+        pending 'implementation of Member team request methods'
       end
 
       it 'knows if it is already on a specific team' do
@@ -319,38 +343,6 @@ describe Member do
 
       context 'that are active' do
 
-      end
-    end
-  end
-
-  context 'Friends' do
-    before do
-
-    end
-
-    it 'can list all current friends' do
-      pending
-    end
-
-    it 'lists all pending sent friend requests' do
-      pending
-    end
-
-    it 'lists all pending received friend requests' do
-      pending
-    end
-
-    context 'Friend Requests' do
-      it 'knows if it is friend-requestable' do
-        pending
-      end
-
-      it 'knows if you are already friends' do
-        pending
-      end
-
-      it 'knows if you have already sent a friend request' do
-        pending
       end
     end
   end

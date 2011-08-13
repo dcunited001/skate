@@ -6,6 +6,7 @@ class Rink < ActiveRecord::Base
   belongs_to :owner, :class_name => 'Member'
   belongs_to :contact, :class_name => 'Member'
 
+  has_many :skaters, :class_name => 'Member'
   has_many :teams
 
   attr_accessible :name, :address_attributes, :phone, :email, :website, :owner_name, :contact_name, :description

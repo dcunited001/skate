@@ -40,12 +40,14 @@ module SqlLoader
 
     def self.create_all
       [Friend,
+       TeamMate,
        TeamMember,
        TeamCaptain].each {|klass| klass.create}
     end
 
     def self.drop_all
       [Friend,
+       TeamMate,
        TeamMember,
        TeamCaptain].each {|klass| klass.drop}
     end
