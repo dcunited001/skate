@@ -15,6 +15,7 @@ class Member < ActiveRecord::Base
   has_many :friend_requests_sent, :class_name => Friendship, :foreign_key => 'member_requesting_id'
 
   #has_one :team  #or has_many :teams with current_team method?
+  has_many :teams, :class_name => MemberTeam
   has_many :team_mates  #view_team_mates
   has_many :team_requests_recd, :class_name => TeamRequest, :foreign_key => 'member_requested_id'
   has_many :team_requests_sent, :class_name => TeamRequest, :foreign_key => 'member_requesting_id'

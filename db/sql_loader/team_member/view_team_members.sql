@@ -49,8 +49,7 @@ INNER JOIN view_members_clean team_mems
   ON (team_mems.id = tm.member_requesting_id AND tm.incoming = true)
   OR (team_mems.id = tm.member_requested_id AND tm.incoming = false)
 
-
-
+-- FINALLY!  GOT IT!
 
 
 

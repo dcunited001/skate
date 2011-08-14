@@ -45,7 +45,7 @@ describe Team do
       @team_captain.is_team_member?.should be_true
       @team_captain.is_teamcaptain?.should be_true
 
-      pending 'need to create the team members view, test that out.  also need to create the postgres rules'
+      pending 'need to implement INSERT rule for team_captains view'
     end
 
     it 'can add the team creator as a team captain as well' do
@@ -57,11 +57,11 @@ describe Team do
       @team_creator.is_teamcaptain?.should be_true
       @team_creator.is_teamcreator?.should be_true
 
-      pending 'need to create the team members view, test that out.  also need to create the postgres rules'
+      pending 'need to implement INSERT rule for team_captains view'
     end
 
     it 'throws an exception when attempting to add a team captain that is not a member' do
-      pending 'postgres view, rules, etc.  also need to figure out best way to throw exceptions'
+      pending 'postgres view, rules, etc. also need to figure out best way to throw exceptions'
     end
 
   end
@@ -88,12 +88,12 @@ describe Team do
       Factory(:team_member_from, :team => @authentic, :member_requesting => @brandon, :member_requested => @james)
 
       #set up some outstanding team requests
-      @admin_req_from_jammers = Factory(:admin); Factory(:team_request, :team => @jammers_va, :member_requesting => @dcunited,:member_requested => @admin_req_from_jammers)
-      @skater_req_to_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_req_to_jammers,:member_requested => @dcunited)
-      @skater_req_from_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @dcunited, :member_requested => @skater_req_from_jammers)
-      @skater_req_to_authentic = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @skater_req_to_authentic,:member_requested => @james)
-      @skater_req_from_authentic = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @james,:member_requested => @skater_req_from_authentic)
-      @skater_req_from_authentic_two = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @james,:member_requested => @skater_req_from_authentic_two)
+      @admin_req_from_jammers = Factory(:admin);          Factory(:team_request, :team => @jammers_va, :member_requesting => @dcunited,:member_requested => @admin_req_from_jammers)
+      @skater_req_to_jammers = Factory(:member);          Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_req_to_jammers,:member_requested => @dcunited)
+      @skater_req_from_jammers = Factory(:member);        Factory(:team_request, :team => @jammers_va, :member_requesting => @dcunited, :member_requested => @skater_req_from_jammers)
+      @skater_req_to_authentic = Factory(:member);        Factory(:team_request, :team => @authentic, :member_requesting => @skater_req_to_authentic,:member_requested => @james)
+      @skater_req_from_authentic = Factory(:member);      Factory(:team_request, :team => @authentic, :member_requesting => @james,:member_requested => @skater_req_from_authentic)
+      @skater_req_from_authentic_two = Factory(:member);  Factory(:team_request, :team => @authentic, :member_requesting => @james,:member_requested => @skater_req_from_authentic_two)
     end
 
     it 'should assign the teammember role' do

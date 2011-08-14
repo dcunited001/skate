@@ -8,7 +8,7 @@ class Team < ActiveRecord::Base
 
   has_many :team_requests
   has_many :team_members
-  #has_many :team_captains
+  has_many :team_captains, :before_add => :add_captain, :before_remove => :remove_captain
 
   validates_presence_of :name
 
@@ -38,13 +38,16 @@ class Team < ActiveRecord::Base
     end
   end
 
-  def add_captain member
+  def add_captain captain
 
   end
 
-  def remove_captain member
+  def remove_captain captain
 
   end
+
+
+
 end
 
 

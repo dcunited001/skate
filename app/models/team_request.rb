@@ -11,8 +11,11 @@ class TeamRequest < ActiveRecord::Base
   scope :pending, where('active = ? and accepted = ? and rejected = ?', false, false, false)
   scope :active, where('active = ?', true)
   scope :accepted, where('accepted = ?', true)
-  scope :rejected, where('rejected = ?', true)
-  scope :ended, where('accepted = ? and rejected = ?', false, true)
+  scope :rejected, where('accepted = ? and rejected = ?', false, true)
+  scope :ended, where('accepted = ? and rejected = ?', true, true)
+
+  scope :quit_team, where('accepted = ? and rejected = ? and kickoff_date is null', true, true)
+  scope :kicked_off, where('accepted = ? and rejected = ? and kickoff_date is not null', true, true)
 
   # incoming/outgoing requests (from the team's perspective')
   scope :incoming, where('incoming = ?', true)

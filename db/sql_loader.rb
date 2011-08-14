@@ -27,6 +27,10 @@ module SqlLoader
   class SqlLoaderBase
     @@debug = false
 
+    @@messages = {
+        :create => SqlLoader::Messages.create_msg,
+        :drop => SqlLoader::Messages.drop_msg }
+
     CREATE_START = 'Creating objects for'
     CREATE_ERRORS = 'Encountered errors creating objects:'
     CREATE_DELIMETER = '================================='
@@ -82,7 +86,7 @@ module SqlLoader
     def self.create
       errors = []
 
-      puts "#{CREATE_START} #{relative_name}" if @@debug
+      puts "#{@@messages[:create][:start]} #{relative_name}" if @@debug
 
       get_sql_files.each do |sql|
         begin
@@ -98,7 +102,7 @@ module SqlLoader
     def self.drop
       errors = []
 
-      puts "#{DROP_START} #{relative_name}" if @@debug
+      puts "#{@@messages[:drop][:start]} #{relative_name}" if @@debug
 
       get_sql_files.reverse.each do |f|
         sql = drop_statement(f)
@@ -116,7 +120,7 @@ module SqlLoader
     def self.drop_statement(filename)
       case File.basename(filename, '.sql')
         when /(^table.*)/i
-          return "DROP TABLE IF EXISTS#{$1};"
+          return "DROP TABLE IF EXISTS #{$1};"
         when /(^view.*)/i
           return "DROP VIEW IF EXISTS #{$1};"
         when /(^rule_(.*)_(insert|delete|update))/i
@@ -130,13 +134,13 @@ module SqlLoader
       out = "Creating #{relative_name} Objects: "
 
       if errors.any?
-        out += "#{CREATE_ERRORS}\n"
-        errors.each {|e| out += "\n\n#{CREATE_DELIMETER}\n#{e}\n" }
+        out += "#{@@messages[:create][:error]}\n"
+        errors.each {|e| out += "\n\n#{@@messages[:create][:delimiter]}\n#{e}\n" }
 
         puts out
         raise "SqlLoader Exception"
       else
-        out += NO_CREATE_ERRORS
+        out += @@messages[:create][:no_error]
         puts out if @@debug
       end
     end
@@ -145,13 +149,13 @@ module SqlLoader
       out = "Dropping #{relative_name} Objects: "
 
       if errors.any?
-        out += "#{DROP_ERRORS}\n"
-        errors.each {|e| out += "\n\n#{DROP_DELIMETER}\n#{e}\n" }
+        out += "#{@@messages[:drop][:error]}\n"
+        errors.each {|e| out += "\n\n#{@@messages[:drop][:delimiter]}\n#{e}\n" }
 
         puts out
         raise "SqlLoader Exception"
       else
-        out += NO_DROP_ERRORS
+        out += @@messages[:drop][:no_error]
         puts out if @@debug
       end
     end
