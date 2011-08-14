@@ -46,8 +46,8 @@ module SqlLoader
     def self.all_classes
       [Member,
       Friend,
-      TeamMate,
       TeamMember,
+      TeamMate,
       TeamCaptain]
 
       #Need to change this implementation to catch errors
