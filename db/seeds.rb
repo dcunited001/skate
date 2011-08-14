@@ -141,7 +141,7 @@ quinton = Factory(:member, :alias => 'quinton')
 james = Factory(:member, :alias => 'anaconda')
 brandon = Factory(:member, :alias => 'bb_sk8r')
 
-puts 'Creating Some Teams'
+puts 'Creating Some Teams and Team Members'
 jammers_va = Factory(:team, :name => 'Jammers VA', :creator => dcunited)
 Factory(:team_member, :team => jammers_va, :member_requesting => dcunited, :member_requested => xm_jester_mx)
 Factory(:team_member_from, :team => jammers_va, :member_requesting => cooper, :member_requested => dcunited)
@@ -160,10 +160,6 @@ Factory(:team_member_from, :team => authentic, :member_requesting => brandon, :m
 # ======================================
 # TEAM MEMBERS
 # ======================================
-
-
-
-
 
 
 

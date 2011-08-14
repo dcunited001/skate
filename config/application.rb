@@ -15,7 +15,9 @@ module Sk8
     # Custom directories with classes and modules you want to be autoloadable.
     puts config.root
 
-    config.autoload_paths += %W(#{config.root}/app/models/roles)
+    config.autoload_paths += %W(#{config.root}/app/models/friend)
+    config.autoload_paths += %W(#{config.root}/app/models/member)
+    config.autoload_paths += %W(#{config.root}/app/models/team)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
