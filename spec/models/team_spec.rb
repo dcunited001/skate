@@ -66,7 +66,8 @@ describe Team do
 
   end
 
-  context 'Team Requests:' do
+
+  context 'Team Members' do
     before(:all) do
       #jammers-va
       @dcunited = Factory(:admin, :alias => 'dcunited001')
@@ -95,125 +96,92 @@ describe Team do
       @skater_req_from_authentic_two = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @james,:member_requested => @skater_req_from_authentic_two)
     end
 
-    context 'Pending, Accepted, Rejected Requests' do
-      before(:each) do
-        @skater_pending_from_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @dcunited,:member_requested => @skater_pending_from_jammers)
-        @skater_pending_to_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_pending_to_jammers,:member_requested => @dcunited)
-        @skater_pending_to_jammers_two = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_pending_to_jammers_two,:member_requested => @dcunited)
-        @skater_pending_to_authentic = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @skater_pending_to_authentic ,:member_requested => @james)
-        @skater_not_gonna_be_on_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_not_gonna_be_on_jammers ,:member_requested => @dcunited)
-      end
+    it 'should assign the teammember role' do
+      @dcunited.is_appadmin?.should be_true
+      @dcunited.is_teammember_of?(@jammers_va).should be_true
 
-      it 'can list all pending Team Requests' do
-        pending 'association implementation'
+      @xm_jester_mx.is_teammember_of?(@jammers_va).should be_true
+      @xm_jester_mx.is_teammember_of?(@authentic).should be_false
 
+      @quinton.is_teammember_of?(@authentic).should be_true
+      @quinton.is_teammember_of?(@authentic).should be_false
 
-      end
+      @james.is_teammember_of?(@authentic).should be_true
 
-      it 'can list all accepted Team Requests' do
-        pending 'association implementation'
-      end
-
-      it 'can list all rejected Team Requests' do
-        pending 'association implementation'
-      end
+      @admin_req_from_jammers.is_appadmin?.should be_true
+      @admin_req_from_jammers.is_teammember_of?(@jammers_va).should be_false
+      @skater_req_from_jammers.is_teammember_of?(@jammers_va).should be_false
+      @skater_req_to_authentic.is_teammember_of?(@authentic).should be_false
+      @skater_req_to_authentic_two.is_teammember_of?(@authentic).should be_false
     end
 
-    context 'Team Members' do
+    it 'should assign the teamcreator role' do
+      @dcunited.is_teamcreator_of?(@jammers_va).should be_true
+      @dcunited.is_teamcreator_of?(@authentic).should be_false
+
+      @quinton.is_teamcreator_of?(@authentic).should be_false
+
+      @james.is_teamcreator_of?(@authentic).should be_true
+      @james.is_teamcreator_of?(@jammers_va).should be_false
+    end
+
+    it 'should list the current active team members' do
+      @jammers_va.team_members.count.should == 3
+      @authentic.team_members.count.should == 3
+
+      @jammers_va.team_members.should include(@dcunited)
+      @jammers_va.team_members.should include(@xm_jester_mx)
+      @jammers_va.team_members.should_not include(@james)
+
+      @authentic.team_members.should include(@james)
+      @authentic.team_members.should include(@quinton)
+      @authentic.team_members.should_not include(@quinton)
+    end
+
+    it 'should be able to quickly tell if a given member is on the team or not' do
+      pending 'method implementation'
+
+      @jammers_va.has_member?(@dcunited).should be_true
+      @jammers_va.has_member?(@james).should be_false
+      @jammers_va.has_member?(@admin_req_from_jammers).should be_false
+
+      @authentic.has_member?(@dcunited).should be_false
+      @authentic.has_member?(@quinton).should be_true
+      @authentic.has_member?(@skater_req_to_authentic).should be_true
+    end
+
+    context 'and Team Captains' do
       before(:all) do
+        #set up some team captains
+      end
+
+      it 'should list the current active team captains' do
 
       end
 
-      it 'should assign the teammember role' do
-        @dcunited.is_appadmin?.should be_true
-        @dcunited.is_teammember_of?(@jammers_va).should be_true
+      it 'should promote members to team captains' do
 
-        @xm_jester_mx.is_teammember_of?(@jammers_va).should be_true
-        @xm_jester_mx.is_teammember_of?(@authentic).should be_false
-
-        @quinton.is_teammember_of?(@authentic).should be_true
-        @quinton.is_teammember_of?(@authentic).should be_false
-
-        @james.is_teammember_of?(@authentic).should be_true
-
-        @admin_req_from_jammers.is_appadmin?.should be_true
-        @admin_req_from_jammers.is_teammember_of?(@jammers_va).should be_false
-        @skater_req_from_jammers.is_teammember_of?(@jammers_va).should be_false
-        @skater_req_to_authentic.is_teammember_of?(@authentic).should be_false
-        @skater_req_to_authentic_two.is_teammember_of?(@authentic).should be_false
       end
 
-      it 'should assign the teamcreator role' do
-        @dcunited.is_teamcreator_of?(@jammers_va).should be_true
-        @dcunited.is_teamcreator_of?(@authentic).should be_false
+      it 'should promote team creators to team captains' do
 
-        @quinton.is_teamcreator_of?(@authentic).should be_false
-
-        @james.is_teamcreator_of?(@authentic).should be_true
-        @james.is_teamcreator_of?(@jammers_va).should be_false
       end
 
-      it 'should list the current active team members' do
-        @jammers_va.team_members.count.should == 3
-        @authentic.team_members.count.should == 3
+      it 'should demote captains to members' do
 
-        @jammers_va.team_members.should include(@dcunited)
-        @jammers_va.team_members.should include(@xm_jester_mx)
-        @jammers_va.team_members.should_not include(@james)
-
-        @authentic.team_members.should include(@james)
-        @authentic.team_members.should include(@quinton)
-        @authentic.team_members.should_not include(@quinton)
       end
 
-      it 'should be able to quickly tell if a given member is on the team or not' do
-        pending 'method implementation'
+      it 'should demote team creators to captains and maintain the correct roles' do
 
-        @jammers_va.has_member?(@dcunited).should be_true
-        @jammers_va.has_member?(@james).should be_false
-        @jammers_va.has_member?(@admin_req_from_jammers).should be_false
-
-        @authentic.has_member?(@dcunited).should be_false
-        @authentic.has_member?(@quinton).should be_true
-        @authentic.has_member?(@skater_req_to_authentic).should be_true
       end
 
-      context 'and Team Captains' do
-        before(:all) do
-          #set up some team captains
-        end
+      it 'should not promote to captain any members of another team or non-members' do
 
-        it 'should list the current active team captains' do
+      end
 
-        end
+      it 'should not demote from captain any non-captains or captains of another team' do
 
-        it 'should promote members to team captains' do
-
-        end
-
-        it 'should promote team creators to team captains' do
-
-        end
-
-        it 'should demote captains to members' do
-
-        end
-
-        it 'should demote team creators to captains and maintain the correct roles' do
-
-        end
-
-        it 'should not promote to captain any members of another team or non-members' do
-
-        end
-
-        it 'should not demote from captain any non-captains or captains of another team' do
-
-        end
       end
     end
-
   end
-
-
 end
