@@ -22,7 +22,9 @@ describe Team do
       subject.set_creator @new_creator
 
       @new_creator.is_teamcreator_of?(subject).should be_true
+      @team_creator.is_teamcreator_of?(subject).should_not be_true
       subject.creator.should be @new_creator
+      subject.original_creator.should be @team_creator
 
       # need to test that a team's creator can be changed several times
       #   and that it won't affect the team members returned
@@ -64,39 +66,154 @@ describe Team do
 
   end
 
-  context 'Team Requests' do
-    before do
+  context 'Team Requests:' do
+    before(:all) do
+      #jammers-va
+      @dcunited = Factory(:admin, :alias => 'dcunited001')
+      @xm_jester_mx = Factory(:member, :alias => 'xm-Jester-mx')
+      @cooper = Factory(:member, :alias => 'cory-coopster')
 
+      #authentic_freaks
+      @quinton = Factory(:member, :alias => 'quinton')
+      @james = Factory(:member, :alias => 'anaconda')
+      @brandon = Factory(:member, :alias => 'bb_sk8r')
+
+      @jammers_va = Factory(:team, :name => 'Jammers VA', :creator => @dcunited)
+      Factory(:team_member, :team => @jammers_va, :member_requesting => @dcunited, :member_requested => @xm_jester_mx)
+      Factory(:team_member_from, :team => @jammers_va, :member_requesting => @cooper, :member_requested => @dcunited)
+
+      @authentic = Factory(:team, :name => 'Authentic Freaks', :creator => @james)
+      Factory(:team_member, :team => @authentic, :member_requesting => @james, :member_requested => @quinton)
+      Factory(:team_member_from, :team => @authentic, :member_requesting => @brandon, :member_requested => @james)
+
+      #set up some outstanding team requests
+      @admin_req_from_jammers = Factory(:admin); Factory(:team_request, :team => @jammers_va, :member_requesting => @dcunited,:member_requested => @admin_req_from_jammers)
+      @skater_req_to_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_req_to_jammers,:member_requested => @dcunited)
+      @skater_req_from_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @dcunited, :member_requested => @skater_req_from_jammers)
+      @skater_req_to_authentic = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @skater_req_to_authentic,:member_requested => @james)
+      @skater_req_from_authentic = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @james,:member_requested => @skater_req_from_authentic)
+      @skater_req_from_authentic_two = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @james,:member_requested => @skater_req_from_authentic_two)
     end
 
-    it 'can list all pending Team Requests' do
-      pending
+    context 'Pending, Accepted, Rejected Requests' do
+      before(:each) do
+        @skater_pending_from_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @dcunited,:member_requested => @skater_pending_from_jammers)
+        @skater_pending_to_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_pending_to_jammers,:member_requested => @dcunited)
+        @skater_pending_to_jammers_two = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_pending_to_jammers_two,:member_requested => @dcunited)
+        @skater_pending_to_authentic = Factory(:member); Factory(:team_request, :team => @authentic, :member_requesting => @skater_pending_to_authentic ,:member_requested => @james)
+        @skater_not_gonna_be_on_jammers = Factory(:member); Factory(:team_request, :team => @jammers_va, :member_requesting => @skater_not_gonna_be_on_jammers ,:member_requested => @dcunited)
+      end
+
+      it 'can list all pending Team Requests' do
+        pending 'association implementation'
+
+
+      end
+
+      it 'can list all accepted Team Requests' do
+        pending 'association implementation'
+      end
+
+      it 'can list all rejected Team Requests' do
+        pending 'association implementation'
+      end
     end
 
-    it 'can list all accepted Team Requests' do
-      pending
+    context 'Team Members' do
+      before(:all) do
+
+      end
+
+      it 'should assign the teammember role' do
+        @dcunited.is_appadmin?.should be_true
+        @dcunited.is_teammember_of?(@jammers_va).should be_true
+
+        @xm_jester_mx.is_teammember_of?(@jammers_va).should be_true
+        @xm_jester_mx.is_teammember_of?(@authentic).should be_false
+
+        @quinton.is_teammember_of?(@authentic).should be_true
+        @quinton.is_teammember_of?(@authentic).should be_false
+
+        @james.is_teammember_of?(@authentic).should be_true
+
+        @admin_req_from_jammers.is_appadmin?.should be_true
+        @admin_req_from_jammers.is_teammember_of?(@jammers_va).should be_false
+        @skater_req_from_jammers.is_teammember_of?(@jammers_va).should be_false
+        @skater_req_to_authentic.is_teammember_of?(@authentic).should be_false
+        @skater_req_to_authentic_two.is_teammember_of?(@authentic).should be_false
+      end
+
+      it 'should assign the teamcreator role' do
+        @dcunited.is_teamcreator_of?(@jammers_va).should be_true
+        @dcunited.is_teamcreator_of?(@authentic).should be_false
+
+        @quinton.is_teamcreator_of?(@authentic).should be_false
+
+        @james.is_teamcreator_of?(@authentic).should be_true
+        @james.is_teamcreator_of?(@jammers_va).should be_false
+      end
+
+      it 'should list the current active team members' do
+        @jammers_va.team_members.count.should == 3
+        @authentic.team_members.count.should == 3
+
+        @jammers_va.team_members.should include(@dcunited)
+        @jammers_va.team_members.should include(@xm_jester_mx)
+        @jammers_va.team_members.should_not include(@james)
+
+        @authentic.team_members.should include(@james)
+        @authentic.team_members.should include(@quinton)
+        @authentic.team_members.should_not include(@quinton)
+      end
+
+      it 'should be able to quickly tell if a given member is on the team or not' do
+        pending 'method implementation'
+
+        @jammers_va.has_member?(@dcunited).should be_true
+        @jammers_va.has_member?(@james).should be_false
+        @jammers_va.has_member?(@admin_req_from_jammers).should be_false
+
+        @authentic.has_member?(@dcunited).should be_false
+        @authentic.has_member?(@quinton).should be_true
+        @authentic.has_member?(@skater_req_to_authentic).should be_true
+      end
+
+      context 'and Team Captains' do
+        before(:all) do
+          #set up some team captains
+        end
+
+        it 'should list the current active team captains' do
+
+        end
+
+        it 'should promote members to team captains' do
+
+        end
+
+        it 'should promote team creators to team captains' do
+
+        end
+
+        it 'should demote captains to members' do
+
+        end
+
+        it 'should demote team creators to captains and maintain the correct roles' do
+
+        end
+
+        it 'should not promote to captain any members of another team or non-members' do
+
+        end
+
+        it 'should not demote from captain any non-captains or captains of another team' do
+
+        end
+      end
     end
 
-    it 'can list all rejected Team Requests' do
-      pending
-    end
   end
 
-  context 'Team Members' do
-    before do
 
-    end
-
-    it 'should list the current active team members' do
-      pending
-    end
-
-    it 'should list the current active team captains' do
-      pending
-    end
-
-    it 'should be able to quickly tell if a given member is on the team or not' do
-
-    end
-  end
 end

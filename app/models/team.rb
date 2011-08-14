@@ -3,6 +3,7 @@ class Team < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   belongs_to :rink
+  belongs_to :original_creator, :class_name => 'Member'
   belongs_to :creator, :class_name => 'Member'
 
   has_many :team_requests

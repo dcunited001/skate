@@ -11,11 +11,11 @@ I've starting off by testing and creating the basic models necessary for the pro
 ---
 
 ### Up Next
-* Finish up SqlLoader module for loading extraneous PostgreSQL scripts
 * Finish up model tests for Team Requests relationship
 * Set up acceptance testing
     * Acceptance testing for basic member features
     * Acceptance testing for basic admin features
+* Clean up SqlLoader module for loading extraneous PostgreSQL scripts
 
 ## Areas of Interest:
 * Friends Relationship
