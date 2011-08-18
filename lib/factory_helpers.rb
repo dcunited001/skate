@@ -16,9 +16,26 @@ end
 def random_phone
   area = (rand(900) + 100).to_s
   local = (rand(900) + 100).to_s
-  id = (rand(900) + 100).to_s
+  id = (rand(9000) + 1000).to_s
   "#{area}-#{local}-#{id}"
 end
+
+STREET_TYPES = %w(Street St. St Lane Ln. Ln Road Rd. Rd Drive Dr. Dr Avenue Ave. Ave Blvd)
+STREET_NAMES = %w(Main main Market market Elm Broad Bear Atlantic Pacific Streety Laenus Rue)
+APT_TYPES = %w(# Apt Apt# Suite Ste. Ste# Ste Number)
+CITY_SAMPLES = %w(Salem Roanoke Columbia Blacksburg Charlottesville Norfolk Floyd)
+STATE_SAMPLES = %w(VA NC MD KY OH IN NY WV PA)
+
+def random_address
+  {
+    :line_one => "#{rand(1000) + 10} #{STREET_NAMES.sample} #{STREET_TYPES.sample}",
+    :line_two => "#{APT_TYPES.sample} #{rand(200) + 10}",
+    :city => CITY_SAMPLES.sample,
+    :state => STATE_SAMPLES.sample,
+    :zip => "%05d" % (rand(90000) + 500)
+  }
+end
+
 
 #module Fac
 #  class Date
