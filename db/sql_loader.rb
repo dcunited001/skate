@@ -24,6 +24,8 @@
 #the order is reversed when dropping objects
 
 module SqlLoader
+  require Rails.root.join('db', 'sql_loader', 'lib', 'messages.rb')
+
   class SqlLoaderBase
     @@debug = false
 

@@ -21,6 +21,8 @@ class TeamRequest < ActiveRecord::Base
   scope :incoming, where('incoming = ?', true)
   scope :outgoing, where('incoming = ?', false)
 
-  alias_method :to_team, :incoming
-  alias_method :from_team, :outgoing
+  class << self
+    alias_method :to_team, :incoming
+    alias_method :from_team, :outgoing
+  end
 end
