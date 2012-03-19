@@ -25,6 +25,7 @@ gem 'jquery-rails'
 # gem 'ice'
 
 gem 'geokit'
+gem 'skiima', :git => 'git://github.com/dcunited001/Skiima.git'
 
 group :development, :test do
   gem 'pg'

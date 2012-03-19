@@ -43,6 +43,6 @@ module Sk8
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    config.sass.preferred_syntax = :sass
+    # config.sass.preferred_syntax = :sass
   end
 end
