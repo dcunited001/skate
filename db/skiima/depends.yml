@@ -1,0 +1,14 @@
+---
+friends:
+  postgresql:
+    current:
+      - view.view_members_clean
+      - view.view_friends
+      - rule.rule_view_friends_d.view_friends
+      - rule.rule_view_friends_i.view_friends
+team_members:
+  postgresql:
+    current: 
+      - view.view_member_teams
+      - view.view_team_members
+      - view.view_team_mates

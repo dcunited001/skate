@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121223235959) do
+ActiveRecord::Schema.define(:version => 20120319104323) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "addressable_id"
@@ -55,8 +56,8 @@ ActiveRecord::Schema.define(:version => 20121223235959) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
     t.string   "alias"
     t.string   "first_name"
     t.string   "last_name"
@@ -129,8 +130,8 @@ ActiveRecord::Schema.define(:version => 20121223235959) do
     t.integer  "role_id"
     t.integer  "rollable_id"
     t.string   "rollable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "states", :force => true do |t|
