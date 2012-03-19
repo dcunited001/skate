@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc4'
+gem 'rails', '3.2.2'
 gem 'sinatra'
 
 # Bundle edge Rails instead:
@@ -8,7 +8,7 @@ gem 'sinatra'
 
 # Asset template engines
 gem 'compass', :require => false
-gem 'sass-rails', "~> 3.1.0.rc"
+# gem 'sass-rails', "~> 3.1.0.rc"
 gem 'coffee-script'
 #gem 'uglifier'
 
@@ -22,7 +22,7 @@ gem 'friendly_id'
 gem 'haml'
 gem 'awesome_print'
 gem 'jquery-rails'
-gem 'ice'
+# gem 'ice'
 
 gem 'geokit'
 
@@ -45,7 +45,7 @@ group :test do
   gem 'autotest-growl'
   gem 'autotest-fsevent'
   gem 'database_cleaner'
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  # gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'webmock', '1.6.2'
   gem 'vcr'
   gem 'email_spec'
